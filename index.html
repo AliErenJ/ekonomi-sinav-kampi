@@ -265,6 +265,30 @@ h4 { font: 700 16px/1.3 var(--body); margin: 18px 0 6px; color: var(--demand) }
 
 @media (prefers-reduced-motion: no-preference) { .sol { animation: in .25s ease-out } @keyframes in { from { opacity: .3; transform: translateY(-4px) } } }
 
+/* Açılış ekranı: arz ve talep çizilir, kesiştikleri yerde nokta belirir, mesaj kelime kelime gelir. */
+.splash { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; background: var(--bg);
+  padding: max(24px, env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(24px, env(safe-area-inset-left, 0px));
+  cursor: pointer; transition: opacity .5s ease, transform .5s ease }
+.splash.out { opacity: 0; transform: scale(1.04); pointer-events: none }
+.splash-in { display: grid; justify-items: center; gap: 22px; text-align: center; max-width: 520px }
+.splash svg { width: min(170px, 42vw); height: auto; overflow: visible }
+.splash .ln { fill: none; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw .9s ease-out forwards }
+.splash .ln.d { stroke: var(--demand) } .splash .ln.s { stroke: var(--supply); animation-delay: .25s }
+.splash .dot { fill: var(--ink); transform-origin: 80px 80px; transform: scale(0); animation: pop .4s cubic-bezier(.3, 1.6, .5, 1) 1s forwards }
+.splash h1 { font-size: clamp(30px, 8.5vw, 46px); line-height: 1.15; margin: 0 }
+.splash h1 .w { display: inline-block; opacity: 0; transform: translateY(18px) rotate(3deg);
+  animation: word .5s cubic-bezier(.2, .9, .3, 1.2) forwards; animation-delay: calc(1.15s + var(--i) * .14s) }
+.splash h1 .w.hi { color: var(--supply) }
+.splash .sub { font: 500 13px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); opacity: 0; animation: word .6s ease forwards 2.4s }
+.splash .tap { font-size: 14px; color: var(--muted); opacity: 0; animation: blink 1.6s ease-in-out infinite 2.9s }
+@keyframes draw { to { stroke-dashoffset: 0 } }
+@keyframes pop { to { transform: scale(1) } }
+@keyframes word { to { opacity: 1; transform: none } }
+@keyframes blink { 0%, 100% { opacity: 0 } 50% { opacity: 1 } }
+@media (prefers-reduced-motion: reduce) {
+  .splash .ln, .splash .dot, .splash h1 .w, .splash .sub { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0 }
+  .splash .tap { animation: none; opacity: 1 } }
+
 /* Doğru cevapta ekranın ortasında kısa süre "Bravo!" */
 .bravo { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; pointer-events: none }
 .bravo span { font: 800 clamp(48px, 16vw, 84px)/1 var(--display); color: var(--good); background: var(--surface);
@@ -275,12 +299,25 @@ h4 { font: 700 16px/1.3 var(--body); margin: 18px 0 6px; color: var(--demand) }
 @media (prefers-reduced-motion: reduce) { .bravo span { animation: fade 1.3s linear forwards } @keyframes fade { 0%, 70% { opacity: 1 } 100% { opacity: 0 } } }
 </style>
 
+</head>
+<body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" style="fill: var(--muted)"/></marker>
 </defs></svg>
 
-</head>
-<body>
+<div class="splash" id="splash" role="dialog" aria-label="Açılış">
+  <div class="splash-in">
+    <svg viewBox="0 0 160 160" aria-hidden="true">
+      <path class="ln d" d="M20 20 L140 140" pathLength="200"/>
+      <path class="ln s" d="M20 140 L140 20" pathLength="200"/>
+      <circle class="dot" cx="80" cy="80" r="11"/>
+    </svg>
+    <h1 id="splash-text">Sen aklına koyduğun her şeyi başarırsın migo</h1>
+    <div class="sub">Ekonomi Sınav Kampı</div>
+    <div class="tap">Başlamak için dokun</div>
+  </div>
+</div>
+
 <header class="top"><div class="top-in">
   <button class="back" id="back" hidden aria-label="Geri">←</button>
   <div class="brand" id="brand">Ekonomi Sınav Kampı<small>Sloman, Economics · Bölüm 1–9</small></div>
@@ -2176,6 +2213,17 @@ app.addEventListener("click", e => {
 });
 document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => go(b.dataset.go)));
 document.getElementById("back").addEventListener("click", () => go("sorular"));
+
+// Açılış ekranı: mesajı kelimelere böl, 6 sn sonra ya da dokununca kapan.
+(function splash() {
+  const s = document.getElementById("splash"), t = document.getElementById("splash-text");
+  const words = t.textContent.trim().split(/\s+/);
+  t.innerHTML = words.map((w, i) => `<span class="w${w === "migo" ? " hi" : ""}" style="--i:${i}">${w}</span>`).join(" ");
+  let done = false;
+  const close = () => { if (done) return; done = true; s.classList.add("out"); setTimeout(() => s.remove(), 520); };
+  s.addEventListener("click", close);
+  setTimeout(close, 6000);
+})();
 
 const h = location.hash.slice(1);
 if (/^t\d+$/.test(h) && Q[h]) go("topic", { id: h });
