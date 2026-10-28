@@ -264,6 +264,15 @@ h4 { font: 700 16px/1.3 var(--body); margin: 18px 0 6px; color: var(--demand) }
 .confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px; background: var(--bad-soft); border-radius: 8px }
 
 @media (prefers-reduced-motion: no-preference) { .sol { animation: in .25s ease-out } @keyframes in { from { opacity: .3; transform: translateY(-4px) } } }
+
+/* Doğru cevapta ekranın ortasında kısa süre "Bravo!" */
+.bravo { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; pointer-events: none }
+.bravo span { font: 800 clamp(48px, 16vw, 84px)/1 var(--display); color: var(--good); background: var(--surface);
+  border: 3px solid var(--good); border-radius: 20px; padding: 18px 30px; box-shadow: 0 12px 40px rgb(0 0 0 / .18);
+  transform: rotate(-4deg); animation: bravo 1.3s ease-out forwards }
+@keyframes bravo { 0% { opacity: 0; transform: rotate(-4deg) scale(.4) } 18% { opacity: 1; transform: rotate(-4deg) scale(1.12) }
+  30% { transform: rotate(-4deg) scale(1) } 75% { opacity: 1 } 100% { opacity: 0; transform: rotate(-4deg) scale(1) translateY(-24px) } }
+@media (prefers-reduced-motion: reduce) { .bravo span { animation: fade 1.3s linear forwards } @keyframes fade { 0%, 70% { opacity: 1 } 100% { opacity: 0 } } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -2137,6 +2146,14 @@ function renderProgress() {
   <div style="margin-top:24px">${resetAsk ? `<div class="confirm"><span>Tüm cevaplar silinsin mi?</span><button class="btn" style="background:var(--bad)" data-resetall="yes">Evet, sil</button><button class="btn ghost" data-resetall="no">Vazgeç</button></div>` : (t.g + t.b ? `<button class="btn ghost" data-resetall="ask">Tüm ilerlemeyi sıfırla</button>` : "")}</div>`;
 }
 
+let bravoTimer;
+function bravo() {
+  document.querySelectorAll(".bravo").forEach(b => b.remove()); clearTimeout(bravoTimer);
+  const b = document.createElement("div"); b.className = "bravo"; b.setAttribute("role", "status");
+  b.innerHTML = "<span>Bravo!</span>"; document.body.appendChild(b);
+  bravoTimer = setTimeout(() => b.remove(), 1400);
+}
+
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 
 app.addEventListener("click", e => {
@@ -2145,7 +2162,8 @@ app.addEventListener("click", e => {
     if (view.name === "mix") { view.local[q.id] = o; }
     answers[q.id] = o; save();
     const y = document.getElementById("q-" + q.id).getBoundingClientRect().top;
-    render(); const el = document.getElementById("q-" + q.id); if (el) window.scrollBy(0, el.getBoundingClientRect().top - y); return; }
+    render(); const el = document.getElementById("q-" + q.id); if (el) window.scrollBy(0, el.getBoundingClientRect().top - y);
+    if (o === 0) bravo(); return; }
   if (d.topic) return go("topic", { id: d.topic });
   if (d.filter !== undefined) { filter = +d.filter; return render(); }
   if (d.quiz) { const t = TOPICS.find(x => x.code === d.quiz); return go("topic", { id: t.id }); }
