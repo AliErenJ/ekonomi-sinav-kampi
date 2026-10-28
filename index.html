@@ -176,6 +176,7 @@ h4 { font: 700 16px/1.3 var(--body); margin: 18px 0 6px; color: var(--demand) }
 .mute { color: var(--muted) }
 
 .stack { display: grid; gap: 12px }
+.stack > *, .sec-body { min-width: 0 }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r) }
 
 /* Özet */
@@ -273,7 +274,7 @@ h4 { font: 700 16px/1.3 var(--body); margin: 18px 0 6px; color: var(--demand) }
 <body>
 <header class="top"><div class="top-in">
   <button class="back" id="back" hidden aria-label="Geri">←</button>
-  <div class="brand" id="brand">Ekonomi Sınav Kampı<small>Sloman, Economics · Bölüm 1–3</small></div>
+  <div class="brand" id="brand">Ekonomi Sınav Kampı<small>Sloman, Economics · Bölüm 1–9</small></div>
   <div class="score" id="score"></div>
 </div></header>
 
@@ -620,6 +621,351 @@ ${FIG.farm}
   ]
 }
 ];
+
+</script>
+<script>
+// Part C (Microeconomic Theory, Bölüm 4-9) özeti. summary.js'ten sonra yüklenir (fig, SUMMARY oradan).
+
+const FIG2 = {
+  ic: fig(`<line x1="40" y1="40" x2="240" y2="190" class="c-s"/><text x="200" y="176" class="lb s">bütçe doğrusu</text>
+    <path d="M70 30 C 90 90, 110 92.5, 140 115 C 170 137.5, 210 160, 270 170" class="c-d"/><text x="262" y="164" class="lb d">I₁</text>
+    <path d="M95 22 C 120 80, 150 95, 180 112 C 210 128, 240 140, 285 146" class="c-d dash"/><text x="276" y="140" class="lb d">I₂</text>
+    <circle cx="140" cy="115" r="4" class="pt"/><text x="148" y="110" class="lb">optimum</text>`,
+    "Tüketici, bütçe doğrusunun ulaşabildiği en yüksek kayıtsızlık eğrisine teğet olduğu noktayı seçer: MRS = MUx/MUy = Px/Py. I₂ daha çok fayda verir ama bütçeyle ulaşılamaz.", "Mal X", "Mal Y"),
+
+  cost: fig(`<path d="M60 70 Q150 170 250 70" class="c-s"/><text x="252" y="70" class="lb s">AVC</text>
+    <path d="M70 40 Q180 150 280 40" class="c-k"/><text x="270" y="34" class="lb">AC</text>
+    <polyline points="70,125 95,145 115,148 135,138 150,120 165,105 175,95 195,70 220,35" class="c-d" stroke-linejoin="round"/><text x="222" y="32" class="lb d">MC</text>
+    <path d="M60 175 Q170 180 280 178" class="c-k dash"/><text x="262" y="172" class="lb sm">AFC</text>`,
+    "Kısa dönem maliyet eğrileri: MC önce düşer, azalan verimler başlayınca yükselir. MC, AVC'yi ve AC'yi en düşük noktalarından keser. AFC sürekli düşer.", "Q", "£"),
+
+  pc: fig(`<path d="M70 40 Q180 150 280 40" class="c-k"/><text x="270" y="34" class="lb">AC</text>
+    <polyline points="70,125 95,145 115,148 135,138 150,120 165,105 175,95 195,70 220,35" class="c-d" stroke-linejoin="round"/><text x="222" y="32" class="lb d">MC</text>
+    <line x1="40" y1="95" x2="285" y2="95" class="c-s"/><text x="232" y="110" class="lb s">P = AR = MR</text>
+    <circle cx="175" cy="95" r="4" class="pt"/><line x1="175" y1="95" x2="175" y2="190" class="guide"/><text x="175" y="203" class="lb" text-anchor="middle">Qe</text>`,
+    "Tam rekabette firma fiyat alıcıdır: talep eğrisi yatay (P = AR = MR). Uzun dönem dengesi P = MC = en düşük AC noktasıdır, sadece normal kâr kalır.", "Q", "£"),
+
+  mono: fig(`<line x1="60" y1="30" x2="270" y2="180" class="c-d"/><text x="250" y="160" class="lb d">AR = D</text>
+    <line x1="60" y1="30" x2="172" y2="190" class="c-d dash"/><text x="176" y="186" class="lb d">MR</text>
+    <line x1="60" y1="160" x2="270" y2="55" class="c-s"/><text x="262" y="50" class="lb s">MC</text>
+    <path d="M70 60 Q150 160 250 60" class="c-k"/><text x="252" y="58" class="lb">AC</text>
+    <rect x="40" y="78" width="87" height="28" class="box2" style="opacity:.6"/><text x="46" y="96" class="lb sm">kâr</text>
+    <circle cx="127" cy="126" r="4" class="pt"/><circle cx="127" cy="78" r="4" class="pt"/>
+    <line x1="127" y1="78" x2="127" y2="190" class="guide"/><text x="127" y="203" class="lb" text-anchor="middle">Qm</text>
+    <text x="34" y="82" class="lb" text-anchor="end">Pm</text><text x="34" y="110" class="lb" text-anchor="end">AC</text>`,
+    "Tekel MR = MC olan Qm miktarını üretir, fiyatı talep eğrisinden (Pm) okur. Taralı alan (Pm − AC) × Qm aşırı kârdır (supernormal profit)."),
+};
+
+SUMMARY.push(
+{
+  ch: 4, title: "Background to Demand", tr: "Talebin Arka Planı", part: "Part C",
+  sections: [
+  { code: "4.1", title: "Marginal utility theory", tr: "Marjinal fayda teorisi", html: `
+<ul><li><b>Utility</b> (fayda): bir maldan elde edilen tatmin. <b>Total utility (TU)</b>: belli dönemde tüketilen tüm birimlerden alınan toplam tatmin. <b>Marginal utility (MU)</b>: bir birim daha tüketmekten gelen <b>ek</b> tatmin.</li>
+<li><b>Diminishing marginal utility</b> (azalan marjinal fayda): bir maldan ne kadar çok tüketirsen, her ek birimin verdiği fayda o kadar azalır. MU sıfıra inince TU en yüksektir; MU negatifse TU düşer.</li>
+<li>Fayda, ölçmek için para cinsinden ifade edilir (hayali "util" yerine). Bu, paranın marjinal faydasının sabit olduğunu varsayar; gerçekte gelir arttıkça paranın marjinal faydası düşer.</li></ul>
+<h4>Tüketici rantı (consumer surplus)</h4>
+<p>Fayda (para cinsinden) ile ödenen tutar arasındaki fark. Rasyonel tüketici bunu en büyük yapar: <b>MU = P</b> olana kadar alır.</p>
+<p class="fm">Tüketici rantı = Σ (MU − P)  ·  Kural: MU = P</p>
+<p>Örnek: P = £3, MU sırasıyla 8, 6, 4, 3, 1 → 4 birim alır; rant = (8−3)+(6−3)+(4−3)+(3−3) = £9.</p>
+<ul><li>Tek mal için bireyin <b>MU eğrisi = talep eğrisi</b>dir (diğer mallar sabitken). Piyasa talebi bireysel taleplerin yatay toplamıdır.</li>
+<li>Yakın ikame varsa MU yavaş düşer → talep <b>esnek</b> olur.</li></ul>
+<h4>Eşit marjinal ilke (equi-marginal principle)</h4>
+<p>Birden çok mal arasında geliri en iyi dağıtmak için harcanan son liranın her malda aynı faydayı vermesi gerekir:</p>
+<p class="fm">MUa/Pa = MUb/Pb = MUc/Pc ...</p>
+<p>Bir malda MU/P daha yüksekse o maldan daha çok, diğerinden daha az alınmalıdır.</p>
+<div class="tip"><b>Sınavda dikkat:</b> "Su–elmas paradoksu" (Box 4.2): su toplam faydası çok yüksek ama bol olduğu için marjinal faydası düşüktür, bu yüzden ucuzdur. Fiyatı belirleyen <b>marjinal</b> faydadır, toplam değil.</div>` },
+
+  { code: "4.2", title: "Demand under risk and uncertainty", tr: "Risk ve belirsizlik altında talep", html: `
+<ul><li>Dayanıklı mal (araba, telefon) ya da finansal varlık alırken gelecekteki fayda ve maliyetler belirsizdir: alım bir tür <b>kumardır</b>.</li>
+<li><b>Risk</b>: olasılıklar bilinir. <b>Uncertainty</b>: olasılıklar bilinmez.</li>
+<li>İnsanlar üç türdür: <b>risk lovers</b> (riski sever), <b>risk averse</b> (riskten kaçınan), <b>risk neutral</b> (riske kayıtsız).</li>
+<li><b>Gelirin azalan marjinal faydası</b> yüzünden çoğu insanın riskten kaçınması rasyoneldir: £100 kaybetmenin acısı, £100 kazanmanın sevincinden büyüktür. Bu yüzden adil bir bahis bile (beklenen değer sıfır) beklenen faydayı düşürür.</li></ul>
+<h4>Sigorta (insurance)</h4>
+<ul><li>Riskten kaçınan insanlar riski ortadan kaldırmak için <b>prim</b> öder; prim beklenen kayıptan biraz fazla olsa bile.</li>
+<li>Sigorta şirketi riski çok sayıda poliçeye yayar: <b>law of large numbers</b> (büyük sayılar yasası). Tek bir kişi için öngörülemeyen şey, binlerce <b>bağımsız</b> risk için çok öngörülebilirdir.</li>
+<li>Sorunlar (Box 4.5): <b>adverse selection</b> (ters seçim: riski yüksek olanlar sigortaya daha çok başvurur, şirket ayırt edemez) ve <b>moral hazard</b> (ahlaki tehlike: sigortalı kişi daha az dikkatli davranır). İkisi de <b>asimetrik bilgiden</b> kaynaklanır.</li></ul>
+<p class="fm">Beklenen değer = Σ (olasılık × sonuç)</p>
+<div class="tip"><b>Sınavda dikkat:</b> Riskler <b>bağımsız değilse</b> (deprem, salgın, savaş gibi herkesi aynı anda vuran olaylar) büyük sayılar yasası çalışmaz ve sigorta zorlaşır.</div>` },
+
+  { code: "4.3", title: "Indifference analysis", tr: "Kayıtsızlık analizi", html: `
+<p>Faydayı <b>ölçmeden</b>, sadece sepetleri <b>sıralayarak</b> tüketici seçimini açıklar.</p>
+<ul><li><b>Indifference curve</b> (kayıtsızlık eğrisi): tüketiciye <b>aynı tatmini</b> veren iki malın tüm bileşimleri. Kuzeydoğudaki eğriler daha yüksek tatmin verir (<b>indifference map</b>). Eğriler kesişmez.</li>
+<li>Eğri <b>orijine göre dışbükeydir</b> (convex), çünkü <b>azalan marjinal ikame oranı</b> (diminishing MRS) vardır: X'ten çok tükettikçe bir birim X için daha az Y'den vazgeçmeye razı olursun.</li>
+<li><b>MRS = eğrinin eğimi = MUx / MUy</b>.</li>
+<li><b>Budget line</b> (bütçe doğrusu): verilen gelir ve fiyatlarla alınabilecek bileşimler. Eğimi = <b>Px / Py</b>.</li></ul>
+${FIG2.ic}
+<p class="fm">Optimum: MUx / MUy = Px / Py</p>
+<ul><li>Gelir artarsa bütçe doğrusu <b>paralel</b> dışarı kayar. Optimum noktaları birleştiren çizgi: <b>income–consumption curve</b>.</li>
+<li>Bir malın fiyatı değişirse bütçe doğrusu diğer malın ekseni üzerinde <b>döner</b> (pivot): fiyat düşerse dışarı. Noktaları birleştiren çizgi: <b>price–consumption curve</b>; bundan talep eğrisi türetilir.</li>
+<li><b>Fiyat değişiminin etkisi = ikame etkisi + gelir etkisi</b>. İkame etkisi sadece göreli fiyattan, gelir etkisi sadece reel gelirdeki değişimden gelir.</li>
+<li><b>Normal mal</b>: fiyat artışında iki etki de miktarı düşürür. <b>Düşük mal</b>: gelir etkisi ters yöndedir ama ikame etkisi daha büyüktür. <b>Giffen good</b>: gelir etkisi ikame etkisinden büyük olan düşük mal; fiyat artınca talep edilen miktar <b>artar</b> (çok nadir).</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Bütçe doğrusu eksen kesişimleri: X ekseni = Gelir/Px, Y ekseni = Gelir/Py. Örnek: £60 gelir, Px = £3, Py = £2 → 20 birim X ya da 30 birim Y; eğim = 3/2.</div>` },
+  ]
+},
+{
+  ch: 5, title: "Background to Supply", tr: "Arzın Arka Planı", part: "Part C",
+  sections: [
+  { code: "5.1", title: "The short-run theory of production", tr: "Kısa dönem üretim teorisi", html: `
+<ul><li><b>Production function</b> (üretim fonksiyonu): girdi miktarı ile çıktı arasındaki ilişki.</li>
+<li><b>Short run</b> (kısa dönem): en az bir faktör <b>sabittir</b> (ör. fabrika binası). <b>Long run</b> (uzun dönem): tüm faktörler değişkendir. Sürenin uzunluğu sektöre göre değişir.</li>
+<li><b>Law of diminishing (marginal) returns</b> (azalan verimler kanunu): sabit faktöre değişken faktör eklendikçe, bir noktadan sonra her ek birimin çıktıya katkısı azalır (Box 5.1: Malthus, Box 5.2: ekmek fırını).</li></ul>
+<table class="tbl"><tr><th>Kavram</th><th>Formül</th></tr>
+<tr><td><b>TPP</b> total physical product</td><td>toplam çıktı</td></tr>
+<tr><td><b>APP</b> average physical product</td><td>TPP / L</td></tr>
+<tr><td><b>MPP</b> marginal physical product</td><td>ΔTPP / ΔL</td></tr></table>
+<ul><li>MPP &gt; APP olduğu sürece APP <b>artar</b>; MPP &lt; APP ise APP <b>düşer</b>. Yani MPP, APP'yi en yüksek noktasından keser (ortalama–marjinal ilişkisi, Box 5.3: sınıf not ortalaması gibi).</li>
+<li>MPP = 0 olduğunda TPP en yüksektir.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Azalan verimler <b>kısa dönem</b> kavramıdır (bir faktör sabit). Tüm faktörler birlikte artırılınca olan şey <b>ölçeğe göre getiridir</b> (returns to scale, uzun dönem). İkisini karıştırma.</div>` },
+
+  { code: "5.2", title: "Costs in the short run", tr: "Kısa dönem maliyetler", html: `
+<h4>Ekonomist maliyeti nasıl ölçer?</h4>
+<ul><li>Her zaman <b>fırsat maliyeti</b> ile.</li>
+<li><b>Explicit costs</b> (açık maliyet): firmanın sahip olmadığı faktörlere ödenen para (elektrik faturası, ücret).</li>
+<li><b>Implicit costs</b> (örtük maliyet): firmanın kendi sahip olduğu faktörlerin en iyi alternatif kullanımda kazanabileceği (kendi binasının kirası, sahibinin başka yerde kazanacağı maaş, kendi sermayesinin faizi).</li>
+<li><b>Historic costs</b> (geçmişte ödenen fiyat) karar için önemsizdir (Box 5.5); önemli olan bugünkü fırsat maliyetidir.</li></ul>
+<table class="tbl"><tr><th>Kavram</th><th>Anlamı</th></tr>
+<tr><td>TFC (total fixed cost)</td><td>Üretimle değişmez (kira, sigorta)</td></tr>
+<tr><td>TVC (total variable cost)</td><td>Üretimle artar (ham madde, ücret)</td></tr>
+<tr><td>TC</td><td>TFC + TVC</td></tr>
+<tr><td>AFC, AVC, AC</td><td>TFC/Q, TVC/Q, TC/Q (AC = AFC + AVC)</td></tr>
+<tr><td>MC (marginal cost)</td><td>ΔTC / ΔQ (= ΔTVC / ΔQ)</td></tr></table>
+${FIG2.cost}
+<ul><li>MC önce düşer, <b>azalan verimler</b> başlayınca yükselir (MPP düşerken MC artar: aynaların yansıması gibi).</li>
+<li>AFC sürekli düşer (sabit maliyet daha çok birime yayılır).</li>
+<li><b>MC, AVC ve AC'yi en düşük noktalarından keser.</b></li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> MC hesaplarken sabit maliyeti unut: ek birimin maliyeti sadece değişken maliyetteki artıştır. Tablo sorularında önce TC'yi doldur, sonra farkları al.</div>` },
+
+  { code: "5.3", title: "Long-run production and costs", tr: "Uzun dönem üretim ve maliyetler (5.3–5.4)", html: `
+<h4>Ölçeğe göre getiri (returns to scale)</h4>
+<ul><li><b>Increasing</b>: girdiler %x artınca çıktı %x'ten <b>fazla</b> artar. <b>Constant</b>: aynı oranda. <b>Decreasing</b>: daha az.</li></ul>
+<h4>Ölçek ekonomileri (economies of scale)</h4>
+<p>Üretim ölçeği büyüdükçe <b>birim maliyetin düşmesi</b>. Kaynakları:</p>
+<ul><li><b>Specialisation and division of labour</b> (uzmanlaşma, işbölümü)</li><li><b>Indivisibilities</b> (bölünmezlik: büyük makine küçük ölçekte verimsiz), <b>container principle</b> (bir tankın kapasitesi hacimle, maliyeti yüzey alanıyla artar)</li>
+<li>Daha bütünleşik üretim, <b>financial</b> (ucuz borçlanma), <b>administrative</b>, pazarlama ve satın alma (toplu alım indirimi) ekonomileri</li></ul>
+<ul><li><b>Diseconomies of scale</b> (ölçek eksi ekonomileri): çok büyüyünce yönetim zorlaşır, iletişim ve motivasyon sorunları → birim maliyet artar.</li>
+<li><b>External economies of scale</b>: sektörün büyümesinden gelen avantaj (yan sanayi, eğitimli işgücü bölgede toplanır).</li></ul>
+<h4>En az maliyetli faktör bileşimi</h4>
+<p class="fm">MPPa/Pa = MPPb/Pb = ...</p>
+<p><b>Isoquant</b>: aynı çıktıyı veren iki faktör bileşimleri; eğimi = <b>MRTS = MPPL/MPPK</b>. <b>Isocost</b>: aynı maliyetteki bileşimler, eğimi = <b>PL/PK</b>. Optimum: teğet nokta, MPPL/MPPK = PL/PK. Teğet noktaları birleştiren çizgi <b>expansion path</b>.</p>
+<h4>Uzun dönem maliyet eğrileri</h4>
+<ul><li>Uzun dönemde sabit maliyet yoktur. <b>LRAC</b> genelde <b>çanak (U ya da L)</b> biçimlidir: önce ölçek ekonomileri (düşer), sonra düz, çok büyükse ölçek eksi ekonomileri (yükselir).</li>
+<li>LRAC, kısa dönem AC eğrilerini dışarıdan saran bir <b>envelope curve</b>'dür.</li>
+<li><b>Minimum efficient scale (MES)</b> (Box 5.8): LRAC'ın düzleştiği en küçük üretim düzeyi. Piyasa büyüklüğüne göre MES büyükse sektörde az firma olur.</li>
+<li>Dört zaman dönemi: very short run (hiçbir şey değişmez), short run, long run, <b>very long run</b> (teknoloji de değişir).</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Ölçek ekonomisi <b>tek bir firmanın</b> büyümesiyle ilgilidir (internal); external ekonomiler sektörün büyümesindendir. Konum (location) kararı ham maddeye ve pazara uzaklığın taşıma maliyetine göre verilir.</div>` },
+
+  { code: "5.5", title: "Revenue and profit maximisation", tr: "Gelir ve kâr maksimizasyonu (5.5–5.6)", html: `
+<table class="tbl"><tr><th>Kavram</th><th>Formül</th></tr>
+<tr><td>Total revenue (TR)</td><td>P × Q</td></tr><tr><td>Average revenue (AR)</td><td>TR / Q = P</td></tr><tr><td>Marginal revenue (MR)</td><td>ΔTR / ΔQ</td></tr></table>
+<ul><li><b>Fiyat alıcı</b> firma: talep (AR) yatay, <b>AR = MR = P</b>, TR orijinden çıkan düz çizgi.</li>
+<li><b>Aşağı eğimli talep</b>: AR = talep eğrisi, MR AR'nin <b>altında ve daha diktir</b> (daha çok satmak için tüm birimlerde fiyat düşer). Doğrusal talepte MR, AR'nin iki katı eğimlidir. TR kemer biçimlidir.</li>
+<li>Talep <b>esnekse MR &gt; 0</b>, esnek değilse <b>MR &lt; 0</b>; MR = 0'da TR en yüksektir (birim esnek nokta).</li></ul>
+<h4>Kâr maksimizasyonu</h4>
+<p class="fm">Kâr = TR − TC  ·  Kural: MR = MC  ·  Toplam kâr = (AR − AC) × Q</p>
+<ul><li>MR &gt; MC ise üretimi artır (ek birim kâra katkı yapar), MR &lt; MC ise azalt.</li>
+<li><b>Normal profit</b>: firmayı uzun dönemde sektörde tutmaya yetecek en düşük kâr. Ekonomistler bunu <b>maliyetin içinde</b> sayar (sahibinin fırsat maliyeti). AC = AR ise firma normal kâr eder.</li>
+<li><b>Supernormal profit</b>: normal kârın üstündeki kâr (AR &gt; AC).</li>
+<li>Hiçbir üretimde kâr edemiyorsa MR = MC noktası <b>zararı en aza indiren</b> noktadır.</li>
+<li><b>Kapanma kararı</b>: kısa dönemde <b>P &lt; AVC</b> ise kapan (değişken maliyeti bile karşılamıyor); P ≥ AVC ise sabit maliyetin bir kısmını karşıladığı için zararına da olsa üret. Uzun dönemde normal kâr edemiyorsa (P &lt; LRAC) çık.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Tablo sorusu: her çıktı için MR ve MC'yi hesapla, MR ≥ MC olan son birimi bul. Sonra kârı TR − TC ile kontrol et. "Muhasebe kârı" normal kârı içerir, "ekonomik kâr" (supernormal) içermez.</div>` },
+  ]
+},
+{
+  ch: 6, title: "Profit Maximising under Perfect Competition and Monopoly", tr: "Tam Rekabet ve Tekelde Kâr Maksimizasyonu", part: "Part C",
+  sections: [
+  { code: "6.1", title: "Market structures and perfect competition", tr: "Piyasa yapıları ve tam rekabet (6.1–6.2)", html: `
+<table class="tbl"><tr><th>Yapı</th><th>Firma sayısı</th><th>Giriş</th><th>Ürün</th><th>Örnek</th></tr>
+<tr><td>Perfect competition</td><td>Çok fazla</td><td>Tamamen serbest</td><td>Homojen</td><td>Sebze, döviz</td></tr>
+<tr><td>Monopolistic competition</td><td>Çok</td><td>Serbest</td><td>Farklılaştırılmış</td><td>Restoran, kuaför</td></tr>
+<tr><td>Oligopoly</td><td>Az</td><td>Engelli</td><td>Aynı ya da farklı</td><td>Araba, petrol, banka</td></tr>
+<tr><td>Monopoly</td><td>Tek</td><td>Engelli / imkânsız</td><td>Benzersiz</td><td>Su şebekesi</td></tr></table>
+<p><b>Concentration ratio</b> (Box 6.1): en büyük 3, 5 ya da 15 firmanın sektör payı. Yüksekse piyasa yoğunlaşmıştır.</p>
+<h4>Tam rekabetin varsayımları</h4>
+<ol><li>Çok sayıda firma (hepsi <b>price taker</b>)</li><li>Giriş ve çıkış tamamen serbest</li><li>Homojen (aynı) ürün</li><li>Tam bilgi (üretici ve tüketici)</li></ol>
+${FIG2.pc}
+<ul><li><b>Kısa dönem</b>: firma <b>P = MC</b> noktasında üretir. Aşırı kâr ya da zarar olabilir. Firmanın kısa dönem arz eğrisi, <b>MC eğrisinin AVC'nin üstündeki kısmıdır</b>.</li>
+<li><b>Uzun dönem</b>: aşırı kâr varsa yeni firmalar girer → arz artar → fiyat düşer → kâr normale iner. Zarar varsa firmalar çıkar. Denge: <b>P = MC = LRAC (en düşük)</b>.</li>
+<li>Endüstrinin uzun dönem arz eğrisi external ekonomiler varsa aşağı, external eksi ekonomiler varsa yukarı eğimlidir.</li>
+<li>Büyük ölçek ekonomileri olsaydı büyük firmalar küçükleri yok eder, tam rekabet kalmazdı.</li></ul>
+<h4>Tam rekabet en iyisi mi? (Box 6.2)</h4>
+<ul><li><b>Artıları:</b> P = MC (kaynak dağılımı etkin), en düşük maliyette üretim, düşük fiyat, verimlilik baskısı, tüketici egemenliği.</li>
+<li><b>Eksileri:</b> AR-GE yapmaya istek ve para yok, ürün çeşitliliği yok, adil gelir dağılımı ya da çevreye zarar vermeme garantisi yok.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Endüstrinin talep eğrisi aşağı eğimlidir ama <b>tek firmanınki yataydır</b>: firma piyasaya göre çok küçük olduğu için piyasa fiyatından istediği kadar satabilir, üstünde hiç satamaz.</div>` },
+
+  { code: "6.3", title: "Monopoly", tr: "Tekel", html: `
+<p>Sektörde <b>tek firma</b>. Ama bu, sektörün ne kadar dar tanımlandığına bağlıdır; önemli olan <b>tekel gücüdür</b> (yakın ikamelerin olmaması).</p>
+<h4>Giriş engelleri (barriers to entry)</h4>
+<ul><li><b>Economies of scale</b>: LRAC piyasanın tamamını karşılayan çıktıya kadar düşüyorsa <b>natural monopoly</b> (doğal tekel: su, elektrik şebekesi, demiryolu altyapısı). İki firma olsa ikisinin de maliyeti yüksek olurdu.</li>
+<li>Ürün farklılaştırma ve marka sadakati, girdi kaynaklarını ya da satış noktalarını kontrol, <b>patent ve telif hakkı</b>, yasal koruma, rakipleri yok etme taktikleri (satın alma, agresif reklam, fiyat kırma), kurulum maliyetleri.</li></ul>
+${FIG2.mono}
+<ul><li>Kâr maksimizasyonu yine <b>MR = MC</b>. Fiyat talep eğrisinden okunur ve <b>P &gt; MC</b>'dir.</li>
+<li>Giriş engelli olduğu için aşırı kâr <b>uzun dönemde de sürer</b>.</li>
+<li>Tekelin arz eğrisi yoktur (miktar–fiyat tek bir ilişkiye bağlı değil).</li></ul>
+<h4>Tekel ve kamu yararı</h4>
+<ul><li><b>Aleyhine:</b> daha yüksek fiyat ve daha düşük üretim (tam rekabete göre), adaletsiz gelir dağılımı, rekabet olmadığı için verimsizlik ve <b>X inefficiency</b> (Box 6.5: maliyetleri kontrol etme baskısı yok), yenilik eksikliği, hükümet üzerinde siyasi baskı.</li>
+<li><b>Lehine:</b> ölçek ekonomileri düşük fiyatlara yansıyabilir; yüksek kârlar <b>AR-GE</b> ve yatırıma gidebilir (yeni ürünler); <b>competition for corporate control</b> (satın alınma tehdidi) verimliliği zorlar.</li></ul>
+<p class="fm">*Kâr maksimize eden fiyat: P = MC / (1 + 1/PED)</p>
+<div class="tip"><b>Sınavda dikkat:</b> Tekel <b>talebin esnek</b> olduğu kısımda üretir, çünkü MC &gt; 0 ve MR = MC ise MR pozitiftir; MR pozitif ise talep esnektir.</div>` },
+
+  { code: "6.4", title: "The theory of contestable markets", tr: "Yarışılabilir piyasalar teorisi", html: `
+<ul><li>Fiyat ve üretimi belirleyen şey sektördeki firma sayısı değil, <b>gerçek bir rekabet tehdidi</b> olup olmadığıdır. <b>Potential competition</b> (potansiyel rekabet), gerçek rekabet kadar etkili olabilir.</li>
+<li>Örnek: fabrikanın yemekhanesini işleten firma tekeldir ama fiyatı artırırsa fabrika başka bir firmayla anlaşabilir.</li>
+<li><b>Perfectly contestable market</b>: giriş ve çıkış <b>maliyetsiz ve hızlıdır</b>. Tekel bile aşırı kâr ederse "vur-kaç" (hit-and-run) firmalar girer; bu yüzden tekel kârını <b>normal düzeyde</b> tutmak zorundadır.</li>
+<li>Çıkış maliyeti <b>sunk costs</b>'a (batık maliyet: çıkarken geri alınamayan, ör. reklam, özel makine) bağlıdır. Batık maliyet ne kadar düşükse piyasa o kadar yarışılabilir.</li>
+<li><b>Limit pricing</b>: tekel ya da oligopolün yeni girişleri caydırmak için fiyatı bilerek düşük tutması.</li>
+<li>Örnek: havayolu deregülasyonu (Box 6.6): uçaklar kiralanabilir ve başka hatta kaydırılabilir → batık maliyet düşük → yeni girişler fiyatları düşürdü (düşük maliyetli havayolları).</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Teori, "firma sayısına bakarak" yapılan analizlere göre daha gerçekçidir. Politika sonucu: devlet tekelleri parçalamak yerine <b>giriş engellerini kaldırarak</b> piyasayı yarışılabilir yapabilir.</div>` },
+  ]
+},
+{
+  ch: 7, title: "Profit Maximising under Imperfect Competition", tr: "Eksik Rekabette Kâr Maksimizasyonu", part: "Part C",
+  sections: [
+  { code: "7.1", title: "Monopolistic competition", tr: "Tekelci rekabet", html: `
+<ul><li>Çok sayıda firma, <b>serbest giriş</b>, ama her firma <b>farklılaştırılmış</b> bir ürün sattığı için biraz piyasa gücüne sahip (aşağı eğimli ama esnek talep). Örnek: restoranlar, kuaförler, yerel dükkânlar (Box 7.1: öğrenci dondurma satışı).</li>
+<li><b>Kısa dönem</b>: MR = MC, aşırı kâr olabilir.</li>
+<li><b>Uzun dönem</b>: serbest giriş aşırı kârı yok eder. Denge: talep (AR) eğrisi LRAC'a <b>teğet</b>tir, P = AC, normal kâr.</li>
+<li>Talep eğrisi aşağı eğimli olduğu için teğet nokta LRAC'ın <b>en düşük noktasında değildir</b> → <b>excess capacity</b> (atıl kapasite): daha çok üreterek daha düşük maliyete inilebilirdi.</li>
+<li>Gerçekte aşırı kâr sürebilir: eksik bilgi, tam serbest olmayan giriş, <b>fiyat dışı rekabet</b> (non-price competition): ürün geliştirme ve ürün tanıtımı (reklam).</li></ul>
+<h4>Kamu yararı</h4>
+<ul><li>Tam rekabete göre: atıl kapasite yüzünden <b>daha yüksek maliyet</b>, ama tüketiciye <b>daha çok çeşit</b>.</li>
+<li>Tekele göre: daha az ölçek ekonomisi ve AR-GE, ama rekabet fiyatları daha düşük tutabilir.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Tekelci rekabetin uzun dönemi tam rekabete benzer (normal kâr), farkı <b>teğet noktası</b> ve <b>atıl kapasitedir</b>.</div>` },
+
+  { code: "7.2", title: "Oligopoly", tr: "Oligopol", html: `
+<p>Az sayıda firma sektörün büyük kısmını paylaşır. İki temel özellik:</p>
+<ul><li><b>Giriş engelleri</b> (tekeldekilere benzer).</li><li><b>Interdependence</b> (karşılıklı bağımlılık): her firmanın kararı rakiplerin tepkisine bağlıdır.</li></ul>
+<p>Firmalar arasında çelişki: <b>ortak kârı</b> en büyük yapmak için <b>işbirliği</b> (collusion) yapmak isterler; ama her biri en büyük payı ister, bu da onları <b>rekabete</b> iter.</p>
+<h4>İşbirlikçi oligopol (collusive)</h4>
+<ul><li><b>Cartel</b> (kartel): resmî işbirliği anlaşması, tekel gibi davranmayı amaçlar. Fiyatı belirleyip üyeleri pay için yarıştırabilir ya da <b>kotalar</b> verebilir. Örnek: <b>OPEC</b> (Box 7.3).</li>
+<li>Kartel üyeleri <b>hile yapmaya</b> (gizlice fiyat kırıp daha çok satmaya) meyillidir; bu fiyat savaşı başlatabilir.</li>
+<li><b>Tacit collusion</b> (örtülü işbirliği): <b>price leadership</b> (fiyat liderliği: baskın firma ya da "barometre" firma fiyatı belirler, diğerleri izler), ortalama maliyet fiyatlaması, <b>benchmark pricing</b> (yuvarlak fiyatlar gibi kurallar).</li>
+<li>İşbirliği olasılığı artar: firma sayısı azsa, birbirlerine açıklarsa, ürün ve maliyetleri benzerse, baskın firma varsa, giriş engelleri yüksekse, piyasa istikrarlıysa, yasal yasak yoksa.</li></ul>
+<h4>İşbirlikçi olmayan oligopol</h4>
+<ul><li><b>Cournot</b> modeli: firma rakibin <b>miktarını</b> sabit varsayar → fiyat ve kâr tekelden düşük, tam rekabetten yüksek.</li>
+<li><b>Bertrand</b> modeli: firma rakibin <b>fiyatını</b> sabit varsayar → fiyatlar normal kâra kadar düşer.</li>
+<li><b>Kinked demand curve</b> (kırık talep eğrisi): firma, fiyatı <b>artırırsa rakiplerin izlemeyeceğini</b> (talep esnek), <b>düşürürse izleyeceğini</b> (talep esnek değil) varsayar. Sonuç: <b>fiyatlar katı (sabit)</b> kalır; MR eğrisinde bir boşluk olduğu için maliyet değişse bile fiyat değişmeyebilir.</li></ul>
+<p>Oligopol kamu yararına mı? Duruma bağlı: rekabetin derecesi, <b>countervailing power</b> (karşı güç: büyük alıcılar), reklam, çeşitlilik, AR-GE ve piyasanın yarışılabilirliği.</p>
+<div class="tip"><b>Sınavda dikkat:</b> IR öğrencisi için OPEC önemli: kartelin istikrarı, üyelerin kotayı aşma eğilimine ve OPEC dışı üreticilerin payına bağlıdır. Kartellerin çoğu ülkede yasadışıdır.</div>` },
+
+  { code: "7.3", title: "Game theory", tr: "Oyun teorisi", html: `
+<p><b>Game theory</b>, sonucun başkalarının seçimine de bağlı olduğu <b>stratejik</b> durumları inceler. Oligopolü ve uluslararası ilişkileri (silahlanma yarışı, ticaret savaşı) anlamada çok kullanılır.</p>
+<ul><li><b>Single-move (normal-form) game</b>: tek seferlik oyun, kazanç matrisi (payoff matrix) ile gösterilir.</li>
+<li><b>Dominant strategy</b> (baskın strateji): rakip ne yaparsa yapsın en iyi sonucu veren strateji.</li>
+<li><b>Maximin</b> (düşük risk): her stratejinin <b>en kötü</b> sonucuna bak, en kötüsü en iyi olanı seç. <b>Maximax</b> (yüksek risk): her stratejinin <b>en iyi</b> sonucuna bak, en büyüğünü seç.</li>
+<li><b>Nash equilibrium</b>: rakibin stratejisi veriyken hiçbir oyuncunun kendi stratejisini değiştirmek istemediği durum.</li></ul>
+<h4>Mahkûmlar ikilemi (prisoners' dilemma, Box 7.4)</h4>
+<p>Her oyuncu için <b>kendi çıkarına en iyi</b> seçim (itiraf etmek / fiyat kırmak), birlikte sonuçta ikisini de <b>daha kötü</b> duruma sokar. Nash dengesi, işbirliği yapsalardı elde edecekleri kârdan daha düşüktür.</p>
+<table class="tbl"><tr><th>A \\ B</th><th>B: yüksek fiyat</th><th>B: düşük fiyat</th></tr>
+<tr><td>A: yüksek fiyat</td><td>A 10, B 10</td><td>A 5, B 12</td></tr>
+<tr><td>A: düşük fiyat</td><td>A 12, B 5</td><td><b>A 8, B 8</b> (Nash)</td></tr></table>
+<p>Her ikisi için düşük fiyat baskın stratejidir → (8, 8). İşbirliği yapsalar (10, 10) alırlardı.</p>
+<h4>Çok hamleli oyunlar (multiple-move games)</h4>
+<ul><li>Oyuncular sırayla hareket eder; <b>decision tree</b> (karar ağacı) ile gösterilir.</li>
+<li>Tehdit ve vaatler ancak <b>credible</b> (inandırıcı) ise etkilidir.</li>
+<li><b>First-mover advantage</b>: önce davranan (ör. yeni ürünü ilk çıkaran) stratejik üstünlük kazanabilir.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Matris sorusunda her oyuncu için ayrı ayrı "rakip X yaparsa ben ne yaparım, Y yaparsa ne yaparım" diye bak. Her iki durumda da aynı seçim çıkıyorsa o baskın stratejidir.</div>` },
+
+  { code: "7.4", title: "Price discrimination", tr: "Fiyat farklılaştırması", html: `
+<p>Aynı ürünü, maliyet aynı olduğu halde farklı tüketicilere <b>farklı fiyatlarla</b> satmak.</p>
+<ul><li><b>First-degree</b> (birinci derece): her tüketiciden ödemeye razı olduğu <b>en yüksek</b> fiyat alınır (pazarlık). Tüketici rantının tamamı firmaya geçer. Kâr maksimizasyonu: <b>P = MC</b>.</li>
+<li><b>Second-degree</b>: alınan <b>miktara göre</b> farklı fiyat (ilk kilovatsaatler pahalı, sonrakiler ucuz).</li>
+<li><b>Third-degree</b>: tüketiciler <b>ayrı gruplara</b> bölünür, her grupta farklı fiyat (öğrenci indirimi, gündüz/gece tren bileti, çocuk sinema bileti, ülkelere göre fiyat). <b>Talebi daha az esnek</b> olan gruba <b>daha yüksek</b> fiyat.</li></ul>
+<h4>Koşullar</h4>
+<ol><li>Firmanın <b>piyasa gücü</b> olmalı (fiyat belirleyici).</li><li>Piyasalar <b>ayrılabilmeli</b> ve ucuza alan pahalı piyasada <b>yeniden satamamalı</b>.</li><li>Gruplar arasında talep esnekliği <b>farklı</b> olmalı.</li></ol>
+<p class="fm">Üçüncü derece: her piyasada MR₁ = MR₂ = MC</p>
+<ul><li>Firma aynı satıştan <b>daha çok gelir</b> elde eder.</li><li>Kazananlar ve kaybedenler vardır: düşük fiyat ödeyen gruplar kazanır (bazıları hiç alamayacakken alabilir), yüksek fiyat ödeyenler kaybeder.</li><li><b>Peak-load pricing</b> (Box 7.6): yoğun saatlerde yüksek fiyat (maliyet de farklı olduğu için tam olarak ayrımcılık değildir).</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> İş seyahati yapanlar tren/uçak bileti talebinde esnek değildir (zorunlu, şirket öder) → pahalı esnek bilet; turistler esnek → ucuz, kısıtlamalı bilet.</div>` },
+  ]
+},
+{
+  ch: 8, title: "Alternative Theories of the Firm", tr: "Alternatif Firma Teorileri", part: "Part C",
+  sections: [
+  { code: "8.1", title: "Problems with traditional theory and alternative maximising theories", tr: "Geleneksel teorinin sorunları ve alternatif maksimizasyon teorileri (8.1–8.2)", html: `
+<h4>Geleneksel kâr maksimizasyonu teorisine iki eleştiri</h4>
+<ol><li>Firmaların kârı maksimize edecek <b>bilgisi olmayabilir</b>: talep, maliyet ve rakip tepkileri bilinmez; fırsat maliyeti kavramı kullanılmaz → basit <b>rules of thumb</b> (pratik kurallar).</li>
+<li>Kâr maksimize etmeyi <b>istemeyebilirler</b>: büyük şirketlerde <b>sahiplik ile kontrolün ayrılması</b> (separation of ownership and control). Sahipler (hissedarlar) en yüksek kârı ister, kararları ise yöneticiler verir ve onlar kendi faydalarını en büyük yapmak ister → <b>profit satisficing</b> (yeterli kârla yetinmek).</li></ol>
+<h4>Principal–agent problem (asıl–vekil sorunu)</h4>
+<p>Vekil (yönetici) her zaman asılın (sahip) isteğine göre davranmaz. Sebep <b>asymmetric information</b> (asimetrik bilgi): yönetici, sahipten daha çok bilir. Çözüm: <b>izleme</b> (monitoring) ve <b>teşvik</b> (kâra bağlı prim, hisse opsiyonu). Aynı sorun IR'de de vardır (seçmen–politikacı, hükümet–diplomat).</p>
+<h4>Alternatif maksimizasyon teorileri</h4>
+<ul><li><b>Long-run profit maximisation</b>: bugünkü kâr yerine uzun dönem kârı. Tahmin etmek zordur.</li>
+<li><b>Managerial utility maximisation</b> (Williamson): yönetici maaş, iş güvencesi, güç, prestij ister; yeterli kâr sağlandığı sürece serbesttir.</li>
+<li><b>Sales revenue maximisation</b> (Baumol): yöneticiler satış gelirini en büyük yapmak ister (maaş ve prestij satışla bağlantılı). Kâr kısıtı yoksa <b>MR = 0</b> noktasında üretir. Sonuç: kâr maksimize edene göre <b>daha fazla üretim</b> ve <b>daha çok reklam</b>.</li>
+<li><b>Growth maximisation</b> (büyüme): iç büyüme (kârı yeniden yatırmak, hisse ihracı, borçlanma) ya da birleşme. Yeterli kâr gerekir, yoksa şirket <b>ele geçirilmeye</b> (takeover) açık hâle gelir.</li></ul>
+<h4>Büyüme yolları</h4>
+<ul><li><b>Vertical integration</b> (dikey bütünleşme): üretim zincirinde geriye (tedarikçi) ya da ileriye (satış) doğru büyüme. Maliyeti düşürür, belirsizliği azaltır.</li>
+<li><b>Merger</b> (birleşme): <b>horizontal</b> (aynı aşamadaki rakiple), <b>vertical</b> (farklı aşama), <b>conglomerate</b> (ilgisiz sektör). Birleşmeler dalgalar hâlinde gelir. Nedenler: büyüme, ölçek ekonomisi, piyasa gücü, hisse değeri, belirsizliği azaltma.</li>
+<li><b>Strategic alliances</b> (stratejik ortaklık): yeni pazarlara giriş, risk paylaşımı, sermaye birleştirme. Ve <b>yurtdışına büyüme</b>.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Satış geliri maksimize eden firma (kısıtsız) MR = 0'da, kâr maksimize eden MR = MC'de üretir. MC &gt; 0 olduğu için satış maksimize eden firma <b>daha çok</b> üretir.</div>` },
+
+  { code: "8.3", title: "Multiple aims and pricing in practice", tr: "Çoklu amaçlar ve uygulamada fiyatlama (8.3–8.4)", html: `
+<h4>Çoklu amaçlar (behavioural theories)</h4>
+<ul><li>Büyük firmada kararları birçok grup etkiler: yöneticiler, hissedarlar, işçiler, müşteriler, tedarikçiler, alacaklılar (<b>stakeholders</b>, paydaşlar, Box 8.6). Amaçları çelişir.</li>
+<li>Firma birden çok çelişen amacı aynı anda maksimize edemez → her biri için <b>tatmin edici bir hedef</b> (satisficing) koyar.</li>
+<li>Hedefler geçen yıl kolay tutturulduysa bu yıl yükseltilir; tutturulamadıysa <b>search procedure</b> (sorunu arama) ve yöneticiler arası <b>pazarlık</b> başlar.</li>
+<li><b>Organisational slack</b> (örgütsel boşluk): hedefler tutmayınca kullanılmak üzere bırakılan pay; çatışmayı azaltır.</li>
+<li>Satisficing firmalar daha az yenilikçi ve daha az agresiftir, değişikliği genelde rakiplere tepki olarak yapar; piyasa gücünü daha az kötüye kullanır ama <b>X inefficiency</b> daha fazla olabilir.</li></ul>
+<h4>Uygulamada fiyatlama</h4>
+<p>Firmalar MR ve MC eğrileri çizmez; basit kurallar kullanır.</p>
+<p class="fm">Mark-up (cost-plus) pricing: P = AFC + AVC + kâr payı</p>
+<ul><li>Kâr payı, hedef toplam kâra ya da birim kâra göre belirlenir; rakiplerin tepkisine ve talebe bağlıdır.</li>
+<li>Payı katı değildir: büyüyen ya da gücü olan piyasada büyür, küçülen piyasada azalır.</li>
+<li>Çok ürünlü firmalar ürünlere farklı kâr payı uygular.</li>
+<li>*MC'ye ve esnekliğe göre kâr payı kâr maksimizasyonu verir: P = MC / (1 + 1/PED). Örnek: MC = £10, PED = −5 → P = 10 / 0.8 = <b>£12.50</b>.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Mark-up fiyatlama, firmanın kâr maksimize etmeye çalışmadığı (satisficing) ya da MC ve MR'yi bilmediği durumlarda en olasıdır.</div>` },
+  ]
+},
+{
+  ch: 9, title: "The Theory of Distribution of Income", tr: "Gelir Dağılımı Teorisi", part: "Part C",
+  sections: [
+  { code: "9.1", title: "Wage determination under perfect competition", tr: "Tam rekabette ücret belirlenmesi", html: `
+<p>Tam rekabetçi işgücü piyasasında ücret arz ve talep ile belirlenir. Firmalar ve işçiler <b>wage taker</b>'dır.</p>
+<h4>Emek arzı</h4>
+<ul><li>Bireyin çalışma saati arzı, işin <b>artan marjinal katlanılmazlığını</b> (marginal disutility of work) yansıtır: çok çalıştıkça her ek saat daha zahmetli olur.</li>
+<li>Ücret artışının iki etkisi: <b>ikame etkisi</b> (+): boş zaman pahalılaştı, daha çok çalış. <b>Gelir etkisi</b> (−): zenginleştim, daha az çalışabilirim.</li>
+<li>Gelir etkisi daha büyükse emek arz eğrisi <b>geriye bükülür</b> (backward-bending supply curve): yüksek ücretlerde ücret artışı çalışma saatini düşürür.</li>
+<li>Tam rekabette tek bir işverene emek arzı <b>tamamen esnektir</b> (yatay). Piyasa arzı yukarı eğimlidir; esnekliği <b>emek hareketliliğine</b> (labour mobility, mesleki ve coğrafi) bağlıdır.</li></ul>
+<h4>Emek talebi: marjinal verimlilik teorisi</h4>
+<p class="fm">MRP_L = MPP_L × MR  ·  Kural: MRP_L = MC_L (tam rekabette = W)</p>
+<ul><li><b>Marginal revenue product</b>: ek işçinin ürettiği çıktıdan firmanın elde ettiği ek gelir. Azalan verimler yüzünden düşer; MRP eğrisi firmanın emek talep eğrisidir.</li>
+<li>Emek talebinin esnekliği daha yüksektir eğer: ürünün talebi esnekse, emek diğer faktörlerle kolayca ikame edilebiliyorsa, ikame faktörlerin arzı esnekse, ücretler toplam maliyetin büyük kısmıysa, uzun dönemse.</li></ul>
+<h4>Ücret farklılıkları neden sürer?</h4>
+<p>Farklı yetenek ve beceriler (<b>human capital</b>), eksik hareketlilik, işlerin farklı nitelikleri (tehlike, sevimsizlik), piyasa aksaklıkları, toprak ve sermaye sahipliğindeki eşitsizlik.</p>
+<div class="tip"><b>Sınavda dikkat:</b> Tablo sorusu: MRP = MPP × P (tam rekabette MR = P). Ücret W ise, MRP ≥ W olan son işçiye kadar istihdam et.</div>` },
+
+  { code: "9.2", title: "Wage determination in imperfect markets", tr: "Eksik piyasalarda ücret", html: `
+<h4>Monopsony (alıcı tekeli)</h4>
+<ul><li>Belli bir emek türünün <b>tek işvereni</b> (ör. küçük kasabadaki tek fabrika, Box 9.4). Az sayıda işveren: oligopsony.</li>
+<li>Daha çok işçi almak için ücreti <b>herkese</b> artırması gerekir → <b>MC_L &gt; ücret (AC_L)</b>.</li>
+<li>MRP_L = MC_L noktasında istihdam eder, ücreti arz eğrisinden okur → tam rekabete göre <b>daha az işçi, daha düşük ücret</b>.</li></ul>
+<h4>Sendikalar (trade unions)</h4>
+<ul><li>Sendika tekel satıcı gibi davranır. İşveren mal piyasasında tam/tekelci rekabetteyse, ücret artışı <b>istihdamı düşürür</b>.</li>
+<li><b>Bilateral monopoly</b> (iki yanlı tekel): tekel sendika karşısında monopsonist işveren. Sendika ücreti monopsony düzeyinin üstüne <b>istihdamı düşürmeden</b> çıkarabilir (asgari ücret de benzer etki yapabilir). Tek bir denge yoktur; sonuç <b>toplu pazarlığa</b> (collective bargaining) bağlıdır: güç, tutum, beceri, firmanın kârlılığı, bilgi, yasal çerçeve. Tehditler (grev, lokavt) inandırıcı olmalıdır.</li></ul>
+<h4>Diğer aksaklıklar</h4>
+<ul><li>Eksik bilgi, süren dengesizlik, kâr maksimize etmeyen firmalar.</li>
+<li><b>Discrimination</b> (ırk, cinsiyet, yaş ayrımcılığı): piyasa gücü olan işveren ayrımcılık yapılan grubun ücretini düşürebilir. Eşit ücret yasası, ayrımcılık da yasaklanmazsa bu grubun istihdamını azaltabilir.</li>
+<li>Box 9.3: göç ve İngiltere işgücü piyasası; emek arzını artırır, bazı sektörlerde ücretleri etkileyebilir (IR için ilgili).</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Monopsonide, monopsony ücreti ile rekabetçi ücret arasına konan bir asgari ücret istihdamı <b>artırabilir</b>; bu, tam rekabet modelindeki sonucun tersidir.</div>` },
+
+  { code: "9.3", title: "Capital, profit, land and rent", tr: "Sermaye, kâr, toprak ve rant (9.3–9.4)", html: `
+<ul><li>Faktör <b>hizmetini kiralamak</b> (rent/hire) ile faktörü <b>satın almak</b> ayrı şeylerdir.</li>
+<li>Toprak ve sermaye hizmetleri de MRP = fiyat (tam rekabette) ya da MRP = MC (monopsonide) noktasına kadar kullanılır. Sermayenin MRP'si azalan verimler yüzünden düşer.</li>
+<li>Sermaye hizmetlerinin arzı kısa dönemde çok esnek değildir (makineler özeldir), uzun dönemde daha esnektir.</li></ul>
+<h4>Yatırım kararı: indirgeme (discounting)</h4>
+<p class="fm">Bugünkü değer PV = X / (1 + r)ⁿ</p>
+<ul><li>Yatırımın gelecekteki tüm getirileri piyasa faiziyle bugüne indirgenir. <b>PV &gt; yatırımın maliyeti</b> ise yatırım yapılmalıdır (net present value pozitif).</li>
+<li>Ya da yatırımın <b>getiri oranı</b> hesaplanıp başka yerde kazanılacak faizle karşılaştırılır.</li>
+<li>Riskli yatırım için piyasa faizinden <b>daha yüksek</b> getiri istenir.</li>
+<li>Faiz, <b>loanable funds</b> (ödünç verilebilir fonlar) arz ve talebiyle belirlenir. Fon arzı faize, tasarruf eğilimine ve beklentilere bağlıdır.</li>
+<li>Finansman: <b>iç kaynak</b> (dağıtılmayan kâr) ya da <b>dış kaynak</b> (borç, hisse senedi). Borsa hem <b>birincil piyasa</b> (yeni hisseler, şirkete fon) hem <b>ikincil piyasa</b>dır (var olan hisselerin alım satımı).</li></ul>
+<h4>Toprak ve rant</h4>
+<ul><li>Toprağın arzı <b>tamamen (ya da neredeyse) esnek değildir</b> (dikey). Talebi toprağın MRP'sidir. Rant arz–talep ile belirlenir, bu yüzden <b>tamamen talep tarafından</b> belirlenir.</li>
+<li>Toprağın fiyatı: kira getirisi (marjinal fayda) ile satın almak için borçlanmanın geri ödeme maliyeti (marjinal maliyet) eşitlenir. Faiz düşerse toprak fiyatı artar.</li>
+<li>Kişinin geliri sadece ücrete değil, sahip olduğu toprak ve sermayeye de bağlıdır: <b>gelir dağılımının</b> son parçası.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> PV örneği: 2 yıl sonra alınacak £121, faiz %10 → 121 / 1.1² = <b>£100</b>. Faiz yükselirse gelecek getirilerin bugünkü değeri <b>düşer</b>, yatırım azalır.</div>` },
+  ]
+}
+);
 
 </script>
 <script>
@@ -1070,7 +1416,615 @@ Q.t14 = [
 
 </script>
 <script>
+// Part C soruları, Bölüm 4-5. o[0] doğru cevap; uygulama şıkları karıştırır.
+TOPICS.push(
+  { id: "t15", code: "4.1", ch: 4, title: "Marginal utility theory", tr: "Marjinal fayda teorisi" },
+  { id: "t16", code: "4.2", ch: 4, title: "Demand under risk and uncertainty", tr: "Risk, belirsizlik ve sigorta" },
+  { id: "t17", code: "4.3", ch: 4, title: "Indifference analysis", tr: "Kayıtsızlık analizi" },
+  { id: "t18", code: "5.1", ch: 5, title: "Short-run production", tr: "Kısa dönem üretim" },
+  { id: "t19", code: "5.2", ch: 5, title: "Costs in the short run", tr: "Kısa dönem maliyetler" },
+  { id: "t20", code: "5.3", ch: 5, title: "Long-run production and costs", tr: "Uzun dönem ve ölçek ekonomileri" },
+  { id: "t21", code: "5.5", ch: 5, title: "Revenue and profit maximisation", tr: "Gelir ve kâr maksimizasyonu" },
+);
+
+Q.t15 = [
+{ l: 1, q: "The principle of diminishing marginal utility states that:",
+  o: ["The more of a good a person consumes, the less extra satisfaction each additional unit gives", "Total utility falls as more of a good is consumed", "The price of a good falls as more is consumed", "Utility cannot be measured"],
+  s: "<b>Marginal utility</b> (MU), bir birim daha tüketmenin verdiği <b>ek</b> tatmindir. Bir maldan ne kadar çok tüketirsen, her ek birimin verdiği tatmin <b>azalır</b> (ilk dilim pizza ile beşinci dilim). Toplam fayda (TU) ise MU pozitif olduğu sürece hâlâ <b>artar</b>, sadece daha yavaş; bu yüzden 'toplam fayda düşer' yanlıştır." },
+{ l: 1, q: "According to marginal utility theory, a rational consumer will buy a good up to the point where:",
+  o: ["Marginal utility equals price", "Total utility equals price", "Marginal utility is zero", "Total utility is at its maximum"],
+  s: "Tüketici bir birim daha almanın faydasını (MU, para cinsinden) fiyatıyla karşılaştırır. MU &gt; P ise o birimi almak <b>tüketici rantını</b> artırır. MU &lt; P ise artık almaz. Bu yüzden <b>MU = P</b> olana kadar alır. MU = 0 noktası, mal bedava olsaydı tüketeceği miktardır (toplam faydanın en yüksek olduğu nokta)." },
+{ l: 1, q: "Total utility from a good is at its maximum when:",
+  o: ["Marginal utility is zero", "Marginal utility is at its maximum", "Marginal utility equals total utility", "Marginal utility is negative"],
+  s: "MU, toplam faydadaki <b>değişimdir</b>. MU pozitifken TU artar, MU negatifken TU düşer. Bu yüzden TU, <b>MU = 0</b> olduğu noktada en yüksektir (bir birim daha hiçbir şey eklemiyor). Örneğin çok susamışken içilen su: belli bir bardaktan sonra bir bardak daha hiç tatmin vermez." },
+{ l: 2, q: "A good costs £4. A consumer's marginal utility (in £) from successive units is 10, 8, 6, 4, 2. How much consumer surplus does she get if she behaves rationally?",
+  o: ["£12", "£30", "£16", "£10"],
+  s: "Rasyonel tüketici MU ≥ P olduğu sürece alır: MU'lar 10, 8, 6, 4 → <b>4 birim</b> (5. birimin MU'su 2 &lt; 4).<br><b>Consumer surplus</b> = her birim için (MU − P) toplamı:<br>(10 − 4) + (8 − 4) + (6 − 4) + (4 − 4) = 6 + 4 + 2 + 0 = <b>£12</b>.<br>£30 toplam faydadır (10+8+6+4+2), rant değildir. £16, 4 birimin toplam ödemesidir." },
+{ l: 2, q: "Good A costs £4 and its marginal utility is 20. Good B costs £3 and its marginal utility is 30. To increase total utility, the consumer should:",
+  o: ["Buy more B and less A", "Buy more A and less B", "Keep the same combination", "Buy more of both goods with the same income"],
+  s: "<b>Equi-marginal principle</b>: harcanan son liranın her malda aynı faydayı vermesi gerekir (MUa/Pa = MUb/Pb).<br>A: 20 / 4 = <b>5</b> fayda/£<br>B: 30 / 3 = <b>10</b> fayda/£<br>B'ye harcanan her lira daha çok fayda veriyor → paranı A'dan B'ye kaydır. B'den çok aldıkça MU_B düşer, A'dan az aldıkça MU_A artar, oranlar eşitlenene kadar. Aynı gelirle ikisinden de fazla almak mümkün değildir." },
+{ l: 2, q: "Water is essential for life, yet cheap; diamonds are not essential, yet expensive. Marginal utility theory explains this by saying that:",
+  o: ["Price reflects marginal utility, and water is so plentiful that its marginal utility is low", "Price reflects total utility, which is higher for diamonds", "Water has no utility because it is cheap", "Diamonds have higher costs, so utility is irrelevant"],
+  s: "Bu <b>su–elmas paradoksudur</b> (Box 4.2, marjinal fayda devrimi). Suyun <b>toplam</b> faydası çok yüksektir ama o kadar bol tüketiriz ki <b>bir bardak daha</b> suyun faydası (MU) çok düşüktür. Elmas çok kıt olduğu için ek bir elmasın MU'su yüksektir. Fiyatı belirleyen <b>marjinal</b> faydadır, toplam fayda değil." },
+{ l: 3, q: "A consumer has £12 to spend. Good A costs £2 and good B costs £1. Marginal utilities: A = 20, 16, 12, 8 (1st to 4th unit); B = 10, 8, 6, 4, 3 (1st to 5th unit). Which combination maximises her utility?",
+  o: ["4 units of A and 4 units of B", "3 units of A and 6 units of B", "6 units of A and 0 units of B", "2 units of A and 8 units of B"],
+  s: "Her birim için <b>MU/P</b> (bir sterlin başına fayda) hesapla:<br>A: 20/2 = 10, 16/2 = 8, 12/2 = 6, 8/2 = 4<br>B: 10/1 = 10, 8, 6, 4, 3<br>En yüksek orandan başlayarak harca: 10'lar (A1 + B1 = £3), 8'ler (A2 + B2, toplam £6), 6'lar (A3 + B3, toplam £9), 4'ler (A4 + B4, toplam <b>£12</b>). Para bitti.<br>Sonuç: <b>4 A, 4 B</b>; kontrol 4×£2 + 4×£1 = £12 ✓, ve MU_A/P_A = 8/2 = 4 = MU_B/P_B = 4/1 ✓ (eşit marjinal ilke). Diğer seçenekler de £12 tutar ama daha düşük orandaki birimleri alıp daha yüksekleri bırakır." },
+{ l: 3, q: "Why will market demand for a good tend to be more price elastic if it has many close substitutes, according to marginal utility theory?",
+  o: ["Because marginal utility falls only slowly as consumption rises, as people readily switch to the good when its price falls", "Because marginal utility falls very quickly when there are substitutes", "Because total utility is higher for goods with substitutes", "Because substitutes make the demand curve vertical"],
+  s: "Kitabın özeti (4.1, madde 6): talep esnekliği, MU'nun ne kadar <b>hızlı azaldığına</b> bağlıdır. Yakın ikameler varsa, fiyat düştüğünde insanlar ikamelerden bu mala kolayca geçer; daha çok tükettikçe faydası çok az düşer (çünkü ikamelerin yerini alıyor). MU yavaş düşerse fiyattaki küçük bir düşüş, miktarda büyük bir artışa yol açar → talep <b>esnektir</b>. Hiç ikamesi olmayan malda MU hızla düşer → talep esnek değildir." },
+{ l: 3, q: "Marginal utility theory measures utility in money. A rich person and a poor person both pay £5 for the same cinema ticket. What weakness of this approach does the example show?",
+  o: ["It assumes money has constant marginal utility, but the poor person probably gives up more utility by spending £5", "It shows that both people get exactly the same utility from the film", "It proves that rich people are irrational", "It shows that price does not affect demand"],
+  s: "Faydayı parayla ölçmek hayali 'util' biriminden kurtarır ama bir varsayım getirir: <b>paranın marjinal faydası sabittir</b>. Gerçekte gelir arttıkça paranın marjinal faydası <b>azalır</b>: £5 yoksul birine zengin birinden çok daha değerlidir. Yani iki kişi aynı fiyatı ödese de vazgeçtikleri fayda farklıdır. Kitap bu yüzden daha tatmin edici bir yaklaşım olarak mallar arası seçime (eşit marjinal ilke, kayıtsızlık analizi) geçer." },
+];
+
+Q.t16 = [
+{ l: 1, q: "A person who prefers a certain £50 to a 50% chance of winning £100 (and a 50% chance of nothing) is:",
+  o: ["Risk averse", "A risk lover", "Risk neutral", "Irrational"],
+  s: "Bahsin <b>beklenen değeri</b> = 0.5 × £100 + 0.5 × £0 = £50, yani kesin £50 ile aynıdır. Aynı beklenen değerde <b>kesin</b> olanı tercih eden kişi <b>risk averse</b>'tür (riskten kaçınan). Bahsi tercih eden risk lover, ikisine kayıtsız olan risk neutral olurdu. Kitaba göre riskten kaçınmak rasyoneldir (azalan marjinal fayda)." },
+{ l: 1, q: "Insurance companies can take on risks that individuals want to avoid mainly because of:",
+  o: ["The law of large numbers: across many independent policies, total losses become predictable", "Government guarantees on all claims", "The fact that accidents never happen", "Higher marginal utility of money for insurance companies"],
+  s: "Tek bir ev sahibinin evinin yanıp yanmayacağı <b>öngörülemez</b>. Ama 100,000 evden yaklaşık kaçının yanacağı çok <b>öngörülebilirdir</b>: <b>law of large numbers</b> (büyük sayılar yasası). Şirket riski çok sayıda poliçeye yayar, toplam ödemeleri tahmin edip primleri buna göre belirler. Koşul: risklerin birbirinden <b>bağımsız</b> olması." },
+{ l: 1, q: "A bet gives a 50% chance of winning £100 and a 50% chance of losing £60. What is its expected value?",
+  o: ["+£20", "+£40", "+£80", "−£10"],
+  s: "<b>Expected value</b> = Σ (olasılık × sonuç)<br>= 0.5 × (+£100) + 0.5 × (−£60) = £50 − £30 = <b>+£20</b>.<br>Bahis ortalamada kazandırıyor. Ama riskten kaçınan biri yine de reddedebilir: £60 kaybetmenin acısı ona daha büyük gelebilir (beklenen <b>fayda</b> beklenen paradan farklıdır). +£40, kaybı hesaba katmayan (100 − 60) bir hatadır." },
+{ l: 2, q: "Why is it rational for most people to be risk averse?",
+  o: ["Because of the diminishing marginal utility of income: losing £100 reduces utility more than gaining £100 increases it", "Because people always overestimate the probability of losses", "Because money has increasing marginal utility", "Because insurance is compulsory"],
+  s: "Gelir arttıkça her ek liranın faydası azalır (<b>diminishing marginal utility of income</b>). Bu yüzden £100 kazanmak, son £100'ünü kaybetmekten <b>daha az</b> fayda değişimi yaratır. Adil bir bahiste (beklenen değer 0) bile beklenen fayda düşer. Rasyonel kişi bu yüzden riskten kaçınır ve kesinlik için para (sigorta primi) ödemeye razıdır. Kumar, ancak kumarın kendisi zevk veriyorsa rasyonel olabilir." },
+{ l: 2, q: "People who know they are high-risk drivers are more likely to buy comprehensive car insurance, but the insurer cannot tell them apart from low-risk drivers. This is:",
+  o: ["Adverse selection", "Moral hazard", "The law of large numbers", "Risk neutrality"],
+  s: "<b>Adverse selection</b> (ters seçim, Box 4.5): sigortaya en çok ihtiyaç duyanlar (riski yüksek olanlar) daha çok başvurur ve sigortacı onları ayırt edemez (<b>asimetrik bilgi</b>). Prim ortalama riske göre belirlenirse düşük riskliler için pahalı olur, onlar ayrılır, havuz daha da riskli hale gelir. <b>Moral hazard</b> ise sigortalandıktan <b>sonra</b> davranışın değişmesidir." },
+{ l: 2, q: "After insuring her phone against loss, Ayşe becomes careless and often leaves it on café tables. This is an example of:",
+  o: ["Moral hazard", "Adverse selection", "Risk loving", "Diminishing marginal utility"],
+  s: "<b>Moral hazard</b> (ahlaki tehlike): sigorta kişiyi kayıptan koruduğu için kişi <b>daha az dikkatli</b> davranır, bu da kayıp olasılığını artırır. Sigortacı onun davranışını tam izleyemez (asimetrik bilgi). Şirketler bu yüzden <b>muafiyet</b> (excess: ilk £50'yi sen ödersin) koyar ya da hasarsızlık indirimi verir, böylece kişi kaybın bir kısmını yine kendisi taşır." },
+{ l: 3, q: "There is a 1% chance that a house's contents (worth £20,000) will be stolen this year. A risk-averse owner pays an insurance premium of £250. Which statement is correct?",
+  o: ["The expected loss is £200; she pays more than this because she values certainty, and the insurer can cover costs and profit by pooling many such policies", "The expected loss is £250, so the premium is exactly fair", "She is irrational, because she pays more than the expected loss", "The expected loss is £20,000, so the premium is very cheap"],
+  s: "Beklenen kayıp = 0.01 × £20,000 = <b>£200</b>.<br>Prim (£250) beklenen kayıptan £50 fazla. Bu irrasyonel değil: riskten kaçınan kişi için <b>£20,000'lik bir kayıp ihtimalinden kurtulmak</b>, ortalamada £50 ödemeye değer (büyük kaybın fayda kaybı çok büyük). Sigortacı ise binlerce bağımsız poliçede ortalama £200 öder; farktan yönetim maliyetlerini ve kârını karşılar. Böylece iki taraf da kazanır." },
+{ l: 3, q: "Why might insurance companies refuse to cover, or charge very high premiums for, flood damage in a region where floods affect most houses at the same time?",
+  o: ["The risks are not independent, so the law of large numbers does not make total losses predictable", "Because flood victims are risk lovers", "Because moral hazard is impossible with floods", "Because the expected value of flood damage is zero"],
+  s: "Büyük sayılar yasası, risklerin <b>bağımsız</b> olmasını gerektirir: bir evin yanması diğerinin yanma ihtimalini değiştirmemelidir. Sel ise bölgedeki evlerin <b>çoğunu aynı anda</b> vurur. Şirket riski poliçelere yayamaz: kötü bir yılda herkes aynı anda tazminat ister ve şirket batabilir. Aynı sorun deprem, salgın ve savaş için de geçerlidir; bu yüzden devletler bu tür riskleri sıkça üstlenir (ör. DASK, terör sigortası havuzları)." },
+{ l: 3, q: "A risk-averse person is offered a fair bet: a 50% chance of winning £1,000 and a 50% chance of losing £1,000. Why will she refuse it?",
+  o: ["The utility lost from losing £1,000 is greater than the utility gained from winning £1,000, so the bet lowers her expected utility", "Because the expected value of the bet is negative", "Because the probabilities are unknown", "Because her marginal utility of income is rising"],
+  s: "Bahsin beklenen <b>değeri</b> sıfırdır (0.5 × 1000 − 0.5 × 1000 = 0), yani 'adil' bir bahistir. Ama gelirin marjinal faydası azalan olduğu için:<br>• £1,000 kazanmak faydayı biraz artırır (ek paralar daha az değerli).<br>• £1,000 kaybetmek faydayı daha çok azaltır (kaybedilen paralar daha değerli).<br>Ortalaması alındığında beklenen <b>fayda</b> düşer, bu yüzden reddeder. Olasılıklar bilindiği için bu bir <b>risk</b> durumudur, belirsizlik değil." },
+];
+
+Q.t17 = [
+{ l: 1, q: "An indifference curve shows:",
+  o: ["All combinations of two goods that give a consumer the same level of satisfaction", "All combinations of two goods that a consumer can afford", "How demand changes when income changes", "The prices of two goods"],
+  s: "<b>Indifference curve</b> (kayıtsızlık eğrisi): tüketicinin aralarında <b>kayıtsız</b> olduğu, yani aynı tatmini veren tüm sepetler. Faydayı <b>ölçmeye gerek yoktur</b>, sadece sıralama yeterlidir. Tüketicinin parasının yettiği bileşimleri gösteren çizgi <b>bütçe doğrusudur</b>." },
+{ l: 1, q: "The slope of a budget line (with good X on the horizontal axis) is equal to:",
+  o: ["Px / Py", "Py / Px", "MUx", "Income / Px"],
+  s: "Bütçe doğrusu boyunca bir birim daha X almak için Px kadar para gerekir; bu para Px/Py birim Y'ye denk gelir. Bu yüzden eğim (mutlak değer) = <b>Px / Py</b>, yani göreli fiyattır. Gelir / Px ise doğrunun yatay ekseni kestiği noktadır (hepsi X'e harcanırsa)." },
+{ l: 1, q: "If a consumer's income rises and prices stay the same, the budget line will:",
+  o: ["Shift outwards parallel to the original line", "Pivot outwards on the Y axis", "Become steeper", "Shift inwards"],
+  s: "Gelir artınca her iki maldan da daha fazla alınabilir ama <b>göreli fiyat</b> (Px/Py) değişmez. Bu yüzden eğim aynı kalır ve doğru <b>paralel olarak dışarı</b> kayar. Bir malın fiyatı değişseydi doğru diğer malın ekseni üzerinde <b>dönerdi</b> (pivot)." },
+{ l: 2, q: "A consumer has £60. Good X costs £3 and good Y costs £2. Where does the budget line meet the axes?",
+  o: ["20 units of X (horizontal axis) and 30 units of Y (vertical axis)", "30 units of X and 20 units of Y", "180 units of X and 120 units of Y", "20 units of X and 20 units of Y"],
+  s: "Tüm gelir X'e harcanırsa: £60 / £3 = <b>20 birim X</b> (yatay eksen).<br>Tüm gelir Y'ye harcanırsa: £60 / £2 = <b>30 birim Y</b> (dikey eksen).<br>Eğim = 30/20 = 1.5 = Px/Py = 3/2 ✓. Bu iki nokta arasındaki düz çizgi tüketicinin alabileceği tüm bileşimlerdir. İkinci seçenek fiyatları ters kullanır." },
+{ l: 2, q: "Why are indifference curves usually convex to the origin?",
+  o: ["Because of a diminishing marginal rate of substitution: the more X a consumer has, the less Y she will give up for an extra unit of X", "Because prices rise as more is bought", "Because of increasing marginal utility", "Because the budget line is straight"],
+  s: "<b>Marginal rate of substitution</b> (MRS) = bir birim daha X için vazgeçmeye razı olunan Y miktarı = eğrinin eğimi = MUx/MUy. Çok Y'si ve az X'i olan biri, bir X için çok Y verir; X arttıkça ve Y azaldıkça, X'in değeri gözünde düşer, Y'ninki artar → her ek X için <b>daha az</b> Y verir. Eğim giderek yatıklaşır: eğri orijine göre <b>dışbükeydir</b>." },
+{ l: 2, q: "At a consumer's current choice, MUx / MUy = 2, while Px / Py = 1.5. To increase utility, she should:",
+  o: ["Buy more X and less Y", "Buy more Y and less X", "Stay where she is, because she is at the optimum", "Spend less in total"],
+  s: "Optimumda <b>MUx/MUy = Px/Py</b> olmalı (kayıtsızlık eğrisi bütçe doğrusuna teğet). Burada MUx/MUy = 2 &gt; 1.5: tüketici bir X'i 2 Y değerinde görüyor ama piyasada X sadece 1.5 Y'ye mal oluyor. X'i 'ucuz' buluyor → <b>daha çok X</b> almalı. X arttıkça MUx düşer, Y azaldıkça MUy artar, oran 1.5'e inene kadar. (Bu, eşit marjinal ilkenin aynısıdır.)" },
+{ l: 3, q: "The price of good X falls. What happens to the budget line, and what is the line joining the new optimum points called?",
+  o: ["It pivots outwards on the Y axis; the optimum points trace the price–consumption curve", "It shifts outwards parallel; the points trace the income–consumption curve", "It pivots inwards on the X axis; the points trace the demand curve", "It does not move; only the indifference curves shift"],
+  s: "X ucuzlayınca, tüm gelir X'e harcandığında alınabilecek X artar ama Y'nin fiyatı değişmediği için Y eksenindeki kesişim <b>aynı kalır</b>. Doğru, Y ekseni üzerinde <b>dışarı döner</b> (pivot). Her fiyat için yeni teğet noktaları birleştiren çizgi <b>price–consumption curve</b>'dür; bundan X'in <b>talep eğrisi</b> türetilir. Paralel kayma gelir değişimidir (income–consumption curve)." },
+{ l: 3, q: "A Giffen good is one for which:",
+  o: ["It is an inferior good whose income effect is larger than its substitution effect, so a price rise increases quantity demanded", "Income and substitution effects both reduce quantity demanded when price rises", "Demand is perfectly elastic", "It is a luxury good with income elasticity above 1"],
+  s: "Fiyat artışında:<br>• <b>İkame etkisi</b> her zaman miktarı düşürür (mal göreli olarak pahalandı).<br>• <b>Gelir etkisi</b>: normal malda miktarı düşürür; <b>düşük</b> malda miktarı <b>artırır</b> (fakirleşen kişi ucuz mala daha çok yönelir).<br><b>Giffen good</b>: gelir etkisi ikame etkisinden <b>büyük</b> olan düşük mal. Sonuçta fiyat artınca talep edilen miktar <b>artar</b> (talep eğrisi yukarı eğimli). Klasik örnek: çok yoksul hanelerin temel gıdası (19. yüzyıl İrlanda patatesi). Çok nadirdir." },
+{ l: 3, q: "The price of an inferior good (which is NOT a Giffen good) falls. What are the income and substitution effects on the quantity demanded?",
+  o: ["Substitution effect increases quantity; income effect reduces it; overall quantity rises because the substitution effect is larger", "Both effects increase quantity", "Both effects reduce quantity", "Substitution effect reduces quantity; income effect increases it; overall quantity falls"],
+  s: "Fiyat düşünce:<br>• <b>İkame etkisi</b>: mal göreli olarak ucuzladı → miktar <b>artar</b> (her mal için).<br>• <b>Gelir etkisi</b>: reel gelir arttı; mal <b>düşük</b> olduğu için zenginleşen tüketici ondan <b>daha az</b> ister → miktar <b>azalır</b>.<br>Giffen olmayan düşük malda ikame etkisi daha büyüktür → toplamda miktar <b>artar</b>, talep eğrisi normal biçimde aşağı eğimlidir. Normal malda ise iki etki de aynı yöndedir (ikisi de miktarı artırır)." },
+];
+
+Q.t18 = [
+{ l: 1, q: "In economics, the short run is a period in which:",
+  o: ["At least one factor of production is fixed", "All factors of production are variable", "Firms cannot change output at all", "Technology changes"],
+  s: "<b>Short run</b>: en az bir faktör (genelde bina, makine) <b>sabittir</b>; firma sadece değişken faktörleri (emek, ham madde) değiştirerek üretimi ayarlar. <b>Long run</b>: tüm faktörler değişkendir. Süre takvimle değil, sektöre göre tanımlanır: bir kafe için birkaç ay, bir elektrik santrali için yıllar. Teknolojinin değiştiği dönem 'very long run'dır." },
+{ l: 1, q: "The law of diminishing marginal returns states that:",
+  o: ["When more of a variable factor is added to a fixed factor, eventually each extra unit adds less to output", "When all factors are doubled, output less than doubles", "Total output falls as soon as more workers are hired", "Costs fall as output rises"],
+  s: "Sabit bir faktöre (ör. tek bir fırın, Box 5.2) <b>değişken</b> faktör (işçi) eklendikçe, bir noktadan sonra her ek işçinin üretime katkısı (<b>MPP</b>) azalır: fırın etrafında kalabalık olur. Toplam üretim yine artabilir, sadece daha yavaş. 'Tüm faktörler iki katına çıkınca' durumu ölçeğe göre getiridir (uzun dönem), farklı bir kavramdır." },
+{ l: 1, q: "Average physical product of labour (APP) is calculated as:",
+  o: ["Total physical product ÷ number of workers", "Change in total product ÷ change in workers", "Total physical product × wage", "Number of workers ÷ total product"],
+  s: "<b>APP = TPP / L</b>: işçi başına ortalama üretim. <b>MPP = ΔTPP / ΔL</b>: bir işçi daha eklemenin getirdiği ek üretim. Örnek: 4 işçi 60 birim üretiyorsa APP = 15." },
+{ l: 2, q: "Workers (1 to 5) produce total output of 10, 25, 45, 60, 70 units. With which worker do diminishing marginal returns set in?",
+  o: ["The 4th worker", "The 2nd worker", "The 3rd worker", "The 5th worker"],
+  s: "MPP = toplam üretimdeki artış:<br>1. işçi: 10, 2. işçi: 25 − 10 = 15, 3. işçi: 45 − 25 = 20, 4. işçi: 60 − 45 = <b>15</b>, 5. işçi: 70 − 60 = 10.<br>MPP 3. işçiye kadar <b>artıyor</b> (uzmanlaşma), 4. işçiyle ilk kez <b>düşüyor</b>. Azalan verimler 4. işçiyle başlar. Toplam üretim yine de artmaya devam ediyor; azalan verim, toplam üretimin düşmesi demek değildir." },
+{ l: 2, q: "When marginal physical product (MPP) is above average physical product (APP), APP must be:",
+  o: ["Rising", "Falling", "At its minimum", "Zero"],
+  s: "Ortalama–marjinal ilişkisi (Box 5.3): sınıf ortalaması 60 iken gelen yeni öğrencinin notu 80 ise ortalama <b>yükselir</b>; 40 ise düşer. Aynı şekilde ek işçinin üretimi (MPP) ortalamanın (APP) üstündeyse APP <b>artar</b>. MPP, APP'nin altına inince APP düşmeye başlar. Bu yüzden MPP eğrisi APP eğrisini APP'nin <b>en yüksek</b> noktasından keser." },
+{ l: 2, q: "Total physical product is at its maximum when:",
+  o: ["Marginal physical product is zero", "Marginal physical product is at its maximum", "Average physical product is at its maximum", "Marginal physical product equals average physical product"],
+  s: "MPP, toplam üretimdeki <b>değişimdir</b>. MPP pozitifken TPP artar; MPP negatifse (çok fazla işçi birbirinin işine engel oluyor) TPP düşer. Bu yüzden TPP, <b>MPP = 0</b> olduğunda en yüksektir. MPP = APP olan nokta ise APP'nin en yüksek noktasıdır, TPP'nin değil." },
+{ l: 3, q: "Workers (1 to 5) produce total output of 10, 25, 45, 60, 70 units. Why does average product fall when the 5th worker is hired?",
+  o: ["Because the 5th worker's marginal product (10) is below the average product of the first four (15)", "Because total output falls", "Because the 5th worker's marginal product is negative", "Because average product is always falling"],
+  s: "4 işçide APP = 60/4 = <b>15</b>. 5. işçinin MPP'si = 70 − 60 = <b>10</b>.<br>Yeni işçinin katkısı ortalamanın <b>altında</b> olduğu için ortalamayı aşağı çeker: 5 işçide APP = 70/5 = <b>14</b>.<br>Toplam üretim düşmüyor (60 → 70), MPP de negatif değil. Bu, 'MPP &lt; APP ise APP düşer' kuralının sayısal örneğidir." },
+{ l: 3, q: "Thomas Malthus predicted that population growth would lead to falling food output per person. Which concept was his argument based on, and why did his prediction largely fail in industrialised countries?",
+  o: ["Diminishing returns to labour on a fixed supply of land; technological progress raised output from each hectare", "Increasing returns to scale; governments banned population growth", "Diminishing marginal utility; people ate less food", "Economies of scale; farms became too large"],
+  s: "Malthus (Box 5.1): toprak <b>sabit</b> bir faktördür. Nüfus (emek) arttıkça her ek çiftçinin ürettiği gıda azalır: <b>azalan verimler</b>. Bu yüzden kişi başı gıda düşecek ve kıtlık nüfusu sınırlayacaktı ('dismal science'). Tahminin büyük ölçüde tutmamasının sebebi <b>teknolojik ilerlemedir</b> (gübre, makine, yeni tohumlar): aynı topraktan çok daha fazla ürün alındı. Bu, toplam üretim eğrisinin yukarı kaymasıdır. Azalan verimler, teknoloji sabitken geçerlidir." },
+{ l: 3, q: "A firm doubles ALL of its inputs (labour, machines and buildings) and its output rises by 80%. This is an example of:",
+  o: ["Decreasing returns to scale", "Diminishing marginal returns", "Increasing returns to scale", "Constant returns to scale"],
+  s: "<b>Tüm</b> girdiler değiştiği için bu bir <b>uzun dönem</b> durumudur ve <b>ölçeğe göre getiri</b> ile ölçülür. Girdiler %100 arttı, çıktı sadece %80 arttı → çıktı girdilerden <b>daha az</b> oranda arttı → <b>decreasing returns to scale</b>. 'Diminishing marginal returns' ise sadece <b>bir</b> faktör değişirken diğerleri sabitken (kısa dönem) ortaya çıkar. İkisini karıştırmak sınavda en sık yapılan hatadır." },
+];
+
+Q.t19 = [
+{ l: 1, q: "Which of the following is most likely to be a fixed cost in the short run?",
+  o: ["Rent on the factory building", "Raw materials", "Electricity used by machines", "Wages of temporary workers paid per hour"],
+  s: "<b>Fixed costs</b> (sabit maliyetler) kısa dönemde üretimle <b>değişmez</b>: hiçbir şey üretmesen bile ödersin (kira, sigorta, kredi faizi). Ham madde, makinelerin kullandığı elektrik ve saatlik ücretler üretim arttıkça artar: <b>variable costs</b> (değişken maliyetler)." },
+{ l: 1, q: "Marginal cost is:",
+  o: ["The extra cost of producing one more unit of output", "Total cost divided by output", "Fixed cost plus variable cost", "The cost of the first unit produced"],
+  s: "<b>MC = ΔTC / ΔQ</b>: bir birim daha üretmenin getirdiği <b>ek</b> maliyet. Sabit maliyetler değişmediği için MC aynı zamanda değişken maliyetteki artıştır (ΔTVC/ΔQ). TC / Q ise <b>average cost</b> (AC), TFC + TVC ise toplam maliyettir." },
+{ l: 1, q: "As output rises, average fixed cost (AFC):",
+  o: ["Falls continuously", "Rises continuously", "Stays constant", "First falls, then rises"],
+  s: "AFC = TFC / Q. Toplam sabit maliyet aynı kalırken daha fazla birime bölünür, bu yüzden üretim arttıkça AFC <b>sürekli düşer</b> (ama sıfıra hiç ulaşmaz). Örnek: £1,000 kira, 100 birimde birim başına £10, 1,000 birimde £1. 'Önce düşer sonra artar' AVC ve AC için geçerlidir." },
+{ l: 2, q: "The owner of a small shop could earn £30,000 a year working for another firm. In the economist's measure of the shop's costs, this £30,000 is:",
+  o: ["An implicit cost (opportunity cost of a factor the firm already owns)", "An explicit cost", "Not a cost, because no money is paid", "A variable cost paid to suppliers"],
+  s: "Ekonomistler maliyeti <b>fırsat maliyeti</b> ile ölçer. Firmanın sahip olduğu faktörleri (sahibinin kendi emeği, kendi binası, kendi sermayesi) kullanmak için para ödenmez ama yine de bir maliyeti vardır: o faktörün en iyi alternatifte kazanabileceği. Buna <b>implicit cost</b> (örtük maliyet) denir. Dışarıdan alınan faktörlere ödenen para ise <b>explicit cost</b>'tur. Muhasebeciler örtük maliyeti saymaz." },
+{ l: 2, q: "A firm has total fixed cost of £100. Total variable cost is £40 for 1 unit, £70 for 2, £110 for 3 and £170 for 4. What are the average cost and the marginal cost of the 4th unit?",
+  o: ["AC = £67.50, MC = £60", "AC = £42.50, MC = £60", "AC = £67.50, MC = £170", "AC = £90, MC = £60"],
+  s: "4 birimde: TC = TFC + TVC = 100 + 170 = <b>£270</b>.<br>AC = TC / Q = 270 / 4 = <b>£67.50</b>.<br>MC (4. birim) = TVC(4) − TVC(3) = 170 − 110 = <b>£60</b> (sabit maliyet MC'ye girmez).<br>£42.50 sadece AVC'dir (170/4), £170 toplam değişken maliyettir." },
+{ l: 2, q: "If marginal cost is below average cost, then average cost must be:",
+  o: ["Falling", "Rising", "At its minimum", "Equal to marginal cost"],
+  s: "Ortalama–marjinal kuralı maliyetlere de uygulanır: ek birim ortalamadan <b>ucuza</b> üretiliyorsa ortalamayı aşağı çeker → AC <b>düşer</b>. MC, AC'nin üstüne çıkınca AC yükselmeye başlar. Bu yüzden MC eğrisi AC (ve AVC) eğrisini en <b>düşük</b> noktasından keser." },
+{ l: 3, q: "A café earns revenue of £200,000 a year. It pays £150,000 in wages, rent and supplies. The owner could earn £40,000 elsewhere, and the £100,000 she invested could earn £15,000 a year in a bank. What are the accounting profit and the economic (supernormal) profit?",
+  o: ["Accounting profit £50,000; economic profit −£5,000 (a loss)", "Accounting profit £50,000; economic profit £50,000", "Accounting profit £10,000; economic profit −£5,000", "Accounting profit −£5,000; economic profit £50,000"],
+  s: "<b>Muhasebe kârı</b> = gelir − açık maliyetler = 200,000 − 150,000 = <b>£50,000</b>.<br><b>Ekonomik kâr</b> = gelir − açık − örtük maliyetler:<br>Örtük maliyetler: sahibinin vazgeçtiği maaş £40,000 + sermayesinin vazgeçilen faizi £15,000 = £55,000.<br>200,000 − 150,000 − 55,000 = <b>−£5,000</b>.<br>Kâğıt üstünde kâr var ama sahibi kendi emeğini ve parasını başka yerde kullansa £5,000 daha iyi durumda olurdu: <b>normal kârı</b> bile karşılamıyor. Uzun dönemde işi kapatması rasyonel olabilir." },
+{ l: 3, q: "A firm bought raw materials for £10 a tonne last year. Their market price is now £15 a tonne. What is the opportunity cost of using a tonne in production today?",
+  o: ["£15, because that is what the firm gives up by not selling it now", "£10, the price actually paid", "£0, because it has already been paid for", "£5, the difference"],
+  s: "Box 5.5 (geçmiş maliyetleri kullanma hatası): karar verirken önemli olan <b>bugünkü fırsat maliyetidir</b>, geçmişte ödenen fiyat (historic cost) değil. Firma bu ham maddeyi kullanmak yerine bugün piyasada <b>£15</b>'ten satabilirdi; kullanınca bu £15'ten vazgeçiyor. £10 ile hesaplarsa maliyeti olduğundan düşük görür ve kârsız işleri kârlı sanabilir." },
+{ l: 3, q: "A firm pays each worker £60 a day. Labour is the only variable factor. When the marginal product of an extra worker is 20 units a day, the marginal cost of output is £3. If diminishing returns reduce the marginal product to 15 units, what is the marginal cost now?",
+  o: ["£4", "£3", "£2.25", "£45"],
+  s: "Ek işçi £60'a mal olur ve MPP kadar ek çıktı üretir. Bu yüzden bir birim daha çıktının maliyeti:<br><b>MC = W / MPP</b><br>MPP = 20 iken: 60 / 20 = £3 ✓<br>MPP = 15 iken: 60 / 15 = <b>£4</b>.<br>Bu, kısa dönem maliyetlerin üretimden nasıl türetildiğini gösterir: <b>MPP düşerken MC yükselir</b>. Azalan verimler, MC eğrisinin yukarı eğimli olmasının sebebidir." },
+];
+
+Q.t20 = [
+{ l: 1, q: "In the long run:",
+  o: ["All factors of production are variable", "At least one factor is fixed", "Only labour can be changed", "Technology must change"],
+  s: "<b>Long run</b>: firmanın yeni fabrika kurmak, yeni makine almak, yer ve üretim tekniği değiştirmek için yeterli zamanı vardır; <b>tüm</b> faktörler değişkendir. Bu yüzden uzun dönemde <b>sabit maliyet yoktur</b>. Teknolojinin de değiştiği dönem 'very long run' olarak ayrıca tanımlanır." },
+{ l: 1, q: "Economies of scale occur when:",
+  o: ["Average cost per unit falls as the scale of production increases", "Total cost falls as output increases", "A firm's profits rise because prices rise", "Marginal cost rises as more is produced in the short run"],
+  s: "<b>Economies of scale</b>: üretim ölçeği (firmanın büyüklüğü) arttıkça <b>birim maliyetin</b> (LRAC) düşmesi. Toplam maliyet tabii ki artar, düşen birim başına maliyettir. Kısa dönemde artan MC, azalan verimlerle ilgilidir, ölçekle değil." },
+{ l: 1, q: "A firm increases all its inputs by 10% and output rises by 15%. This shows:",
+  o: ["Increasing returns to scale", "Decreasing returns to scale", "Constant returns to scale", "Diminishing marginal returns"],
+  s: "Tüm girdiler %10 arttı, çıktı %15 arttı: çıktı girdilerden <b>daha fazla</b> oranda arttı → <b>increasing returns to scale</b>. Aynı oranda (%10) artsaydı constant, daha az artsaydı decreasing returns to scale olurdu. Ölçeğe göre artan getiri, ölçek ekonomilerinin bir kaynağıdır." },
+{ l: 2, q: "A large car plant divides production into many small tasks, with each worker becoming skilled at one task. Which source of economies of scale is this?",
+  o: ["Specialisation and the division of labour", "The container principle", "Financial economies", "External economies of scale"],
+  s: "<b>Specialisation and division of labour</b> (uzmanlaşma ve işbölümü): büyük firma işi küçük parçalara bölebilir; her işçi bir işte ustalaşır, iş değiştirirken zaman kaybedilmez, özel makineler kullanılabilir. Küçük firmada bir kişi birçok işi birden yapmak zorundadır. Adam Smith'in iğne fabrikası örneği bunu anlatır." },
+{ l: 2, q: "Which of the following is a likely cause of diseconomies of scale?",
+  o: ["Management becomes harder to coordinate, and communication and worker motivation suffer in very large firms", "Bulk buying of raw materials", "Cheaper borrowing for large firms", "Using larger, more efficient machines"],
+  s: "<b>Diseconomies of scale</b>: firma çok büyüyünce birim maliyet yeniden <b>yükselir</b>. Nedenler: yönetim kademeleri artar ve <b>koordinasyon</b> zorlaşır, iletişim yavaşlar, bürokrasi, işçilerin kendini önemsiz hissetmesi (<b>motivasyon</b>), grevlerin etkisi büyür. Toplu alım, ucuz borçlanma ve büyük makineler ölçek <b>ekonomileridir</b>." },
+{ l: 2, q: "Many software firms locate in the same region, which develops a pool of skilled workers, specialist suppliers and good transport links. Every firm's costs fall. This is an example of:",
+  o: ["External economies of scale", "Internal economies of scale", "Diminishing returns", "Diseconomies of scale"],
+  s: "<b>External economies of scale</b>: birim maliyetin tek firmanın kendi büyümesinden değil, <b>sektörün (ya da bölgenin) büyümesinden</b> dolayı düşmesi. Nitelikli işgücü havuzu, yan sanayi, ortak altyapı ve bilgi paylaşımı her firmaya yarar (Silikon Vadisi, Londra'nın finans merkezi). Firmanın kendi büyüklüğünden gelen avantajlar <b>internal</b> ekonomilerdir." },
+{ l: 3, q: "For a firm, the marginal product of labour is 20 units and labour costs £10 per unit; the marginal product of capital is 60 units and capital costs £20 per unit. To minimise the cost of producing its output, the firm should:",
+  o: ["Use more capital and less labour", "Use more labour and less capital", "Keep the current combination", "Reduce both labour and capital equally"],
+  s: "En az maliyetli bileşim kuralı: <b>MPP_L / P_L = MPP_K / P_K</b> (her faktöre harcanan son lira aynı ek üretimi vermeli).<br>Emek: 20 / 10 = <b>2</b> birim/£<br>Sermaye: 60 / 20 = <b>3</b> birim/£<br>Sermayeye harcanan her lira daha çok üretiyor → emekten sermayeye kay. Sermaye arttıkça MPP_K düşer, emek azaldıkça MPP_L artar, oranlar eşitlenene kadar. Bu, tüketicinin eşit marjinal ilkesinin üretimdeki karşılığıdır (isoquant–isocost teğet noktası)." },
+{ l: 3, q: "A firm doubles the length, width and height of a storage tank. Why does this give economies of scale (the 'container principle')?",
+  o: ["The surface area (and so material cost) rises 4 times, but the capacity (volume) rises 8 times, so cost per unit of capacity falls", "Both cost and capacity double, so cost per unit is unchanged", "Capacity rises 4 times but cost rises 8 times", "Bigger tanks are always cheaper in total"],
+  s: "Tankın maliyeti büyük ölçüde <b>yüzey alanına</b> (malzeme) bağlıdır, kapasitesi ise <b>hacmine</b>.<br>Boyutlar 2 katına çıkınca: yüzey alanı 2² = <b>4 kat</b>, hacim 2³ = <b>8 kat</b> artar.<br>Maliyet 4 kat, kapasite 8 kat → birim kapasite başına maliyet <b>yarıya</b> iner. Bu bir <b>teknik ölçek ekonomisidir</b> ve petrol tankerlerinin, boru hatlarının, fırınların neden çok büyük yapıldığını açıklar. Toplam maliyet tabii ki artar." },
+{ l: 3, q: "In an industry, minimum efficient scale (MES) is reached at an output equal to 40% of total market demand. What is the likely market structure?",
+  o: ["Only about two firms can operate at efficient size, so the industry is likely to be highly concentrated (oligopoly or even monopoly)", "Many small firms, because MES is irrelevant to market structure", "Perfect competition, because MES is below 100%", "There must be exactly 40 firms"],
+  s: "<b>Minimum efficient scale</b> (Box 5.8): LRAC'ın düzleştiği, ölçek ekonomilerinin büyük ölçüde tükendiği en küçük üretim. MES piyasanın %40'ıysa, en düşük maliyetle çalışabilecek firma sayısı en fazla 100/40 = <b>2.5</b>, yani yaklaşık 2'dir. Daha küçük firmalar çok daha yüksek maliyetle çalışır ve rekabet edemez. Bu yüzden sektör <b>yoğunlaşmış</b> olur (oligopol); MES piyasanın tamamına yakınsa doğal tekel çıkar. MES piyasaya göre küçükse çok sayıda firma sığar." },
+];
+
+Q.t21 = [
+{ l: 1, q: "Average revenue (AR) is equal to:",
+  o: ["Price", "Total revenue × quantity", "Marginal revenue in all cases", "Total cost ÷ quantity"],
+  s: "<b>AR = TR / Q</b>. TR = P × Q olduğu için AR = (P × Q) / Q = <b>P</b>. Bu yüzden firmanın AR eğrisi, ürününün <b>talep eğrisiyle</b> aynıdır. MR ancak fiyat alıcı firmada AR'ye eşittir. TC / Q ise ortalama maliyettir." },
+{ l: 1, q: "A firm maximises profit at the output where:",
+  o: ["Marginal revenue equals marginal cost", "Average revenue equals average cost", "Total revenue is at its maximum", "Marginal cost is at its minimum"],
+  s: "<b>MR = MC</b>: bir birim daha satmanın getirdiği ek gelir, ek maliyete eşit. MR &gt; MC iken üretimi artırmak kârı büyütür; MR &lt; MC iken azaltmak büyütür. AR = AC noktası sadece <b>normal kâr</b> (sıfır ekonomik kâr) noktasıdır. TR'nin en yüksek olduğu nokta (MR = 0) satış geliri maksimizasyonudur." },
+{ l: 1, q: "Normal profit is:",
+  o: ["The minimum profit needed to keep a firm in the industry in the long run; economists count it as a cost", "Any profit above zero accounting profit", "Profit above the industry average", "The profit made when price is above average cost"],
+  s: "<b>Normal profit</b>: sahibin emeğinin ve sermayesinin fırsat maliyetini karşılayacak, firmayı uzun dönemde sektörde tutmaya yetecek en düşük kâr. Ekonomistler bunu <b>maliyetin bir parçası</b> sayar (AC'nin içinde). Bu yüzden P = AC iken firma normal kâr eder. P &gt; AC iken elde edilen fazlaya <b>supernormal profit</b> denir." },
+{ l: 2, q: "A firm is a price taker and the market price is £5. What is its marginal revenue?",
+  o: ["£5 at every level of output", "Less than £5 and falling as output rises", "Zero", "It depends on the firm's costs"],
+  s: "Fiyat alıcı firma (tam rekabet) piyasa fiyatından istediği kadar satabilir. Her ek birim tam <b>£5</b> getirir ve diğer birimlerin fiyatını düşürmez. Bu yüzden <b>P = AR = MR = £5</b>; talep eğrisi yatay, TR orijinden çıkan düz bir çizgidir. Aşağı eğimli talep eğrisinde ise MR, fiyatın altında kalır." },
+{ l: 2, q: "A firm faces a downward-sloping demand curve. In the price range where demand is price ELASTIC, marginal revenue is:",
+  o: ["Positive, so total revenue rises as output rises", "Negative, so total revenue falls as output rises", "Zero", "Equal to price"],
+  s: "Esnek talepte fiyatı biraz düşürünce satışlar oransal olarak <b>daha çok</b> artar, toplam gelir <b>artar</b> → ek birimden gelen gelir (MR) <b>pozitiftir</b>. Esnek olmayan talepte fiyat düşüşü TR'yi azaltır → MR <b>negatiftir</b>. Birim esnek noktada MR = 0 ve TR en yüksektir. Aşağı eğimli talepte MR her zaman fiyatın altındadır." },
+{ l: 2, q: "In the short run, a firm should shut down if:",
+  o: ["Price is below average variable cost", "Price is below average total cost", "It is making any loss", "Marginal cost is rising"],
+  s: "Kısa dönemde firma kapansa bile <b>sabit maliyetleri</b> (kira gibi) ödemek zorundadır. Bu yüzden üretip üretmemeye bakarken önemli olan, en azından <b>değişken maliyetleri</b> karşılayıp karşılamadığıdır.<br>• P ≥ AVC: üretmeye devam et; değişken maliyeti karşılar ve sabit maliyetin bir kısmına da katkı yapar (zarar, kapanmaktan küçük).<br>• <b>P &lt; AVC</b>: kapan; üretmek zararı büyütür.<br>Uzun dönemde ise P &lt; LRAC (normal kâr yok) ise firma sektörden çıkar." },
+{ l: 3, q: "A firm's prices (AR) for outputs 1 to 5 are £10, £9, £8, £7, £6. Its total costs are £6, £10, £15, £22, £32. What is the profit-maximising output and the profit at that output?",
+  o: ["3 units, profit £9", "4 units, profit £6", "5 units, profit £30", "2 units, profit £8"],
+  s: "TR = P × Q: 10, 18, 24, 28, 30.<br>Kâr = TR − TC: 10 − 6 = 4; 18 − 10 = 8; 24 − 15 = <b>9</b>; 28 − 22 = 6; 30 − 32 = −2.<br>En yüksek kâr <b>3 birimde £9</b>.<br>Marjinal yöntemle kontrol: 3. birim MR = 24 − 18 = 6, MC = 15 − 10 = 5 → MR &gt; MC, üret. 4. birim MR = 4, MC = 7 → MR &lt; MC, üretme. £30, 5 birimdeki toplam gelirdir (TR'yi en büyük yapmak kârı en büyük yapmaz)." },
+{ l: 3, q: "At its best output, a firm's price is £6, its average variable cost is £5 and its average total cost is £8. What should it do?",
+  o: ["Keep producing in the short run, because it covers variable costs and part of fixed costs; leave the industry in the long run if this continues", "Shut down immediately, because it is making a loss", "Keep producing for ever, because price is above average variable cost", "Raise its price to £8, because it is a price taker"],
+  s: "Birim başına: fiyat £6, AVC £5, AC £8 → birim başına £2 <b>zarar</b> (AFC = 8 − 5 = £3).<br>• Üretirse: her birimden £1 sabit maliyete katkı → birim başına zarar £2.<br>• Kapanırsa: tüm sabit maliyeti (£3/birim kadar) yine öder → zarar daha büyük.<br>Kısa dönemde <b>P &gt; AVC</b> olduğu için üretmeye devam eder. Uzun dönemde sabit maliyetler de değişkenleşir; fiyat LRAC'ın altında kalırsa sektörden <b>çıkar</b>. Fiyat alıcı olduğu için fiyatı kendisi yükseltemez." },
+{ l: 3, q: "A firm sells 100 units at £12 each. Its average cost (which includes normal profit) is £9. Which statement is correct?",
+  o: ["It makes supernormal profit of £300 in addition to normal profit", "It makes total profit of only £300, which is below normal profit", "It makes supernormal profit of £1,200", "It makes no supernormal profit, because normal profit is included in costs"],
+  s: "Toplam kâr formülü: <b>(AR − AC) × Q</b> = (£12 − £9) × 100 = <b>£300</b>.<br>Ekonomistler normal kârı AC'nin <b>içinde</b> saydığı için bu £300, normal kârın <b>üstündeki</b> kârdır: <b>supernormal profit</b>. Yani firma hem normal kârı hem de £300 fazlasını kazanıyor. £1,200 toplam gelirdir. Tam rekabette bu aşırı kâr uzun dönemde yeni firmaları çeker." },
+];
+
+</script>
+<script>
+// Part C soruları, Bölüm 6-7.
+TOPICS.push(
+  { id: "t22", code: "6.1", ch: 6, title: "Market structures and perfect competition", tr: "Piyasa yapıları ve tam rekabet" },
+  { id: "t23", code: "6.3", ch: 6, title: "Monopoly", tr: "Tekel" },
+  { id: "t24", code: "6.4", ch: 6, title: "Contestable markets", tr: "Yarışılabilir piyasalar" },
+  { id: "t25", code: "7.1", ch: 7, title: "Monopolistic competition", tr: "Tekelci rekabet" },
+  { id: "t26", code: "7.2", ch: 7, title: "Oligopoly", tr: "Oligopol" },
+  { id: "t27", code: "7.3", ch: 7, title: "Game theory", tr: "Oyun teorisi" },
+  { id: "t28", code: "7.4", ch: 7, title: "Price discrimination", tr: "Fiyat farklılaştırması" },
+);
+
+Q.t22 = [
+{ l: 1, q: "Which of the following is an assumption of perfect competition?",
+  o: ["Firms produce a homogeneous (identical) product", "There are a few large firms", "There are high barriers to entry", "Each firm can set its own price"],
+  s: "Tam rekabetin dört varsayımı: (1) <b>çok sayıda</b> firma, (2) giriş ve çıkış <b>tamamen serbest</b>, (3) <b>homojen</b> (aynı) ürün, (4) üretici ve tüketicilerde <b>tam bilgi</b>. Ürünler aynı olduğu için hiçbir firma fiyatını piyasanın üstüne çıkaramaz; hepsi <b>price taker</b>'dır. Az sayıda büyük firma ve giriş engelleri oligopol ya da tekel özellikleridir." },
+{ l: 1, q: "The demand curve facing an individual firm in perfect competition is:",
+  o: ["Horizontal at the market price", "Downward sloping like the industry demand curve", "Vertical", "Upward sloping"],
+  s: "Endüstrinin talep eğrisi aşağı eğimlidir. Ama tek firma piyasaya göre <b>çok küçüktür</b>: piyasa fiyatından istediği kadar satabilir (üretimi piyasa fiyatını etkilemez); fiyatı biraz artırırsa hiç satamaz, çünkü ürünler aynıdır ve tüketiciler her şeyi bilir. Bu yüzden firmanın talep eğrisi piyasa fiyatında <b>yataydır</b>: P = AR = MR." },
+{ l: 1, q: "In perfect competition, what happens to supernormal profits in the long run?",
+  o: ["They are competed away as new firms enter the industry", "They persist because of barriers to entry", "They grow as firms become larger", "The government taxes them away"],
+  s: "Aşırı kâr, giriş serbest olduğu için <b>yeni firmaları</b> çeker. Girişle endüstri arzı sağa kayar, piyasa fiyatı düşer. Fiyat, firmaların en düşük uzun dönem ortalama maliyetine (LRAC) inene kadar giriş sürer. Sonuçta sadece <b>normal kâr</b> kalır. Kalıcı aşırı kâr, giriş engelleri olan tekelin özelliğidir." },
+{ l: 2, q: "A perfectly competitive firm faces a market price of £14. To maximise profit in the short run it will produce where:",
+  o: ["Marginal cost equals £14", "Average cost equals £14", "Average cost is at its minimum", "Total revenue is at its maximum"],
+  s: "Kâr maksimizasyonu kuralı MR = MC'dir. Fiyat alıcı firmada MR = P olduğu için kural <b>P = MC</b>'ye dönüşür: firma, MC'nin £14'e eşit olduğu miktarı üretir. AC = £14 olan nokta sadece normal kâr noktasıdır. Fiyat alıcı firmada TR'nin en yüksek noktası yoktur (TR durmadan artar)." },
+{ l: 2, q: "A perfectly competitive firm's short-run supply curve is:",
+  o: ["Its marginal cost curve above the average variable cost curve", "Its average cost curve", "Its whole marginal cost curve, including the part below AVC", "A horizontal line at the market price"],
+  s: "Firma her fiyatta <b>P = MC</b> olan miktarı üretir, bu yüzden 'fiyat → miktar' ilişkisini MC eğrisi verir. Ama fiyat <b>AVC'nin altına</b> düşerse firma kısa dönemde kapanır (değişken maliyetleri karşılayamaz). Bu yüzden arz eğrisi, MC eğrisinin <b>AVC'nin en düşük noktasının üstündeki</b> kısmıdır. Yatay çizgi firmanın talep eğrisidir, arz eğrisi değil." },
+{ l: 2, q: "The five largest firms in an industry account for 80% of total sales. This figure is the:",
+  o: ["Five-firm concentration ratio", "Market share of the largest firm", "Herfindahl index of competition", "Minimum efficient scale"],
+  s: "<b>Concentration ratio</b> (Box 6.1): en büyük n firmanın sektör satışları (ya da istihdamı) içindeki payı. Burada <b>5-firm concentration ratio = %80</b>. Oran yüksekse sektör yoğunlaşmış, büyük ihtimalle oligopoldür. Dezavantajı: bu firmaların ayrı ayrı büyüklüğünü (biri %70 mi, beşi %16'şar mı) göstermez." },
+{ l: 3, q: "A perfectly competitive firm faces a price of £14. Its total costs for outputs 0 to 6 are £10, £18, £24, £32, £44, £60, £80. What is its profit-maximising output and its supernormal profit?",
+  o: ["4 units, £12", "5 units, £10", "6 units, £4", "3 units, £10"],
+  s: "MC = TC'deki artış: 1. birim 8, 2. birim 6, 3. birim 8, 4. birim <b>12</b>, 5. birim <b>16</b>, 6. birim 20.<br>Kural P = MC: MC ≤ £14 olduğu sürece üret → 4. birim (MC 12) üretilir, 5. birim (MC 16 &gt; 14) üretilmez → <b>Q = 4</b>.<br>Kâr = TR − TC = (14 × 4) − 44 = 56 − 44 = <b>£12</b>. (AC = 44/4 = 11; (14 − 11) × 4 = 12 ✓)<br>Kontrol: 5 birimde kâr = 70 − 60 = 10, 3 birimde 42 − 32 = 10; ikisi de daha az. Tam rekabetin uzun döneminde bu aşırı kâr girişlerle yok olur." },
+{ l: 3, q: "Firms in a perfectly competitive industry are making supernormal profits. Which sequence correctly describes the move to long-run equilibrium?",
+  o: ["New firms enter, industry supply shifts right, price falls until it equals minimum long-run average cost", "Existing firms raise prices, demand falls, and price settles above average cost", "Firms leave the industry, supply shifts left, and price rises", "Nothing changes, because each firm is a price taker"],
+  s: "Aşırı kâr → serbest giriş → endüstri arz eğrisi <b>sağa</b> kayar → piyasa fiyatı <b>düşer</b> → her firmanın yatay talep eğrisi aşağı iner → kâr azalır. Bu süreç fiyat <b>LRAC'ın en düşük noktasına</b> eşitlenene kadar sürer. Uzun dönem dengesi: <b>P = MC = LRAC (min)</b>, sadece normal kâr. Firmalar fiyat alıcı olduğu için fiyatı kendileri yükseltemez; çıkış ise zarar varken olur." },
+{ l: 3, q: "Which is a criticism of perfect competition, even though it produces where P = MC?",
+  o: ["Firms may lack the funds and the incentive to invest in research and development, and there is little product variety", "Firms make large supernormal profits in the long run", "Prices are higher than under monopoly", "Firms produce above minimum average cost"],
+  s: "Box 6.2 (Tam rekabet en iyisi mi?): <b>Artıları</b>: P = MC (kaynak dağılımı etkin), uzun dönemde en düşük maliyette üretim, düşük fiyat, verimlilik baskısı.<br><b>Eksileri</b>: aşırı kâr olmadığı için <b>AR-GE yapacak para</b> yoktur; yenilik yapılsa bile rakipler hemen kopyalar (tam bilgi), bu yüzden <b>teşvik</b> de yoktur. Ürünler homojen olduğu için <b>çeşitlilik</b> yoktur. Adil gelir dağılımı ve zararlı yan etkilerin (kirlilik) olmayacağı da garanti değildir. Diğer seçenekler tam rekabet için doğru değildir." },
+];
+
+Q.t23 = [
+{ l: 1, q: "Which of the following is a barrier to entry that can protect a monopoly?",
+  o: ["A patent on a new drug", "A large number of small competitors", "Perfect knowledge among consumers", "Low set-up costs"],
+  s: "Tekelin aşırı kârını uzun dönemde koruyabilmesi için <b>giriş engelleri</b> gerekir: ölçek ekonomileri (doğal tekel), ürün farklılaştırma ve marka sadakati, girdi kaynaklarının ya da satış noktalarının kontrolü, <b>patent ve telif hakkı</b>, yasal koruma, rakipleri ezme taktikleri. Patent, yeni ilacı belli süre sadece o firmanın üretmesini yasal olarak garanti eder. Diğer seçenekler girişi kolaylaştırır." },
+{ l: 1, q: "A natural monopoly exists when:",
+  o: ["Long-run average costs keep falling up to an output large enough to supply the whole market, so one firm can supply it more cheaply than two or more", "The government owns the only firm", "The firm controls a natural resource such as oil", "Demand for the product is perfectly inelastic"],
+  s: "<b>Natural monopoly</b>: ölçek ekonomileri o kadar büyük ki LRAC, piyasanın tamamını karşılayan çıktıya kadar düşmeye devam eder. Tek firma piyasayı en düşük maliyetle karşılar; iki firma olsa ikisi de daha küçük ölçekte, daha yüksek maliyetle çalışırdı. Örnekler: su ve doğalgaz şebekesi, elektrik iletim hattı, demiryolu altyapısı (iki paralel şebeke israf olurdu). Devlet mülkiyeti şart değildir." },
+{ l: 1, q: "A profit-maximising monopolist chooses its output where:",
+  o: ["MR = MC, and charges the price given by the demand curve at that output", "P = MC", "AR = AC", "Demand is perfectly inelastic"],
+  s: "Tekel de MR = MC kuralını uygular. Miktarı bulduktan sonra fiyatı <b>talep (AR) eğrisinden</b> okur: tüketicilerin o miktar için ödemeye razı olduğu en yüksek fiyat. Tekelde talep eğrisi aşağı eğimli olduğu için MR &lt; P'dir ve sonuçta <b>P &gt; MC</b> olur. P = MC tam rekabetin kuralıdır." },
+{ l: 2, q: "Why is a monopolist's marginal revenue below its price?",
+  o: ["To sell an extra unit it must lower the price, not only on that unit but on all the units it sells", "Because its costs are higher than a competitive firm's", "Because the government taxes each extra unit", "Because demand is horizontal"],
+  s: "Tekel tüm piyasanın talep eğrisiyle karşı karşıyadır (aşağı eğimli). Bir birim daha satmak için fiyatı düşürmek zorundadır, ve bu düşük fiyat <b>tüm birimlerde</b> geçerlidir (tek fiyat). Ek birimin getirdiği gelir = yeni fiyat − önceki birimlerde kaybedilen gelir. Örnek: 10 birimi £10'dan (TR 100) ya da 11 birimi £9.50'den (TR 104.5) satabiliyorsa, 11. birimin MR'si £4.50'dir, fiyatı £9.50 olduğu halde." },
+{ l: 2, q: "Why can a monopolist continue to make supernormal profits in the long run?",
+  o: ["Barriers to entry prevent new firms from entering and competing the profits away", "Because it always produces at minimum average cost", "Because its demand curve is horizontal", "Because it is a price taker"],
+  s: "Tam rekabette aşırı kâr yeni girişlerle yok olur. Tekelde ise <b>giriş engelleri</b> (patent, ölçek ekonomisi, kaynak kontrolü...) yeni firmaların girmesini engeller. Bu yüzden aşırı kâr <b>uzun dönemde de sürebilir</b>. Engeller düşükse (yarışılabilir piyasa, konu 6.4) tekel bile kârını normal düzeyde tutmak zorunda kalabilir." },
+{ l: 2, q: "Which of the following is an argument IN FAVOUR of monopoly?",
+  o: ["Its supernormal profits can finance research and development, leading to new and better products", "It charges a higher price relative to cost than competitive firms", "It may suffer from X inefficiency", "It can exert political pressure on governments"],
+  s: "Kitap tekelin <b>lehine</b> iki argüman verir: (1) <b>ölçek ekonomileri</b>nin bir kısmı düşük fiyatla tüketiciye geçebilir; (2) yüksek kârlar <b>AR-GE ve yatırıma</b> harcanabilir, daha iyi ve belki daha ucuz ürünler gelir (ilaç sektörü örneği). Diğer üç seçenek tekelin <b>aleyhine</b> olan argümanlardır: yüksek fiyat, X verimsizliği (rekabet baskısı olmadığı için maliyetleri kontrol etmemek), siyasi baskı." },
+{ l: 3, q: "A monopolist faces demand P = 100 − 2Q, so MR = 100 − 4Q. Its marginal cost and average cost are constant at £20. What are its profit-maximising price, output and profit?",
+  o: ["Q = 20, P = £60, profit = £800", "Q = 40, P = £20, profit = £0", "Q = 25, P = £50, profit = £750", "Q = 20, P = £20, profit = £400"],
+  s: "Kural MR = MC: 100 − 4Q = 20 → 4Q = 80 → <b>Q = 20</b>.<br>Fiyat talep eğrisinden: P = 100 − 2(20) = <b>£60</b>.<br>Kâr = (P − AC) × Q = (60 − 20) × 20 = <b>£800</b>.<br>Karşılaştırma: tam rekabette P = MC = 20 → 100 − 2Q = 20 → Q = 40. Tekel <b>yarı miktarı</b> üç kat fiyata satıyor. Q = 25, P = 50 ise MR = 0 noktasıdır (satış geliri maksimizasyonu, Bölüm 8)." },
+{ l: 3, q: "Why will a profit-maximising monopolist (with positive marginal cost) always produce on the price-ELASTIC part of its demand curve?",
+  o: ["Because MR = MC and MC is positive, so MR must be positive, and MR is positive only where demand is elastic", "Because demand is always elastic for monopolies", "Because it wants to maximise total revenue", "Because inelastic demand would make its price fall"],
+  s: "Kâr maksimumunda MR = MC. Üretmenin maliyeti pozitif (MC &gt; 0) ise MR de <b>pozitif</b> olmalıdır. Bölüm 5.5'ten: MR, sadece talebin <b>esnek</b> olduğu kısımda pozitiftir (esnek olmayan kısımda fiyat düşüşü TR'yi azaltır → MR negatif). Sezgi: talep esnek değilse tekel fiyatı artırarak hem <b>daha çok gelir</b> elde eder hem <b>daha az üretip</b> maliyetten tasarruf eder, yani orada durmaz." },
+{ l: 3, q: "Under what circumstances could a monopoly charge a LOWER price than a perfectly competitive industry would?",
+  o: ["If its economies of scale make its marginal cost much lower than the costs of many small competitive firms", "Never: a monopoly always charges a higher price", "If its demand is perfectly inelastic", "If it suffers from X inefficiency"],
+  s: "Standart karşılaştırma iki yapının <b>aynı maliyet eğrilerine</b> sahip olduğunu varsayar; o zaman tekel daha yüksek fiyat koyar. Ama tek büyük firma <b>ölçek ekonomileri</b> sayesinde çok daha düşük maliyetle üretebilir. MC'si yeterince düşükse, MR = MC'de belirlediği fiyat, küçük ve yüksek maliyetli firmalardan oluşan bir rekabetçi piyasanın fiyatından bile <b>düşük</b> olabilir (doğal tekel durumu). X verimsizliği tam tersine maliyeti yükseltir; esnek olmayan talepte tekel daha da yüksek fiyat koyar." },
+];
+
+Q.t24 = [
+{ l: 1, q: "A market is perfectly contestable when:",
+  o: ["Entry and exit by potential rivals are costless and can happen rapidly", "There is only one firm in the market", "There are many firms selling identical products", "The government sets the price"],
+  s: "<b>Perfectly contestable market</b>: potansiyel rakipler piyasaya <b>maliyetsiz ve hızlı</b> girip çıkabilir. Böyle bir piyasada firma sayısı önemli değildir; tek firma olsa bile yeni giriş tehdidi onu rekabetçi davranmaya zorlar. Çok sayıda firma ve homojen ürün tam rekabetin tanımıdır." },
+{ l: 1, q: "The theory of contestable markets argues that what matters most in determining a firm's price and output is:",
+  o: ["The threat of potential competition", "The number of firms currently in the industry", "The firm's marginal cost only", "The size of the firm's advertising budget"],
+  s: "Teori şunu söyler: bir piyasanın tekel mi yoksa rekabetçi mi olduğu değil, <b>gerçek bir rekabet tehdidinin</b> olup olmadığı belirleyicidir. Potansiyel rekabet, gerçek rekabet kadar etkili olabilir. Bu yüzden kitaba göre teori, sadece mevcut firma sayısına bakan teorilerden <b>daha gerçekçidir</b>." },
+{ l: 1, q: "Sunk costs are:",
+  o: ["Costs that cannot be recovered when a firm leaves the industry", "Costs that fall as output rises", "The costs of raw materials", "Costs paid by consumers"],
+  s: "<b>Sunk costs</b> (batık maliyetler): piyasadan çıkarken <b>geri alınamayan</b> maliyetler: reklam harcaması, sadece o işe yarayan özel makine, marka oluşturma. Kitaba göre <b>çıkış maliyeti</b> batık maliyetlere bağlıdır: batık maliyet ne kadar düşükse çıkmak o kadar kolay, girmek o kadar az risklidir ve piyasa o kadar <b>yarışılabilir</b>dir." },
+{ l: 2, q: "In a perfectly contestable market, an existing monopolist is likely to:",
+  o: ["Keep its profits down to the normal level to discourage entry", "Make large supernormal profits indefinitely", "Charge the highest price consumers will pay", "Produce nothing"],
+  s: "Tekel aşırı kâr ederse, yeni firmalar hemen girip fiyatı biraz kırarak o kârın bir kısmını alır ('vur-kaç' girişi), kâr düşünce maliyetsiz çıkar. Bunu bilen tekel, girişi caydırmak için fiyatını düşük tutar ve sadece <b>normal kâr</b> eder. Yani tek firma olsa bile <b>rekabetçi</b> gibi davranır." },
+{ l: 2, q: "Why did airline deregulation in the USA and Europe make many air routes quite contestable?",
+  o: ["Aircraft can be leased and moved to other routes, so sunk costs of entering or leaving a route are low", "Because airlines have very high fixed costs", "Because each route has only one airline", "Because governments still set all fares"],
+  s: "Box 6.6: bir havayolu yeni bir hatta girmek için uçak almak zorunda değildir, <b>kiralayabilir</b> ya da başka hattan <b>kaydırabilir</b>. Hat kârsız olursa uçağı başka hatta kullanır: <b>batık maliyet düşüktür</b>. Bu yüzden kârlı hatlara hızla yeni firmalar girdi (özellikle düşük maliyetli havayolları) ve fiyatlar düştü. Ancak havalimanı slotları gibi engeller bazı hatları daha az yarışılabilir bıraktı." },
+{ l: 2, q: "A monopolist deliberately keeps its price low enough to make entry unprofitable for potential rivals. This is called:",
+  o: ["Limit pricing", "Price discrimination", "Mark-up pricing", "Peak-load pricing"],
+  s: "<b>Limit pricing</b>: tekel (ya da oligopol), fiyatı kısa dönem kâr maksimize eden düzeyin <b>altında</b>, yeni bir rakibin girerse kâr edemeyeceği bir düzeyde tutar. Böylece bugünkü kârın bir kısmından vazgeçerek uzun dönemde konumunu korur. Bu, potansiyel rekabetin tekelin davranışını nasıl etkilediğinin bir örneğidir." },
+{ l: 3, q: "Which of the following markets is likely to be LEAST contestable?",
+  o: ["Running a national railway track network", "Running a coach (bus) service between two cities", "Operating a market stall selling vegetables", "Running an airline route using leased aircraft"],
+  s: "Yarışılabilirliği belirleyen giriş ve özellikle <b>batık maliyetlerdir</b>. Demiryolu hattı inşa etmek dev bir yatırımdır ve başka bir işe kullanılamaz: çıkarken neredeyse tamamı <b>batık</b> kalır. Bu yüzden potansiyel rakipler girmeye cesaret edemez → en az yarışılabilir piyasa. Otobüs, pazar tezgâhı ve kiralık uçakla havayolu hattı düşük batık maliyetlidir: araçlar başka yerde kullanılabilir ya da satılabilir." },
+{ l: 3, q: "'Hit-and-run' entry means that a firm enters a market when profits are high and leaves when they fall. What condition is most important for this to be possible?",
+  o: ["Low exit costs, which depend on low sunk costs", "High barriers to entry", "A large number of existing firms", "Perfectly inelastic demand"],
+  s: "Vur-kaç girişi ancak firma, kâr bittiğinde <b>zarar etmeden çıkabiliyorsa</b> mantıklıdır. Bu da çıkış maliyetinin, yani <b>batık maliyetin</b> düşük olmasını gerektirir. Batık maliyet yüksekse giren firma çıkarken büyük kayıp yaşar ve bu risk girişi caydırır. Giriş engelleri vur-kaçı imkânsız kılar; mevcut firma sayısı ve talebin esnekliği ise belirleyici değildir." },
+{ l: 3, q: "A factory gives one catering company the contract to run its staff canteen. The caterer is the only supplier of meals to the workers. Why may it still charge reasonable prices and give good service?",
+  o: ["Because the factory could replace it with another catering company: the threat of competition disciplines it", "Because it is a natural monopoly", "Because the workers have perfectly inelastic demand", "Because sunk costs in catering are very high"],
+  s: "Kitaptaki örnek: yemek şirketi o fabrikada <b>tekeldir</b>. Ama yüksek fiyat koyar ya da kötü hizmet verirse fabrika sözleşmeyi <b>başka bir şirkete</b> verebilir. Bu tehdit (<b>potansiyel rekabet</b>), gerçek rekabet gibi etki eder ve şirketi makul fiyata ve iyi hizmete zorlar. Politika sonucu: devlet tekeli parçalamak yerine, tekelin yerine geçmeyi kolaylaştırarak (ihale, giriş engellerini kaldırma) rekabet sağlayabilir." },
+];
+
+Q.t25 = [
+{ l: 1, q: "Monopolistic competition is characterised by:",
+  o: ["Many firms, free entry and differentiated products", "A few firms and high barriers to entry", "One firm and no close substitutes", "Many firms selling identical products"],
+  s: "<b>Monopolistic competition</b> (tekelci rekabet): oldukça çok sayıda firma, birbirinden bağımsız çalışır, giriş <b>serbesttir</b>, ama her firma <b>farklılaştırılmış</b> bir ürün sattığı için biraz piyasa gücüne sahiptir (aşağı eğimli talep). 'Tekelci' kısmı farklılaştırmadan, 'rekabet' kısmı çok firma ve serbest girişten gelir. Aynı ürün tam rekabettir; az firma ve engeller oligopoldür." },
+{ l: 1, q: "Which of the following is the best example of monopolistic competition?",
+  o: ["Restaurants in a large town", "Water supply in a city", "Car manufacturing in Europe", "Wheat farming"],
+  s: "Bir şehirde çok sayıda restoran vardır, açmak görece kolaydır (serbest giriş), ama her birinin menüsü, yeri, atmosferi farklıdır (<b>farklılaştırma</b>): fiyatını biraz artırsa da bazı müşterilerini korur. Su şebekesi doğal tekel, Avrupa'da araba üretimi oligopol (az sayıda büyük firma), buğday tarımı tam rekabete yakındır." },
+{ l: 1, q: "In the long run under monopolistic competition, firms make:",
+  o: ["Normal profits", "Supernormal profits protected by barriers to entry", "Losses", "Profits equal to a monopoly"],
+  s: "Giriş serbest olduğu için aşırı kâr <b>yeni firmaları</b> çeker. Yeni firmalar müşterilerin bir kısmını alır; her firmanın talep eğrisi sola kayar, kâr <b>normal düzeye</b> iner. Tam rekabete benzer şekilde uzun dönemde sadece normal kâr kalır. Kalıcı aşırı kâr giriş engelleri gerektirir (tekel, oligopol)." },
+{ l: 2, q: "In long-run equilibrium under monopolistic competition, the firm's demand (AR) curve is:",
+  o: ["Tangential to its long-run average cost curve", "Horizontal at minimum average cost", "Above its average cost curve at every output", "Vertical"],
+  s: "Uzun dönemde P = AC olmalıdır (normal kâr). Aynı zamanda firma MR = MC'de üretir. Bu iki koşul ancak aşağı eğimli talep eğrisinin LRAC eğrisine <b>teğet</b> olduğu noktada birlikte sağlanır: talep eğrisi AC'ye değer ama altına düşmez. Yatay talep tam rekabetindir." },
+{ l: 2, q: "Long-run equilibrium under monopolistic competition is said to involve 'excess capacity'. This means that:",
+  o: ["Firms produce less than the output at which their average cost would be lowest", "Firms produce more than consumers want", "Firms have more workers than they need", "Firms make supernormal profits"],
+  s: "Talep eğrisi aşağı eğimli olduğu için LRAC'a teğet olduğu nokta, LRAC'ın <b>en düşük noktasının solunda</b> kalır. Yani firma, ortalama maliyetini en aza indirecek miktardan <b>daha az</b> üretir: daha çok üretse birim maliyeti düşerdi. Bu boşluğa <b>excess capacity</b> (atıl kapasite) denir (bir kasabada yarı boş çalışan çok sayıda benzin istasyonu ya da kuaför gibi)." },
+{ l: 2, q: "Which of the following is an example of non-price competition?",
+  o: ["Advertising and developing new versions of a product", "Cutting the price below rivals", "Matching a rival's price cut", "Selling at the market price"],
+  s: "<b>Non-price competition</b> (fiyat dışı rekabet): firmaların fiyat dışında müşteri çekme yolları: <b>product development</b> (ürün geliştirme: yeni tasarım, kalite, ek hizmet) ve <b>product promotion</b> (ürün tanıtımı: reklam, marka, ambalaj). Amaç, talebi artırmak ve daha az esnek hale getirmek (marka sadakati), böylece aşırı kârı uzun dönemde de koruyabilmektir. Diğer seçenekler fiyat rekabetidir." },
+{ l: 3, q: "Compared with perfect competition, which statement about monopolistic competition is correct?",
+  o: ["Costs may be higher because of excess capacity, but consumers gain from a greater variety of products", "Prices are always lower because firms advertise", "Firms produce at minimum average cost in the long run", "There is no difference in the long run"],
+  s: "Kitabın özeti (7.1, madde 6): tekelci rekabette firmalar atıl kapasiteyle çalıştığı için <b>birim maliyetler ve fiyatlar</b> tam rekabete göre daha <b>yüksek</b> olabilir (reklam maliyeti de eklenir). Karşılığında tüketiciler <b>çeşitlilik</b> kazanır: farklı restoranlar, farklı tasarımlar. Bu bir değiş tokuştur. Tam rekabette uzun dönemde firma LRAC'ın en düşük noktasında üretir; tekelci rekabette üretmez." },
+{ l: 3, q: "A town's hairdressers are making supernormal profits. Describe what happens in the long run under monopolistic competition.",
+  o: ["New salons open; each existing salon's demand curve shifts left (and becomes more elastic) until it just touches its average cost curve and only normal profit remains", "Prices rise further as salons gain monopoly power", "Salons leave the market because profits are too high", "The demand curve of each salon becomes horizontal"],
+  s: "Serbest giriş: aşırı kâr → <b>yeni kuaförler açılır</b>. Müşteriler artık daha çok seçenek arasında dağılır: her kuaförün talep eğrisi <b>sola kayar</b>, ve yakın ikame arttığı için <b>daha esnek</b> hale gelir. Süreç, talep eğrisi AC eğrisine <b>teğet</b> olana (P = AC) kadar sürer: sadece normal kâr kalır. Talep tamamen yatay olmaz, çünkü her kuaförün yeri ve tarzı hâlâ biraz farklıdır." },
+{ l: 3, q: "Why might supernormal profits persist in the long run under monopolistic competition in practice?",
+  o: ["Firms have imperfect information, entry may not be completely free (e.g. good locations are limited), and firms use non-price competition such as brand loyalty", "Because the theory assumes high barriers to entry", "Because demand curves are horizontal", "Because firms collude in a cartel"],
+  s: "Kitabın özeti (7.1, madde 4): teori uzun dönemde normal kâr öngörür ama gerçekte aşırı kâr sürebilir:<br>• <b>Eksik bilgi</b>: yeni girenler kimin ne kadar kâr ettiğini bilmeyebilir.<br>• Giriş <b>tamamen serbest değildir</b>: en iyi yerler (şehir merkezi) sınırlıdır, izin ve ruhsat gerekebilir.<br>• <b>Fiyat dışı rekabet</b>: reklam ve ürün geliştirme ile marka sadakati yaratılır, rakipler bunu kolayca kopyalayamaz.<br>Kartel oligopole özgüdür; çok sayıda firmanın işbirliği yapması zordur." },
+];
+
+Q.t26 = [
+{ l: 1, q: "Which pair of features best distinguishes oligopoly from other market structures?",
+  o: ["Barriers to entry and interdependence between firms", "Free entry and identical products", "A single firm and no substitutes", "Many firms and perfect information"],
+  s: "Kitaba göre oligopolün iki temel özelliği: (1) <b>giriş engelleri</b> (tekeldekilere benzer, büyüklüğü sektöre göre değişir) ve (2) <b>interdependence</b> (karşılıklı bağımlılık): firma az sayıda olduğu için her firmanın kararı (fiyat, reklam, yeni ürün) rakiplerini doğrudan etkiler ve rakiplerin tepkisini hesaba katmak zorundadır." },
+{ l: 1, q: "A formal collusive agreement between firms to restrict output and raise prices is called a:",
+  o: ["Cartel", "Merger", "Price war", "Monopsony"],
+  s: "<b>Cartel</b> (kartel): firmaların resmî olarak işbirliği yaptığı anlaşma. Amaç birlikte <b>tekel gibi</b> davranmaktır: toplam üretimi kısıp fiyatı yükseltmek. Kartel ya fiyatı belirleyip üyeleri pay için yarıştırır ya da her üyeye <b>kota</b> verir. Çoğu ülkede şirketler arası kartel yasadışıdır. Birleşme (merger) iki firmanın tek firma olmasıdır." },
+{ l: 1, q: "OPEC, an organisation of oil-exporting countries that sets production quotas for its members, is an example of:",
+  o: ["A cartel", "Perfect competition", "Monopolistic competition", "A natural monopoly"],
+  s: "<b>OPEC</b> (Box 7.3), petrol ihraç eden ülkelerin üretim <b>kotaları</b> belirleyerek dünya petrol fiyatını etkilemeye çalıştığı bir karteldir. 1970'lerde fiyatları birkaç kat artırdı. Ancak üyeler kotalarını sık sık aştı ve OPEC dışı üreticiler (Rusya, ABD kaya petrolü) payını artırdı; bu da kartelin gücünü sınırladı. Hükümetlerden oluştuğu için ulusal rekabet yasaları ona uygulanamaz: IR açısından önemli bir örnektir." },
+{ l: 2, q: "Why are members of a cartel often tempted to cheat on the agreement?",
+  o: ["Each member can increase its own profit by secretly cutting its price or exceeding its quota, if the others keep to the agreement", "Because the cartel price is below marginal cost", "Because cheating reduces their own profits", "Because the law requires them to compete"],
+  s: "Kartel fiyatı yüksek tutar. Bu fiyatta tek bir üye için bir birim daha satmanın ek geliri (fiyat) ek maliyetinden çok büyüktür. Diğerleri anlaşmaya uyarken gizlice <b>biraz daha ucuza satarsa</b> ya da kotayı aşarsa o üye çok kazanır. Ama herkes aynı şeyi yaparsa toplam arz artar, fiyat düşer ve bir <b>fiyat savaşı</b> çıkabilir. Bu çelişki, ortak kâr ile bireysel kâr arasındaki gerilimdir (oyun teorisindeki mahkûmlar ikilemi)." },
+{ l: 2, q: "In an industry, a large dominant firm announces price changes and the other firms follow without any formal agreement. This is:",
+  o: ["Tacit collusion through price leadership", "A formal cartel", "A price war", "Price discrimination"],
+  s: "<b>Tacit collusion</b> (örtülü işbirliği): resmî anlaşma olmadan firmaların uyumlu davranması. En yaygın biçimi <b>price leadership</b> (fiyat liderliği): ya <b>baskın firma</b> fiyatı belirler ve diğerleri izler, ya da piyasa koşullarını iyi okuduğu düşünülen bir <b>barometre firma</b> önce davranır. Diğer biçimleri: ortalama maliyet fiyatlaması ve benchmark (ör. £9.99 gibi standart fiyatlar) kuralları. Yazılı anlaşma olmadığı için yasal açıdan kanıtlamak zordur." },
+{ l: 2, q: "Collusion between oligopolists is MORE likely when:",
+  o: ["There are only a few firms with similar products and costs, and the market is stable", "There are many firms with very different costs", "Demand is changing rapidly and unpredictably", "There are no barriers to entry"],
+  s: "Kitaba göre işbirliği daha olasıdır eğer: firma sayısı <b>azsa</b>; birbirlerine karşı açıklarsa; ürünleri ve <b>maliyet yapıları benzerse</b> (ortak fiyatta anlaşmak kolay); baskın bir firma varsa; giriş engelleri yüksekse (yeni girenler anlaşmayı bozamaz); piyasa <b>istikrarlıysa</b>; ve işbirliğini yasaklayan bir yasa yoksa. Diğer seçeneklerin hepsi işbirliğini zorlaştırır." },
+{ l: 3, q: "The kinked demand curve model predicts that oligopoly prices will tend to be stable. Why?",
+  o: ["A firm believes rivals will NOT follow a price rise (demand elastic above the current price) but WILL follow a price cut (demand inelastic below it), so changing price reduces profit", "Because governments fix oligopoly prices", "Because rivals always follow price rises", "Because marginal cost is always constant"],
+  s: "Firma iki şey varsayar:<br>• Fiyatı <b>artırırsa</b> rakipler izlemez → müşterilerin çoğunu kaybeder → mevcut fiyatın üstünde talep <b>esnek</b>tir.<br>• Fiyatı <b>düşürürse</b> rakipler de düşürür (müşteri kaybetmemek için) → çok az müşteri kazanır → altında talep <b>esnek değildir</b>.<br>Her iki yönde de kaybeder, bu yüzden fiyatı değiştirmez: talep eğrisi mevcut fiyatta <b>kırılır</b>. MR eğrisinde bir boşluk oluşur, bu yüzden MC bu boşlukta değişse bile kâr maksimize eden fiyat değişmez. Zayıflığı: fiyatın başlangıçta nasıl belirlendiğini açıklamaz." },
+{ l: 3, q: "In the Bertrand model of oligopoly, each firm assumes its rivals' PRICE is given. What is the likely outcome?",
+  o: ["Firms keep undercutting each other until prices fall to the level where only normal profits are made", "Prices settle at the monopoly level", "Prices are between monopoly and perfect competition, as in the Cournot model", "Prices rise continuously"],
+  s: "Bertrand: her firma rakibin <b>fiyatını</b> sabit varsayar. O zaman rakibin biraz altına inerek tüm müşterileri kapabileceğini düşünür. Diğeri de aynısını yapar → karşılıklı fiyat kırma, fiyat <b>sadece normal kârın</b> kaldığı düzeye (P = AC) inene kadar sürer. İki firma bile tam rekabetin sonucunu verebilir.<br><b>Cournot</b>'ta ise firma rakibin <b>miktarını</b> sabit varsayar; sonuç tekel ile tam rekabet arasında bir fiyat ve kârdır." },
+{ l: 3, q: "A few large food manufacturers sell to a few very large supermarket chains. Why might this oligopoly NOT harm consumers as much as expected?",
+  o: ["The supermarkets have countervailing power: as powerful buyers they can force suppliers to keep prices down", "Because the manufacturers form a cartel", "Because supermarkets are price takers", "Because there are no barriers to entry for manufacturers"],
+  s: "Kitaba göre oligopolün kamu yararına olup olmadığı birkaç şeye bağlıdır; bunlardan biri <b>countervailing power</b> (karşı güç): satıcılar az ve güçlüyse ama alıcılar da az ve güçlüyse (büyük süpermarket zincirleri), alıcılar pazarlıkla fiyatları <b>aşağı</b> çekebilir. Böylece üreticilerin piyasa gücü dengelenir. Diğer faktörler: rekabetin yoğunluğu, reklamın türü, ürün çeşitliliği, AR-GE ve piyasanın <b>yarışılabilirliği</b>." },
+];
+
+Q.t27 = [
+{ l: 1, q: "In game theory, a dominant strategy is one that:",
+  o: ["Gives the best outcome for a player whatever the other player does", "Gives the best joint outcome for all players", "Is chosen by the largest firm", "Minimises the other player's profit"],
+  s: "<b>Dominant strategy</b> (baskın strateji): rakip ne yaparsa yapsın sana <b>en iyi</b> sonucu veren strateji. Varsa, rakibin ne yapacağını tahmin etmeye gerek yoktur. Bu tür oyunlara 'dominant-strategy games' denir ve sonuçları önceden tahmin edilebilir. Ortak sonucu en iyi yapan strateji farklıdır (bkz. mahkûmlar ikilemi)." },
+{ l: 1, q: "A Nash equilibrium is a situation in which:",
+  o: ["Each player is doing the best it can given what the other players are doing, so no one wants to change strategy", "Both players get the highest possible joint profit", "One player wins and the other loses", "Players agree to cooperate"],
+  s: "<b>Nash equilibrium</b>: diğer oyuncuların stratejileri veriyken, hiçbir oyuncunun <b>tek başına</b> stratejisini değiştirerek daha iyi duruma geçemediği durum. Kitaba göre işbirliği yapmayan oligopolde ulaşılan Nash dengesi genelde firmaların <b>topluca</b> en iyi çıkarına değildir: işbirliği yapsalar daha yüksek kâr elde ederlerdi." },
+{ l: 1, q: "A firm that chooses the strategy whose WORST possible outcome is the least bad is following a:",
+  o: ["Maximin strategy", "Maximax strategy", "Dominant strategy", "Tit-for-tat strategy"],
+  s: "<b>Maximin</b> (düşük riskli, temkinli): her stratejinin <b>en kötü</b> sonucuna bak (minimum), bu en kötüler arasından <b>en iyisini</b> (maximum) seç. <b>Maximax</b> (yüksek riskli, iyimser): her stratejinin <b>en iyi</b> sonucuna bak, en büyüğünü seç. Kitaba göre firmalar bu ikisinden birini ya da bir uzlaşmayı seçebilir." },
+{ l: 2, q: "Two firms, A and B, choose a high or low price. Profits (A, B): both high = (10, 10); A high, B low = (5, 12); A low, B high = (12, 5); both low = (8, 8). What is the Nash equilibrium?",
+  o: ["Both charge a low price: (8, 8)", "Both charge a high price: (10, 10)", "A high, B low: (5, 12)", "There is no equilibrium"],
+  s: "A için: B yüksek koyarsa → A düşük (12 &gt; 10); B düşük koyarsa → A düşük (8 &gt; 5). B ne yaparsa yapsın düşük fiyat daha iyi: A'nın <b>baskın stratejisi</b> düşük fiyat. Oyun simetrik, B için de aynısı.<br>Sonuç: ikisi de düşük → <b>(8, 8)</b>. Hiçbiri tek başına değiştirmek istemez → <b>Nash dengesi</b>.<br>İronik olan: ikisi de yüksek fiyatta anlaşsaydı (10, 10) daha iyi olurlardı. Bu <b>mahkûmlar ikilemidir</b> (Box 7.4) ve kartellerin neden kurulmak istendiğini ve neden bozulduğunu açıklar." },
+{ l: 2, q: "Why must a threat made by a firm in a multiple-move game be credible?",
+  o: ["Because rivals will only change their behaviour if they believe the firm would actually carry out the threat", "Because threats are illegal otherwise", "Because credible threats always increase joint profits", "Because only single-move games involve strategy"],
+  s: "Çok hamleli oyunlarda firmalar sadece rakiplerin <b>yaptıklarına</b> değil, <b>yapacaklarını söylediklerine</b> de tepki verir. Ama bir tehdit (ör. 'pazarıma girersen fiyatları yarıya indiririm') ancak rakip, tehdidin <b>gerçekten uygulanacağına</b> inanırsa etkilidir. Uygulamak tehdit edenin kendisine çok pahalıya mal olacaksa tehdit <b>inandırıcı değildir</b> ve rakip onu görmezden gelir. Uluslararası ilişkilerde caydırıcılık (nükleer caydırıcılık) aynı mantığa dayanır." },
+{ l: 2, q: "Why can game theory be useful for analysing oligopoly?",
+  o: ["Because in oligopoly the outcome for each firm depends on the choices made by its rivals (strategic interdependence)", "Because oligopolists are price takers", "Because oligopolies always collude", "Because there is only one firm"],
+  s: "<b>Game theory</b>, bir oyuncunun sonucunun <b>başkalarının seçimlerine de bağlı</b> olduğu stratejik durumları modeller. Oligopolün temel özelliği karşılıklı bağımlılıktır: bir firmanın fiyat kırmasının sonucu, rakiplerin tepkisine bağlıdır. Tam rekabette ve tekelde böyle bir stratejik etkileşim yoktur (fiyat alıcı ya da tek firma). Aynı araçlar silahlanma yarışı ve ticaret savaşları için de kullanılır." },
+{ l: 3, q: "Firm X has three strategies. Its profits (£m) under the rivals' three possible responses are: Strategy 1: 10, 4, 6; Strategy 2: 12, 2, 8; Strategy 3: 7, 5, 6. Which strategy would X choose under maximin, and which under maximax?",
+  o: ["Maximin: strategy 3; maximax: strategy 2", "Maximin: strategy 2; maximax: strategy 3", "Maximin: strategy 1; maximax: strategy 1", "Maximin: strategy 3; maximax: strategy 1"],
+  s: "<b>Maximin</b>: her stratejinin en kötüsü → 1: 4, 2: 2, 3: <b>5</b>. En kötülerin en iyisi 5 → <b>Strateji 3</b> (temkinli firma).<br><b>Maximax</b>: her stratejinin en iyisi → 1: 10, 2: <b>12</b>, 3: 7. En iyilerin en iyisi 12 → <b>Strateji 2</b> (riski seven firma).<br>Strateji 2 en yüksek kârı verebilir ama rakip kötü tepki verirse sadece £2m kalır; strateji 3 hiçbir durumda £5m'nin altına düşmez." },
+{ l: 3, q: "In a prisoners' dilemma between two oligopolists, why would both firms be better off if they could make a binding (enforceable) agreement?",
+  o: ["Because the Nash equilibrium (both compete) gives each less profit than the cooperative outcome, but without enforcement each has an incentive to cheat", "Because a binding agreement lets each firm undercut the other", "Because the Nash equilibrium already maximises joint profits", "Because cooperation is always illegal"],
+  s: "Mahkûmlar ikileminde her firma için rekabet etmek (düşük fiyat) <b>baskın stratejidir</b>, bu yüzden ikisi de rekabet eder ve (8, 8) gibi düşük bir sonuca ulaşır. İkisi de işbirliği yapsa (10, 10) alırdı. Sorun, işbirliğine güvenememeleri: biri yüksek fiyatta kalırken diğeri hile yaparsa hile yapan çok kazanır. <b>Bağlayıcı</b> bir anlaşma hile yapmayı imkânsız kılsaydı ikisi de daha iyi olurdu. Firmalar arasında bu tür anlaşmalar genelde yasadışıdır; uluslararası ilişkilerde ise denetimli silahsızlanma anlaşmaları bu sorunu çözmeye çalışır." },
+{ l: 3, q: "Firm A moves first, choosing a Large or Small factory; then B chooses Large or Small. Profits (A, B): A Large & B Large = (5, 5); A Large & B Small = (30, 10); A Small & B Large = (10, 30); A Small & B Small = (20, 20). What will happen?",
+  o: ["A builds Large, B responds Small: (30, 10)", "Both build Small: (20, 20)", "A builds Small, B builds Large: (10, 30)", "Both build Large: (5, 5)"],
+  s: "Karar ağacını <b>sondan başa</b> çöz (B'nin tepkisinden başla):<br>• A Large seçerse B: Large → 5, Small → 10 → B <b>Small</b> seçer → A'ya 30.<br>• A Small seçerse B: Large → 30, Small → 20 → B <b>Large</b> seçer → A'ya 10.<br>A bunu öngörür: Large → 30, Small → 10 → <b>Large</b> seçer. Sonuç <b>(30, 10)</b>.<br>Bu, <b>first-mover advantage</b>'tır (ilk hamle avantajı): önce davranan A, B'yi kendisine uygun bir tepkiye zorlar. (20, 20) ikisi için de iyi görünse de A'nın oradan sapmak için nedeni vardır." },
+];
+
+Q.t28 = [
+{ l: 1, q: "Price discrimination is:",
+  o: ["Selling the same product at different prices to different consumers, even though the costs of supplying them are the same", "Charging different prices because costs are different", "Charging the same price to everyone", "Setting a price below average cost to drive out rivals"],
+  s: "<b>Price discrimination</b> (fiyat farklılaştırması): <b>maliyeti aynı</b> olan aynı ürünü farklı tüketicilere farklı fiyatlardan satmak. Maliyet farklıysa (ör. uzak bölgeye taşıma maliyeti) fiyat farkı ayrımcılık sayılmaz. Rakipleri piyasadan atmak için maliyetin altında fiyat koymak farklı bir şeydir (yıkıcı fiyatlama)." },
+{ l: 1, q: "Cheaper cinema tickets for students are an example of:",
+  o: ["Third-degree price discrimination", "First-degree price discrimination", "Second-degree price discrimination", "Perfect competition"],
+  s: "<b>Third-degree</b> (üçüncü derece): tüketiciler <b>ayrı gruplara</b> bölünür (öğrenciler, yetişkinler, emekliler) ve her gruba farklı fiyat uygulanır (Box 7.7). Öğrenci kimliği grupları ayırmayı sağlar. First-degree her kişiye ayrı fiyattır; second-degree <b>alınan miktara</b> göre farklı fiyattır." },
+{ l: 1, q: "Which condition is necessary for a firm to practise price discrimination successfully?",
+  o: ["Consumers who buy at the low price must not be able to resell to those charged the high price", "The firm must be a price taker", "All consumers must have the same price elasticity of demand", "The product must be sold in one single market"],
+  s: "Üç koşul: (1) firmanın <b>piyasa gücü</b> olmalı (fiyat alıcı firma fiyat farklılaştıramaz); (2) piyasalar <b>ayrılabilmeli</b> ve ucuza alanlar pahalı piyasada <b>yeniden satamamalı</b> (yoksa herkes ucuz piyasadan alır); (3) grupların talep esneklikleri <b>farklı</b> olmalı. Hizmetler (sinema, tren, kuaför) yeniden satılamadığı için bu yöntem en çok hizmetlerde görülür." },
+{ l: 2, q: "Under third-degree price discrimination, a profit-maximising firm will charge a higher price to the group whose demand is:",
+  o: ["Less price elastic", "More price elastic", "Perfectly elastic", "Growing faster"],
+  s: "Talebi <b>daha az esnek</b> olan grup fiyat artışına daha az tepki verir (alternatifi azdır ya da mal onun için zorunludur). Bu yüzden ondan <b>daha yüksek</b> fiyat alınır. Esnek gruba (öğrenciler, turistler) düşük fiyat uygulanır, çünkü pahalı olursa hiç almazlar. Örnek: iş seyahati yapanlar sabah erken trene binmek zorundadır → pahalı bilet (Box 7.5)." },
+{ l: 2, q: "Under first-degree price discrimination, the firm:",
+  o: ["Charges each consumer the maximum price he or she is willing to pay for each unit, so it captures all consumer surplus", "Charges different prices for different quantities bought", "Charges different groups different prices", "Charges everyone the same price"],
+  s: "<b>First-degree</b> (birinci derece, 'tam'): her tüketiciden her birim için ödemeye razı olduğu <b>en yüksek</b> fiyat alınır. Örnek: pazarda pazarlık yapan satıcı. Tüketicinin ödemeye razı olduğu ile ödediği arasında fark kalmaz, yani <b>tüketici rantının tamamı</b> firmaya geçer. Uygulamada tam olarak yapmak zordur, çünkü firma herkesin ödeme isteğini bilmelidir." },
+{ l: 2, q: "An electricity company charges a high price for the first 100 kWh a household uses each month and a lower price for additional units. This is:",
+  o: ["Second-degree price discrimination", "First-degree price discrimination", "Third-degree price discrimination", "Peak-load pricing"],
+  s: "<b>Second-degree</b> (ikinci derece): fiyat, <b>alınan miktara</b> göre değişir. Kitaptaki örnek: ilk kilovatsaatler (aydınlatma, cihazlar: <b>ikamesi yok</b>, talep esnek değil) pahalı; ek birimler (ısınma, yemek pişirme: gaz gibi <b>ikameleri var</b>) ucuz. Toplu alım indirimleri de bu türdendir. Peak-load pricing ise saatlere göre fiyattır." },
+{ l: 3, q: "A firm with a constant marginal cost of £4 sells in two separate markets. Price elasticity of demand is −2 in market A and −4 in market B. Using the rule P = MC / (1 + 1/PED), what price should it charge in each market?",
+  o: ["A: £8, B: £5.33", "A: £5.33, B: £8", "A: £4, B: £4", "A: £2, B: £1"],
+  s: "Her piyasada MR = MC olmalı; formül P = MC / (1 + 1/PED):<br>A: 4 / (1 + 1/(−2)) = 4 / (1 − 0.5) = 4 / 0.5 = <b>£8</b><br>B: 4 / (1 + 1/(−4)) = 4 / (1 − 0.25) = 4 / 0.75 = <b>£5.33</b><br>Talebi <b>daha az esnek</b> olan A piyasasında fiyat daha yüksek, kâr payı daha büyük. Bu, üçüncü derece fiyat farklılaştırmasının sayısal hâlidir. Tek fiyat (£4) MC'dir, tam rekabet sonucudur." },
+{ l: 3, q: "Train companies charge high 'anytime' fares before 9.30 am and much cheaper off-peak fares later. Why is this profitable?",
+  o: ["Commuters and business travellers who must travel early have less elastic demand than leisure travellers, so they can be charged more", "Because costs are higher in the afternoon", "Because leisure travellers have less elastic demand", "Because trains are empty in the morning"],
+  s: "Sabah yolcuları (işe gidenler, iş seyahatinde olanlar) belli bir saatte varmak <b>zorundadır</b>, çoğu zaman bileti şirket öder → talepleri <b>esnek değildir</b> → yüksek fiyat. Boş zaman yolcuları istedikleri saatte gidebilir, araba ya da otobüse geçebilir → talepleri <b>esnektir</b> → düşük fiyat (Box 7.5). Not: yoğun saatte tren kapasitesi dolu olduğu için maliyet de daha yüksektir; kitap bunu <b>peak-load pricing</b> (Box 7.6) olarak ayrıca ele alır, çünkü saf ayrımcılıkta maliyet aynı olmalıdır." },
+{ l: 3, q: "Compared with a single-price monopolist, what is true of a firm that can practise perfect (first-degree) price discrimination?",
+  o: ["It produces more, up to the point where P = MC, because selling an extra unit no longer requires cutting the price on other units", "It produces less and charges everyone a higher price", "It produces the same output at the same price", "It makes less profit"],
+  s: "Tek fiyatlı tekel, bir birim daha satmak için <b>tüm birimlerde</b> fiyatı düşürmek zorundadır, bu yüzden MR &lt; P'dir ve az üretir. Birinci derece ayrımcılıkta ek birim sadece o birimi isteyen kişiye, onun ödemeye razı olduğu fiyattan satılır; diğer birimlerin fiyatı düşmez. Bu yüzden <b>MR = P</b> olur ve kâr maksimizasyonu <b>P = MC</b>'de gerçekleşir: üretim tam rekabet kadardır. Ama tüketici rantının tamamı firmaya geçer; kitaba göre ayrımcılıkta bazı tüketiciler <b>kazanır</b> (hiç alamayacakken alabilenler), bazıları <b>kaybeder</b>." },
+];
+
+</script>
+<script>
+// Part C soruları, Bölüm 8-9.
+TOPICS.push(
+  { id: "t29", code: "8.1", ch: 8, title: "Problems with traditional theory and alternative aims", tr: "Sahiplik-kontrol ayrımı ve alternatif amaçlar" },
+  { id: "t30", code: "8.3", ch: 8, title: "Multiple aims and pricing in practice", tr: "Çoklu amaçlar ve uygulamada fiyatlama" },
+  { id: "t31", code: "9.1", ch: 9, title: "Wages under perfect competition", tr: "Tam rekabette ücretler" },
+  { id: "t32", code: "9.2", ch: 9, title: "Wages in imperfect labour markets", tr: "Eksik piyasalarda ücretler" },
+  { id: "t33", code: "9.3", ch: 9, title: "Capital, profit, land and rent", tr: "Sermaye, kâr, toprak ve rant" },
+);
+
+Q.t29 = [
+{ l: 1, q: "In large public companies, the 'separation of ownership and control' means that:",
+  o: ["Shareholders own the company, but managers make the day-to-day decisions", "The government owns the company but managers control it", "Workers own the company and control it", "Customers control prices"],
+  s: "Büyük şirketlerin sahipleri binlerce <b>hissedardır</b>, ama şirketi <b>yöneticiler</b> yönetir. Hissedarlar en yüksek kârı isteyebilir; yöneticiler ise kendi faydalarını (maaş, güç, prestij, iş güvencesi) en büyük yapmak isteyebilir. Bu ayrım, geleneksel kâr maksimizasyonu varsayımına karşı en önemli eleştirilerden biridir." },
+{ l: 1, q: "In the principal–agent problem in firms, the principals are the ____ and the agents are the ____.",
+  o: ["shareholders (owners); managers", "managers; shareholders", "customers; suppliers", "workers; trade unions"],
+  s: "<b>Principal</b> (asıl), bir işi yaptırmak isteyen taraftır: şirketin <b>sahipleri</b> (hissedarlar). <b>Agent</b> (vekil), o işi asıl adına yapan taraftır: <b>yöneticiler</b>. Sorun, vekilin her zaman asılın isteğine göre davranmamasıdır. Aynı yapı hasta–doktor, seçmen–politikacı, hükümet–diplomat ilişkilerinde de vardır." },
+{ l: 1, q: "A firm that aims for a satisfactory level of profit rather than the maximum possible profit is:",
+  o: ["Profit satisficing", "Profit maximising", "Sales revenue maximising", "Making a loss"],
+  s: "<b>Satisficing</b> ('satisfy' + 'suffice'): <b>yeterli, tatmin edici</b> bir hedefle yetinmek. Yöneticiler hissedarları memnun edecek kadar kâr sağladıktan sonra kendi amaçlarının (büyüme, prestij, rahat bir iş) peşinden gidebilir. Bu, sahiplik–kontrol ayrımının ve bilgi eksikliğinin bir sonucudur." },
+{ l: 2, q: "What allows managers to pursue their own aims rather than the shareholders', and how can owners respond?",
+  o: ["Asymmetric information (managers know more than owners); owners can monitor managers and give incentives such as profit-related bonuses or share options", "Perfect information; owners can do nothing", "Government regulation; owners can sue managers", "Low wages; owners can pay managers less"],
+  s: "Yöneticiler şirketin durumu hakkında hissedarlardan <b>çok daha fazla bilgiye</b> sahiptir: <b>asymmetric information</b>. Bu yüzden sonuçlar sahipleri memnun ettiği sürece kendi amaçlarını izleyebilirler. Çözümler: yöneticilerin performansını <b>izlemek</b> (monitoring: denetim, yönetim kurulu) ve sahiplerin çıkarına davranmaları için <b>teşvik</b> vermek (kâra bağlı prim, hisse opsiyonu: yönetici de hissedar olur). Ayrıca kötü performans şirketi satın alınmaya (takeover) açık hâle getirir." },
+{ l: 2, q: "A firm aims to maximise sales revenue with no profit constraint. At what output will it produce?",
+  o: ["Where marginal revenue is zero", "Where marginal revenue equals marginal cost", "Where average cost is at its minimum", "Where price equals marginal cost"],
+  s: "<b>Sales revenue maximisation</b> (Baumol): yöneticilerin maaşı ve prestiji satışlarla bağlantılı olduğu için TR'yi en büyük yapmak isterler. TR, bir birim daha satmanın artık gelir eklemediği yerde en yüksektir: <b>MR = 0</b> (talebin birim esnek olduğu nokta). Gerçekte yöneticiler hissedarları memnun etmek için bir <b>kâr kısıtına</b> uymak zorundadır. Kâr maksimize eden firma ise MR = MC'de üretir." },
+{ l: 2, q: "Two high-street banks merge to form a single bank. This is a:",
+  o: ["Horizontal merger", "Vertical merger", "Conglomerate merger", "Strategic alliance"],
+  s: "<b>Horizontal merger</b>: aynı sektörde, üretimin <b>aynı aşamasındaki</b> iki firmanın birleşmesi (iki banka, iki otomobil üreticisi). Amaçlar: ölçek ekonomileri, piyasa gücü. <b>Vertical</b>: aynı sektörde farklı aşamalar (araba üreticisi + lastik üreticisi). <b>Conglomerate</b>: ilgisiz sektörler (gıda + sigorta). Stratejik ortaklıkta firmalar ayrı kalır." },
+{ l: 3, q: "A firm faces demand P = 100 − 2Q (MR = 100 − 4Q) and a constant marginal and average cost of £20. If its managers maximise sales revenue (with no profit constraint) instead of profit, what are its output, price and profit?",
+  o: ["Q = 25, P = £50, profit = £750 (compared with Q = 20, P = £60, profit = £800 if it maximised profit)", "Q = 20, P = £60, profit = £800", "Q = 40, P = £20, profit = £0", "Q = 50, P = £0, profit = −£1,000"],
+  s: "Satış geliri maksimizasyonu: MR = 0 → 100 − 4Q = 0 → <b>Q = 25</b>.<br>P = 100 − 2(25) = <b>£50</b>. TR = 50 × 25 = £1,250.<br>Kâr = (50 − 20) × 25 = <b>£750</b>.<br>Kâr maksimizasyonu (MR = MC = 20): Q = 20, P = £60, kâr £800.<br>Sonuç: satış maksimize eden firma <b>daha çok üretir, daha düşük fiyat</b> koyar ve <b>daha az kâr</b> eder. Kitabın özeti de bunu söyler (reklam da genelde daha yüksektir). £750 hissedarları tatmin etmeye yetiyorsa yöneticiler bu yolu seçebilir." },
+{ l: 3, q: "A car manufacturer buys the company that supplies its tyres. This is backward vertical integration. Which is a likely benefit for the car maker?",
+  o: ["More secure supplies and less uncertainty, and possible cost savings from coordinating production", "It eliminates a competing car manufacturer", "It diversifies into an unrelated industry to spread risk", "It automatically lowers the price of cars for all competitors"],
+  s: "<b>Vertical integration</b>: üretim zincirinde <b>geriye</b> (tedarikçiyi almak: backward) ya da <b>ileriye</b> (satış noktasını almak: forward) doğru büyümek. Kitaba göre faydaları: çeşitli <b>ölçek ekonomileriyle</b> maliyetlerin düşmesi (üretimin koordinasyonu, aracı kârının ortadan kalkması) ve <b>belirsizliğin azalması</b>: lastik tedariki güvence altına alınır, rakiplerin tedariki kontrol etmesi engellenir. Rakip araba üreticisini almak yatay birleşmedir; ilgisiz sektöre girmek conglomerate'tir." },
+{ l: 3, q: "Managers want to maximise the growth of their firm. Why must they still make sufficient profits?",
+  o: ["Growth needs finance from retained profits or investors, and low profits (and a low share price) make the firm vulnerable to a takeover, which would threaten the managers' jobs", "Because growth and profits are always the same thing", "Because the law requires maximum profits", "Because profits are needed only to pay taxes"],
+  s: "Büyüme maksimizasyonu yapan yöneticiler de kârı görmezden gelemez:<br>• Büyümenin <b>finansmanı</b>: dağıtılmayan kâr (en önemli kaynak), hisse ihracı ya da borçlanma; hepsi yeterli kâr gerektirir (yatırımcı ve banka kârlı şirkete para verir).<br>• <b>Takeover</b> tehdidi: düşük kâr hisse fiyatını düşürür; şirket, varlıklarına göre ucuz kalır ve başka bir şirket tarafından satın alınabilir. Yeni sahipler genelde yöneticileri değiştirir.<br>Bu yüzden yöneticiler bir <b>kâr kısıtı</b> altında büyümeyi maksimize eder." },
+];
+
+Q.t30 = [
+{ l: 1, q: "Which of the following are all stakeholders in a firm?",
+  o: ["Shareholders, managers, workers, customers, suppliers and creditors", "Only shareholders", "Only managers and workers", "Only the government"],
+  s: "<b>Stakeholders</b> (paydaşlar, Box 8.6): firmanın kararlarından etkilenen ve kararlarını etkileyebilen herkes: hissedarlar, yöneticiler, işçiler, müşteriler, tedarikçiler, alacaklılar (bankalar), hatta yerel toplum. Kitaba göre bu grupların amaçları <b>çelişebilir</b> (işçiler yüksek ücret, müşteriler düşük fiyat, hissedarlar yüksek kâr ister) ve firma hepsini aynı anda maksimize edemez." },
+{ l: 1, q: "Under mark-up (cost-plus) pricing, a firm sets its price by:",
+  o: ["Adding a percentage for profit to its average cost", "Setting MR equal to MC", "Charging what the market leader charges", "Charging each customer the most they will pay"],
+  s: "<b>Mark-up pricing</b>: P = AFC + AVC + kâr payı. Firma birim başına ortalama maliyetini hesaplar ve üstüne belli bir yüzde ekler. Basittir, MR ve MC eğrilerini bilmeyi gerektirmez. Kitaba göre gerçek firmaların çoğu fiyatı böyle belirler (Box 8.7). MR = MC teorik kâr maksimizasyonudur; lideri izlemek fiyat liderliğidir." },
+{ l: 1, q: "In behavioural theories of the firm, 'organisational slack' refers to:",
+  o: ["Spare resources or easy targets in parts of the firm that can be used when targets are not met, reducing conflict", "Workers who are lazy", "The firm's unsold stock", "The gap between price and marginal cost"],
+  s: "<b>Organisational slack</b> (örgütsel boşluk): firmanın bazı bölümlerinde biraz fazla kaynak, rahat bütçe ya da kolay hedef bırakılması. Hedefler tutmazsa bu boşluk kullanılır ve <b>diğer hedefleri değiştirmeye</b> gerek kalmaz. Böylece yöneticiler arasındaki <b>çatışma azalır</b>. Bedeli: firma tam verimli çalışmaz (X verimsizliği)." },
+{ l: 2, q: "A department easily exceeded its sales target last year. According to behavioural theory, what is likely to happen this year?",
+  o: ["The target will be made more ambitious", "The target will be lowered", "The department will be closed", "Nothing: targets never change"],
+  s: "Kitaba göre (8.3, madde 2): hedefler geçen yıl <b>kolayca</b> tutturulduysa, bu yıl <b>daha iddialı</b> yapılır. Tutturulamadıysa sorunu düzeltmek için bir <b>search procedure</b> (araştırma süreci) başlar; bu, hedefleri aşağı çekmeyi de içerebilir ve yöneticiler arasında pazarlıkla olur. Yani firma maksimize etmez, tatmin edici hedefleri <b>zamanla uyarlar</b>." },
+{ l: 2, q: "A firm's average fixed cost is £4 and its average variable cost is £6. It adds a 20% mark-up on average cost. What price does it charge?",
+  o: ["£12", "£10", "£7.20", "£11.20"],
+  s: "Ortalama maliyet (AC) = AFC + AVC = 4 + 6 = <b>£10</b>.<br>%20 kâr payı: 10 × 0.20 = £2.<br>P = 10 + 2 = <b>£12</b>.<br>£10 sadece maliyettir (normal kârsız). £7.20 kâr payını sadece AVC'ye uygular. £11.20, kâr payını sadece AVC'ye (6 × 0.2 = 1.2) ekleyip AFC'yi de toplamaktır. Gerçek firmalarda payın büyüklüğü piyasa koşullarına göre değişir: büyüyen ya da güçlü olunan piyasada artar." },
+{ l: 2, q: "Compared with profit-maximising firms, satisficing firms are likely to be:",
+  o: ["Less innovative and less aggressive, often changing only in response to rivals, and possibly more X-inefficient", "More aggressive in exploiting market power", "More innovative and quicker to change", "Exactly the same in behaviour"],
+  s: "Kitabın özeti (8.3, maddeler 4-5): tatmin edici hedeflerle yetinen firmalar <b>daha az yenilikçi</b>, <b>daha az agresif</b> ve değişimi başlatmaya <b>daha isteksizdir</b>; değiştiklerinde genelde rakiplerin hamlesine <b>tepki</b> olarak değişirler ve performanslarını rakiplere göre ölçerler. Olumlu yanı: piyasa güçlerini daha az kötüye kullanabilirler. Olumsuz yanı: maliyetleri kontrol etme baskısı az olduğu için <b>X inefficiency</b> daha fazla olabilir." },
+{ l: 3, q: "A firm's marginal cost is £10 and the price elasticity of demand for its product is −3. Using the profit-maximising mark-up rule P = MC / (1 + 1/PED), what price should it charge?",
+  o: ["£15", "£12.50", "£13.33", "£30"],
+  s: "P = MC / (1 + 1/PED) = 10 / (1 + 1/(−3)) = 10 / (1 − 0.333) = 10 / 0.667 = <b>£15</b>.<br>Kontrol: kitaptaki örnek PED = −5 için 10 / 0.8 = £12.50 verir. Talep <b>daha az esnek</b> (−3) olduğunda kâr payı daha büyüktür (%50 vs %25).<br>Kitabın uyarısı: bu kural sadece kâr maksimize eden çıktıda geçerlidir; firma o çıktıdan uzaksa MC ve PED değerleri yanıltıcı olabilir. £30 = 10 × 3 hatalı bir işlemdir." },
+{ l: 3, q: "Why do many firms use cost-plus (mark-up) pricing rather than setting MR equal to MC?",
+  o: ["They often lack information about their demand and marginal revenue curves, and many are satisficers rather than profit maximisers", "Because cost-plus pricing always gives maximum profit", "Because the law requires it", "Because MR and MC are always equal"],
+  s: "Kitaba göre (8.1 ve 8.4): firmalar talep ve maliyet eğrilerini, rakiplerin tepkilerini <b>bilmez</b>; MR ve MC'yi hesaplayamaz. Bu yüzden basit <b>rules of thumb</b> (pratik kurallar) kullanır. Mark-up fiyatlaması ayrıca kâr maksimize etmeyen, <b>hedef kâr</b> peşindeki (satisficing) firmalar için doğaldır. Kâr payı piyasa koşullarına göre deneme-yanılma ile ayarlanarak kâr maksimumuna yaklaşabilir ama bunu garanti etmez." },
+{ l: 3, q: "In a large firm, the marketing department wants low prices to boost sales, while the finance department wants higher prices to raise profit. According to behavioural theory, how is this conflict usually resolved?",
+  o: ["The firm sets satisfactory target levels for several aims (sales, profit, etc.) rather than maximising any one, with bargaining between managers", "The firm always maximises profit and ignores marketing", "The firm always maximises sales and ignores finance", "The government decides the price"],
+  s: "Firma çelişen amaçların <b>hepsini birden</b> maksimize edemez. Davranışsal teoriye göre çözüm, her amaç için <b>tatmin edici bir hedef</b> belirlemektir (ör. satışta %5 büyüme, en az £2m kâr). Hedefler <b>yöneticiler arası pazarlıkla</b> belirlenir ve sonuçlara göre her yıl ayarlanır; <b>organisational slack</b> çatışmayı yumuşatır. Bu, bir firmanın tek bir şeyi maksimize ettiğini varsayan teorilerden farklıdır." },
+];
+
+Q.t31 = [
+{ l: 1, q: "The marginal revenue product of labour (MRP_L) is:",
+  o: ["The extra revenue a firm earns from employing one more worker", "The wage paid to the last worker", "The total output of all workers", "The extra output from one more worker"],
+  s: "<b>MRP_L</b>: bir işçi daha çalıştırmanın firmaya getirdiği <b>ek gelir</b>. Formül: <b>MRP = MPP × MR</b> (tam rekabette MR = P). Ek işçinin ürettiği ek <b>miktar</b> MPP'dir; MRP onun parasal değeridir. Ücret ise maliyet tarafıdır." },
+{ l: 1, q: "A profit-maximising firm in a perfectly competitive labour market will employ workers up to the point where:",
+  o: ["MRP_L equals the wage", "The wage is at its lowest", "MPP_L is at its maximum", "Total revenue is at its maximum"],
+  s: "Bir işçi daha almak, getirdiği ek gelir (MRP) ek maliyetinden (MC_L) büyük olduğu sürece kârlıdır. Tam rekabetçi emek piyasasında firma <b>wage taker</b>'dır: istediği kadar işçiyi piyasa ücretinden alabilir, yani MC_L = W. Kural: <b>MRP_L = W</b>. Bu yüzden firmanın MRP eğrisi, onun <b>emek talep eğrisidir</b>." },
+{ l: 1, q: "When the wage rate rises, the substitution effect on the hours a person wants to work is:",
+  o: ["To work more, because leisure has become more expensive (each hour of leisure costs more lost income)", "To work less, because they feel richer", "Zero", "To leave the labour market"],
+  s: "Ücret artınca bir saat <b>boş zamanın fırsat maliyeti</b> (kaybedilen ücret) artar. Boş zaman pahalılaştığı için kişi onu işle ikame eder → <b>daha çok çalışır</b>: ikame etkisi <b>pozitiftir</b>. 'Zenginleştim, daha az çalışabilirim' ise <b>gelir etkisidir</b> ve ters yöndedir." },
+{ l: 2, q: "A firm sells its product at £5 in a perfectly competitive market. The 5th worker adds 12 units of output. The wage is £50. Should the firm hire the 5th worker?",
+  o: ["Yes: MRP = £60, which is more than the £50 wage", "No: MRP = £12, which is less than the wage", "No: MRP = £50, the same as the wage", "Yes, because output always rises"],
+  s: "MRP = MPP × P = 12 × £5 = <b>£60</b>.<br>İşçinin maliyeti (ücret) £50.<br>MRP (£60) &gt; W (£50) → bu işçi kâra <b>£10</b> ekler → işe alınmalı.<br>£12 sadece fiziksel üretimdir (MPP), parasal değeri değil. Firma MRP'nin ücrete eşit olduğu noktaya kadar işçi almaya devam eder." },
+{ l: 2, q: "At high wage rates, an individual's labour supply curve may bend backwards. This happens when:",
+  o: ["The income effect of a wage rise is larger than the substitution effect", "The substitution effect is larger than the income effect", "Both effects are zero", "The wage falls"],
+  s: "Ücret artışının iki etkisi zıt yöndedir: <b>ikame etkisi</b> (+): boş zaman pahalandı, daha çok çalış. <b>Gelir etkisi</b> (−): zenginleştim, daha çok boş zaman 'satın alabilirim', daha az çalış. Düşük ücretlerde genelde ikame etkisi baskındır. Yüksek ücretlerde gelir etkisi <b>daha büyük</b> olabilir: ücret artınca kişi <b>daha az</b> saat çalışır ve arz eğrisi <b>geriye bükülür</b> (backward-bending). Örnek: çok kazanan bir avukatın haftada 4 güne inmesi." },
+{ l: 2, q: "The demand for a type of labour will be MORE wage elastic if:",
+  o: ["Wages form a large proportion of the firm's total costs and labour can easily be replaced by machines", "Wages are a tiny proportion of total costs", "The demand for the product is very inelastic", "It is the very short run"],
+  s: "Kitaba göre emek talebinin esnekliği daha yüksektir eğer: (1) ürünün talebi <b>esnekse</b> (ücret artışı fiyata yansıyınca satışlar çok düşer), (2) emek diğer faktörlerle (makine) <b>kolayca ikame</b> edilebiliyorsa, (3) ikame faktörlerin arzı esnekse, (4) ücretler toplam maliyetin <b>büyük bir kısmıysa</b> (ücret artışı maliyeti çok etkiler), (5) dönem <b>uzunsa</b> (uyum için zaman var). Diğer seçenekler emek talebini daha az esnek yapar." },
+{ l: 3, q: "A firm sells output at £3 in a perfect market and pays a wage of £30. Total output with 1 to 5 workers is 20, 38, 54, 66, 74 units. How many workers will it employ?",
+  o: ["4 workers", "5 workers", "3 workers", "2 workers"],
+  s: "MPP: 1. işçi 20, 2. işçi 18, 3. işçi 16, 4. işçi 12, 5. işçi 8.<br>MRP = MPP × £3: 60, 54, 48, <b>36</b>, <b>24</b>.<br>Kural: MRP ≥ W (£30) olduğu sürece işe al.<br>4. işçi: MRP £36 &gt; £30 → al. 5. işçi: MRP £24 &lt; £30 → alma.<br>Cevap: <b>4 işçi</b>. Azalan verimler MRP'yi düşürür ve emek talep eğrisini aşağı eğimli yapar." },
+{ l: 3, q: "In the previous firm (output 20, 38, 54, 66, 74 for 1 to 5 workers; wage £30), the price of the product rises from £3 to £4. How many workers will it now employ?",
+  o: ["5 workers", "4 workers", "3 workers", "6 workers"],
+  s: "Yeni MRP = MPP × £4: 80, 72, 64, 48, <b>32</b>.<br>5. işçinin MRP'si artık £32 &gt; £30 → <b>5 işçi</b> alınır.<br>Ürün fiyatı artınca her işçinin ürettiğinin değeri artar: MRP eğrisi (emek talebi) <b>sağa kayar</b>. Bu, emek talebinin bir <b>türetilmiş talep</b> (derived demand) olduğunu gösterir: işçilere talep, ürettikleri malın talebinden gelir. Tabloda 6. işçi yok, bu yüzden 6 olamaz." },
+{ l: 3, q: "Even under perfect competition, why might wage differences between jobs persist?",
+  o: ["People have different abilities and skills, they are not perfectly mobile, and jobs differ in their non-wage characteristics (e.g. danger or unpleasantness)", "Because perfect competition always eliminates all differences", "Because all workers have identical skills", "Because firms in perfect competition set wages"],
+  s: "Teoride işçiler düşük ücretli işlerden yüksek ücretlilere geçer ve farklar kapanır. Ama kitaba göre eşitsizlik tam rekabette bile sürebilir:<br>• Farklı <b>yetenek ve beceriler</b> (human capital: eğitim, deneyim),<br>• Eksik <b>hareketlilik</b> (taşınma maliyeti, aile bağları, yeni mesleği öğrenme süresi),<br>• İşlerin farklı <b>nitelikleri</b>: tehlikeli ya da sevimsiz işler daha çok ödemelidir.<br>Buna ek olarak piyasa aksaklıkları ve toprak ile sermaye sahipliğindeki eşitsizlik gelir farklarını büyütür." },
+];
+
+Q.t32 = [
+{ l: 1, q: "A monopsony exists when:",
+  o: ["There is a single buyer (e.g. a single employer of a type of labour)", "There is a single seller", "There are many buyers and sellers", "A union represents all workers"],
+  s: "<b>Monopsony</b>: tek <b>alıcı</b>. Emek piyasasında, belli bir emek türünün <b>tek işvereni</b> (ör. küçük bir kasabadaki tek büyük fabrika, Box 9.4'teki Viktorya dönemi maden kasabaları, posta işçileri için Post Office). Az sayıda alıcı varsa <b>oligopsony</b>. Tek satıcı monopoly'dir; tek bir sendika emeğin tek satıcısı gibi davranır." },
+{ l: 1, q: "Compared with a perfectly competitive labour market, a monopsony employer will tend to:",
+  o: ["Employ fewer workers at a lower wage", "Employ more workers at a higher wage", "Employ the same number at a higher wage", "Employ more workers at a lower wage"],
+  s: "Monopsonist daha çok işçi almak için ücreti <b>herkese</b> artırmak zorundadır, bu yüzden ek işçinin maliyeti (MC_L) ücretten yüksektir. MRP = MC_L noktasında, rekabetçi piyasaya göre <b>daha az</b> işçi alır ve ücreti emek arz eğrisinden okur, yani <b>daha düşük</b> ücret öder. Piyasa gücünü ücretleri bastırmak için kullanır." },
+{ l: 1, q: "Bilateral monopoly in a labour market is where:",
+  o: ["A monopoly union faces a monopsony employer", "Two firms share the labour market", "Two unions compete for members", "The government employs all workers"],
+  s: "<b>Bilateral monopoly</b> (iki yanlı tekel): emeğin tek satıcısı (bir <b>sendika</b>) ile emeğin tek alıcısı (<b>monopsonist işveren</b>) karşı karşıyadır. Tek bir denge ücreti yoktur; ücret, iki tarafın <b>toplu pazarlığının</b> (collective bargaining) sonucuna bağlıdır." },
+{ l: 2, q: "A monopsony employer pays 10 workers £100 a day each. To attract an 11th worker it must raise the wage to £105 for everyone. What is the marginal cost of the 11th worker?",
+  o: ["£155", "£105", "£5", "£1,155"],
+  s: "10 işçide toplam ücret: 10 × £100 = £1,000.<br>11 işçide toplam ücret: 11 × £105 = £1,155.<br>MC_L = 1,155 − 1,000 = <b>£155</b>.<br>Yeni işçiye £105 ödenir, ama mevcut 10 işçinin her birine de £5 fazla (toplam £50) ödenmesi gerekir: 105 + 50 = 155. İşte bu yüzden monopsonide <b>MC_L &gt; ücret</b>'tir ve firma daha az işçi alır. £1,155 toplam ücret faturasıdır." },
+{ l: 2, q: "A powerful union raises the wage in an industry where employers sell their products in a perfectly competitive market. What is the likely effect?",
+  o: ["Employment will fall, because firms move up their MRP curves and hire fewer workers", "Employment will rise", "There is no effect on employment", "Product prices will fall"],
+  s: "Kitaba göre (9.2, madde 2): sendikanın ücreti artırma gücü, işveren mal piyasasında <b>tam ya da tekelci rekabetteyse</b> sınırlıdır. Firmanın aşırı kârı yoktur; daha yüksek ücrette MRP = W kuralı gereği <b>daha az işçi</b> alır (MRP eğrisi boyunca yukarı hareket). Yani yüksek ücret ile istihdam arasında bir değiş tokuş vardır. Monopsony işverenle karşılaşan sendika ise bu değiş tokuş olmadan ücreti artırabilir." },
+{ l: 2, q: "According to the book, the outcome of collective bargaining between a union and an employer depends on:",
+  o: ["The relative power, attitudes and bargaining skills of both sides, the firm's profitability, the information each side has, and the legal framework", "Only the market wage", "Only the government's decision", "Only the number of workers"],
+  s: "İki yanlı tekelde tek bir denge yoktur. Sonuç şunlara bağlıdır: iki tarafın <b>göreli gücü</b> (grev ya da lokavt yapabilme, işçilerin birliği), <b>tutumları</b> ve <b>pazarlık becerileri</b>, firmanın <b>kârlılığı</b> (ne kadar ödeyebileceği), tarafların birbiri hakkındaki <b>bilgisi</b> ve <b>yasal çerçeve</b> (grev yasaları). Her iki taraf da tehdit ve vaatlerde bulunur; bunlar oyun teorisindeki gibi <b>inandırıcı</b> olmalıdır." },
+{ l: 3, q: "In a monopsony labour market, a minimum wage is set above the monopsony wage but below the competitive wage. What could happen to employment?",
+  o: ["It could rise, because the employer now faces a constant marginal cost of labour (the minimum wage) over a range of employment", "It must fall, as in a competitive market", "It stays the same in all cases", "It falls to zero"],
+  s: "Monopsonist normalde az işçi alır, çünkü her ek işçi ücreti herkese yükseltir (MC_L &gt; W). Asgari ücret konunca, arz eğrisinin bu ücrete kadar olan kısmında firma <b>herkese aynı sabit ücreti</b> öder; ek işçi almak diğerlerinin ücretini artırmaz → MC_L = asgari ücret, yatay. MRP bu düzeye eşit olana kadar daha çok işçi alır → istihdam <b>artabilir</b>. Bu, tam rekabet modelinin ('asgari ücret işsizlik yaratır') tersidir. Aynı mantık, monopsonist karşısındaki sendikaya da uygulanır." },
+{ l: 3, q: "An employer with market power discriminates against a group of workers, paying them less than others for the same work. A law requiring equal pay is passed, but discrimination in hiring is not banned. What does the book suggest may happen?",
+  o: ["Employment of the group discriminated against may fall, as the employer hires fewer of them at the higher wage", "Their employment will definitely rise", "Their wages will fall further", "Discrimination will disappear completely"],
+  s: "Piyasa gücü olan işveren, ayrımcılık yaptığı grubun (ırk, cinsiyet, yaş) ücretini aşağı çekebilir. Eşit ücret yasası bu grubun ücretini yükseltir. Ama işveren <b>işe almada</b> ayrımcılık yapmaya devam edebiliyorsa, artık daha pahalı olan bu gruptan <b>daha az</b> kişi alabilir. Kitabın sonucu: firmalar ayrımcılık yapmaya <b>zorla</b> engellenmezse, eşit ücret yasası ayrımcılığa uğrayan grubun istihdamını azaltabilir. Bu yüzden eşit ücret ve ayrımcılık yasağı birlikte uygulanır." },
+{ l: 3, q: "Why can a union facing a monopsony employer raise wages above the monopsony level WITHOUT reducing employment?",
+  o: ["The negotiated wage removes the employer's incentive to restrict hiring, because extra workers no longer raise the wage paid to existing workers", "Because monopsonists always make losses", "Because the employer's MRP rises when wages rise", "Because unions can force firms to employ anyone"],
+  s: "Monopsonist az işçi alıyordu, çünkü her ek işçi <b>tüm</b> işçilerin ücretini yükseltiyordu (MC_L ücretin üstünde). Sendika bir ücret belirleyince, firma bu ücretten (arz eğrisine kadar) istediği kadar işçi alabilir; ek işçi artık diğerlerinin ücretini yükseltmez. MC_L bu aralıkta pazarlık edilen ücrete eşit ve <b>yatay</b> olur. Bu yüzden ücret, istihdamı düşürmeden monopsony düzeyinin <b>üstüne</b> çıkabilir; hatta istihdam artabilir. Ücretin tam nerede olacağı toplu pazarlığa bağlıdır." },
+];
+
+Q.t33 = [
+{ l: 1, q: "The supply of land is usually described as:",
+  o: ["Perfectly (or almost perfectly) inelastic", "Perfectly elastic", "Upward sloping and very elastic", "Downward sloping"],
+  s: "Toprak doğanın verdiği bir faktördür; toplam miktarı fiyat (rant) ne olursa olsun neredeyse <b>değişmez</b>. Bu yüzden arz eğrisi <b>dikey</b>dir (tamamen esnek değil). Sonuç: rantın düzeyi tamamen <b>talebe</b> bağlıdır. Belli bir kullanım (ör. buğday tarlası) için arz ise daha esnek olabilir, çünkü toprak başka kullanımlardan kaydırılabilir." },
+{ l: 1, q: "Discounting future earnings from an investment to find their present value is necessary because:",
+  o: ["Money received in the future is worth less than the same amount today, since money today could earn interest", "Future earnings are always zero", "Inflation is always negative", "Firms cannot borrow money"],
+  s: "Bugünkü £100 bankada faiz kazanabilir; 1 yıl sonra %10 faizle £110 olur. Bu yüzden 1 yıl sonra alınacak £110'un <b>bugünkü değeri</b> £100'dür. Yatırımın gelecekteki getirileri bu yüzden piyasa faiziyle bugüne <b>indirgenir</b> (discounting): <b>PV = X / (1 + r)ⁿ</b>. Sonra bugünkü değer, yatırımın maliyetiyle karşılaştırılır." },
+{ l: 1, q: "When a company sells NEW shares to raise finance on the stock market, the stock market is acting as a:",
+  o: ["Primary market", "Secondary market", "Futures market", "Labour market"],
+  s: "Borsa iki işlev görür: <b>primary market</b> (birincil piyasa): şirketler <b>yeni</b> hisse ve tahvil satar, para doğrudan şirkete gider (yatırım finansmanı). <b>Secondary market</b> (ikincil piyasa): <b>var olan</b> hisseler yatırımcılar arasında alınıp satılır; para şirkete değil satana gider. İkincil piyasa, hisseleri kolayca satılabilir yaptığı için insanları birincil piyasada almaya teşvik eder." },
+{ l: 2, q: "What is the present value of £121 to be received in two years' time if the interest rate is 10%?",
+  o: ["£100", "£110", "£121", "£96.80"],
+  s: "PV = X / (1 + r)ⁿ = 121 / (1.10)² = 121 / 1.21 = <b>£100</b>.<br>Kontrol: £100'ü %10 faizle yatırırsan 1 yıl sonra £110, 2 yıl sonra £121 olur ✓.<br>£110, sadece bir yıl indirmektir (121/1.1). £96.80, faizi iki kez basitçe düşmektir (121 × 0.8). Gelecekteki para bugünküden <b>az değerlidir</b>, bu yüzden PV her zaman gelecekteki tutardan küçüktür (faiz pozitifse)." },
+{ l: 2, q: "If market interest rates rise, what happens to the present value of an investment's future earnings, and to investment?",
+  o: ["Present value falls, so fewer investments are worthwhile and investment falls", "Present value rises, so investment rises", "Present value is unchanged", "Present value falls, but investment rises"],
+  s: "PV = X / (1 + r)ⁿ: <b>r</b> büyüdükçe payda büyür, <b>PV küçülür</b>. Bu yüzden yatırımın getirilerinin bugünkü değeri düşer ve daha az yatırım maliyetini karşılar → bazı projeler artık <b>kârlı değildir</b> → yatırım düşer. Sezgi: faiz yüksekken parayı bankaya koymak daha cazip olur (yatırımın fırsat maliyeti artar). Bu, faiz politikasının ekonomiyi nasıl etkilediğinin temel mekanizmalarından biridir (makroekonomide de çıkar)." },
+{ l: 2, q: "A firm is considering a risky investment. Compared with the market rate of interest, the rate of return it requires will be:",
+  o: ["Higher, to compensate for the risk", "Lower, because risk is good", "Exactly equal to the market rate", "Zero"],
+  s: "Kitaba göre (9.3, madde 9): firma indirgeme için piyasa faizini kullanır, ama yatırım <b>riskliyse</b> piyasa faizinden <b>daha yüksek</b> bir getiri oranı ister. Ek getiri, riskin karşılığıdır (risk primi). Bu yüzden riskli girişimler ya daha yüksek kâr vaat etmeli ya da yapılmaz. Riskten kaçınma (Bölüm 4.2) mantığının yatırıma uygulanmasıdır." },
+{ l: 3, q: "An investment costs £1,000 today and will return £600 at the end of each of the next two years. The interest rate is 10%. Is it worthwhile?",
+  o: ["Yes: present value of returns ≈ £1,041, which exceeds the £1,000 cost", "No: present value of returns ≈ £909, below the cost", "Yes: it returns £1,200, which is more than £1,000, so discounting is unnecessary", "No: present value of returns is exactly £1,000"],
+  s: "Her getiriyi ayrı ayrı indirge:<br>1. yıl: 600 / 1.10 = £545.45<br>2. yıl: 600 / 1.10² = 600 / 1.21 = £495.87<br>Toplam PV ≈ <b>£1,041.32</b>.<br>PV (£1,041) &gt; maliyet (£1,000) → <b>net bugünkü değer</b> ≈ +£41 → yatırım <b>yapılmalı</b>.<br>£1,200'ü doğrudan maliyetle karşılaştırmak yanlıştır: paranın zaman değeri göz ardı edilir. Faiz %15 olsaydı PV ≈ 522 + 454 = £976 olur ve yatırım yapılmazdı." },
+{ l: 3, q: "The price of wheat rises sharply, so the marginal revenue product of farmland rises. Given that the supply of land is perfectly inelastic, what happens in the market for land?",
+  o: ["Rents rise but the quantity of land does not change", "Both rents and the quantity of land rise", "Rents stay the same and more land is supplied", "Rents fall"],
+  s: "Toprağa talep, toprağın <b>MRP</b>'sidir (türetilmiş talep). Buğday fiyatı artınca bir dönüm toprağın ürettiğinin değeri artar → toprak talebi <b>sağa kayar</b>. Arz eğrisi dikey olduğu için miktar değişemez; talep artışının <b>tamamı rante</b> yansır → <b>rant yükselir</b>, miktar aynı kalır. Bu, 19. yüzyılda David Ricardo'nun gözlemiydi: 'Buğday pahalı olduğu için rant yüksek değil, rant yüksek çünkü buğday pahalı.'" },
+{ l: 3, q: "A field earns a rent of £5,000 a year (forever) and the interest rate is 5%. Roughly what will its price be, and what happens to the price if the interest rate falls to 4%?",
+  o: ["About £100,000; it rises to about £125,000", "About £5,000; it stays the same", "About £100,000; it falls to about £80,000", "About £250,000; it rises to about £500,000"],
+  s: "Kitaba göre toprağın fiyatı, <b>marjinal faydası</b> (yıllık kira getirisi) ile <b>marjinal maliyeti</b> (onu almak için borçlanmanın yıllık faiz maliyeti) eşitlendiğinde dengededir:<br>Faiz × fiyat = kira → fiyat = kira / faiz = 5,000 / 0.05 = <b>£100,000</b>.<br>Faiz %4'e düşerse: 5,000 / 0.04 = <b>£125,000</b>.<br>Faiz düşünce borçlanmak ucuzlar ve aynı kira getirisi daha yüksek bir fiyatı haklı çıkarır: <b>toprak ve konut fiyatları faiz düşünce yükselir</b>. Bu, düşük faizli dönemlerdeki emlak fiyatı artışlarını da açıklar." },
+];
+
+</script>
+<script>
 const LV = { 1: "Kolay", 2: "Orta", 3: "Zor" };
+const MIX_SIZE = 20;
 const KEY = "econ-quiz-v1";
 let answers = {};
 try { answers = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { answers = {}; }
@@ -1083,7 +2037,8 @@ function seeded(str) { let h = 2166136261; for (const c of str) { h ^= c.charCod
 function order(q) { const r = seeded(q.id), a = q.o.map((_, i) => i); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 
 const app = document.getElementById("app");
-let view = { name: "ozet" }, filter = 0, mixSet = null, mixChapters = [1, 2, 3], resetAsk = false;
+const CHAPTERS = SUMMARY.map(c => c.ch);
+let view = { name: "ozet" }, filter = 0, mixSet = null, mixChapters = CHAPTERS.slice(), resetAsk = false;
 
 function topicStats(id) { const qs = Q[id]; let g = 0, b = 0; qs.forEach(q => { if (q.id in answers) answers[q.id] === 0 ? g++ : b++; }); return { g, b, n: qs.length }; }
 function totals() { let g = 0, b = 0; ALL.forEach(q => { if (q.id in answers) answers[q.id] === 0 ? g++ : b++; }); return { g, b, n: ALL.length }; }
@@ -1105,8 +2060,8 @@ function render() {
 
 function renderSummary() {
   const tbl = h => h.replace(/<table class="tbl">/g, '<div class="tbl-wrap"><table class="tbl">').replace(/<\/table>/g, "</table></div>");
-  app.innerHTML = `<div class="eyebrow">Part A + Part B</div><h1>Sınav özeti</h1>
-  <p class="lead">Kitabın Part C'den önceki üç bölümü. Her başlığa dokunup aç. İngilizce terimler sınavda çıkacak hâliyle kalın yazıldı.</p>
+  app.innerHTML = `<div class="eyebrow">Part A + Part B + Part C</div><h1>Sınav özeti</h1>
+  <p class="lead">Kitabın ilk dokuz bölümü. Her başlığa dokunup aç. İngilizce terimler sınavda çıkacak hâliyle kalın yazıldı.</p>
   <div class="stack">${SUMMARY.map(c => `<section class="card chap">
     <div class="chap-head"><span class="chap-no">${c.ch}</span><div><h2>${c.title}</h2><div class="mute">${c.tr} · ${c.part}</div></div></div>
     ${c.sections.map(s => `<details class="sec" id="sec-${s.code}"><summary><span class="code">${s.code}</span><span><h3>${s.title}</h3><span class="sec-tr">${s.tr}</span></span></summary>
@@ -1115,13 +2070,15 @@ function renderSummary() {
 }
 
 function renderTopics() {
-  let html = `<div class="eyebrow">${ALL.length} soru · 14 konu</div><h1>Sorular</h1>
+  let html = `<div class="eyebrow">${ALL.length} soru · ${TOPICS.length} konu</div><h1>Sorular</h1>
   <p class="lead">Her konuda 9 soru: 3 kolay, 3 orta, 3 zor. Bir şıkka dokununca hemen cevabı ve ayrıntılı çözümü görürsün. Sorular sınavdaki gibi İngilizce, çözümler Türkçe.</p>
-  <div class="card mix"><h3>Karışık deneme sınavı</h3><div class="mute">Seçtiğin bölümlerden rastgele 15 soru.</div>
-  <div class="row">${[1, 2, 3].map(c => `<button class="chip" data-mixch="${c}" aria-pressed="${mixChapters.includes(c)}">Bölüm ${c}</button>`).join("")}</div>
+  <div class="card mix"><h3>Karışık deneme sınavı</h3><div class="mute">Seçtiğin bölümlerden rastgele ${MIX_SIZE} soru.</div>
+  <div class="row">${CHAPTERS.map(c => `<button class="chip" data-mixch="${c}" aria-pressed="${mixChapters.includes(c)}">Bölüm ${c}</button>`).join("")}</div>
   <div class="row"><button class="btn" data-startmix>Denemeyi başlat</button></div></div>`;
-  [1, 2, 3].forEach(ch => {
-    const c = SUMMARY[ch - 1];
+  let part = "";
+  CHAPTERS.forEach(ch => {
+    const c = SUMMARY.find(s => s.ch === ch);
+    if (c.part !== part) { part = c.part; html += `<h2 style="margin:26px 0 0">${part}</h2>`; }
     html += `<div class="chapter-label">Bölüm ${ch} · ${c.title}</div><div class="stack" style="margin-top:8px">`;
     TOPICS.filter(t => t.ch === ch).forEach(t => { const s = topicStats(t.id);
       html += `<button class="card topic" data-topic="${t.id}"><span><span class="code">${t.code}</span> <h3 style="display:inline">${t.title}</h3><span class="sec-tr">${t.tr}</span></span>
@@ -1194,7 +2151,7 @@ app.addEventListener("click", e => {
   if (d.quiz) { const t = TOPICS.find(x => x.code === d.quiz); return go("topic", { id: t.id }); }
   if (d.summary) { go("ozet"); const el = document.getElementById("sec-" + d.summary); if (el) { el.open = true; el.scrollIntoView(); } return; }
   if (d.mixch) { const c = +d.mixch; mixChapters = mixChapters.includes(c) ? mixChapters.filter(x => x !== c) : mixChapters.concat(c); if (!mixChapters.length) mixChapters = [c]; return render(); }
-  if (d.startmix !== undefined) { const pool = ALL.filter(q => mixChapters.includes(TOPICS.find(t => t.id === q.topic).ch)); mixSet = shuffle(pool.slice()).slice(0, 15).map(q => q.id); return go("mix", { local: {} }); }
+  if (d.startmix !== undefined) { const pool = ALL.filter(q => mixChapters.includes(TOPICS.find(t => t.id === q.topic).ch)); mixSet = shuffle(pool.slice()).slice(0, MIX_SIZE).map(q => q.id); return go("mix", { local: {} }); }
   if (d.resettopic) { Q[d.resettopic].forEach(q => delete answers[q.id]); save(); return render(); }
   if (d.resetall) { if (d.resetall === "ask") resetAsk = true; else { if (d.resetall === "yes") { answers = {}; save(); } resetAsk = false; } return render(); }
   if (d.jump) { const q = ALL.find(x => x.id === d.jump); go("topic", { id: q.topic }); const el = document.getElementById("q-" + q.id); if (el) el.scrollIntoView(); return; }
