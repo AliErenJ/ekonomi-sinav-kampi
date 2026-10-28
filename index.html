@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ekonomi">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#18202c" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<style>
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/atkinsonhyperlegible_v12_9Bt43C1KxNDXMspQ1lPyU89_1h6ONRlW45G056IkUwCgblWmLWQ.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/atkinsonhyperlegible_v12_9Bt43C1KxNDXMspQ1lPyU89_1h6ONRlW45G056IqUwCgblWm.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/atkinsonhyperlegible_v12_9Bt23C1KxNDXMspQ1lPyU89_1h6ONRlW45G07JIoWQeCbGWn.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/atkinsonhyperlegible_v12_9Bt23C1KxNDXMspQ1lPyU89_1h6ONRlW45G04pIoWQeCbA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/atkinsonhyperlegible_v12_9Bt73C1KxNDXMspQ1lPyU89_1h6ONRlW45G8Wbc9eiWPRl_uFV24.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/atkinsonhyperlegible_v12_9Bt73C1KxNDXMspQ1lPyU89_1h6ONRlW45G8Wbc9dCWPRl_uFQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(fonts/bricolagegrotesque_v9_3y9K6as8bTXq_nANBjzKo3IeZx8z6up5BeSl9D4dj_x9PpZBMlGGInHWVyNJtvI.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(fonts/bricolagegrotesque_v9_3y9K6as8bTXq_nANBjzKo3IeZx8z6up5BeSl9D4dj_x9PpZBMlGIInHWVyNJ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(fonts/bricolagegrotesque_v9_3y9K6as8bTXq_nANBjzKo3IeZx8z6up5BeSl9D4dj_x9PpZBMlGGInHWVyNJtvI.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(fonts/bricolagegrotesque_v9_3y9K6as8bTXq_nANBjzKo3IeZx8z6up5BeSl9D4dj_x9PpZBMlGIInHWVyNJ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/jetbrainsmono_v24_tDbY2o_flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8_qxTNFOVk6WThjPA.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(fonts/jetbrainsmono_v24_tDbY2o_flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8_qxTOlOVk6WThg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px) }
+body { margin: 0; -webkit-text-size-adjust: 100% }
+img { max-width: 100% }
+[hidden] { display: none !important }
+</style>
+<title>Ekonomi Sınav Kampı</title>
+
+<style>
+/* Layout: tek sütunlu telefon uygulaması; altta sabit sekme çubuğu, üstte yapışkan başlık.
+   Renkler bir arz-talep grafiğinden: talep mavisi, arz turuncusu, grafik kâğıdı zemin. */
+:root {
+  --bg: #f3f5f8; --surface: #ffffff; --ink: #172235; --muted: #5d6879; --line: #d9dee7; --grid: #e6eaf1;
+  --demand: #2457c5; --demand-soft: #e5ecfb; --supply: #c25a14; --supply-soft: #fbeadd;
+  --good: #1d7a46; --good-soft: #e1f3e8; --bad: #b8322a; --bad-soft: #fbe5e3;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #10151e; --surface: #18202c; --ink: #e8edf5; --muted: #9aa6b8; --line: #2b3646; --grid: #1a2230;
+  --demand: #7ea3f2; --demand-soft: #1d2b49; --supply: #f0a061; --supply-soft: #3a2616;
+  --good: #5fcf8d; --good-soft: #15321f; --bad: #f08a80; --bad-soft: #3a1b19; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #10151e; --surface: #18202c; --ink: #e8edf5; --muted: #9aa6b8; --line: #2b3646; --grid: #1a2230;
+  --demand: #7ea3f2; --demand-soft: #1d2b49; --supply: #f0a061; --supply-soft: #3a2616;
+  --good: #5fcf8d; --good-soft: #15321f; --bad: #f08a80; --bad-soft: #3a1b19; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--body);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface) }
+button { font: inherit; color: inherit }
+:focus-visible { outline: 3px solid var(--demand); outline-offset: 2px }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line);
+  padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.top-in { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px }
+.back { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-weight: 700 }
+.brand { font: 800 19px/1.1 var(--display); letter-spacing: -.01em; flex: 1; min-width: 0 }
+.brand small { display: block; font: 400 12px/1.3 var(--body); color: var(--muted); letter-spacing: 0 }
+.score { font: 500 13px var(--mono); color: var(--muted); white-space: nowrap }
+
+main { max-width: 720px; margin: 0 auto; padding-block: 18px 110px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px)); }
+.tabs-in { max-width: 720px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr) }
+.tab { background: none; border: 0; padding: 10px 4px 12px; cursor: pointer; display: grid; justify-items: center; gap: 2px; color: var(--muted); font-size: 13px; font-weight: 700 }
+.tab svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+.tab[aria-current="page"] { color: var(--demand) }
+
+h1 { font: 800 clamp(26px, 7vw, 34px)/1.1 var(--display); letter-spacing: -.02em; margin: 4px 0 6px; text-wrap: balance }
+h2 { font: 800 22px/1.2 var(--display); margin: 0; text-wrap: balance }
+h3 { font: 600 18px/1.3 var(--display); margin: 0; text-wrap: balance }
+h4 { font: 700 16px/1.3 var(--body); margin: 18px 0 6px; color: var(--demand) }
+.lead { color: var(--muted); margin: 0 0 18px }
+.eyebrow { font: 500 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--supply) }
+.mute { color: var(--muted) }
+
+.stack { display: grid; gap: 12px }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r) }
+
+/* Özet */
+.chap { padding: 16px }
+.chap-head { display: flex; gap: 12px; align-items: baseline }
+.chap-no { font: 800 34px/1 var(--display); color: var(--supply) }
+.sec { border-top: 1px solid var(--line); margin-top: 12px }
+.sec > summary { list-style: none; cursor: pointer; padding: 12px 0 4px; display: flex; gap: 10px; align-items: baseline }
+.sec > summary::-webkit-details-marker { display: none }
+.sec > summary::after { content: "+"; margin-left: auto; font: 500 18px var(--mono); color: var(--muted) }
+.sec[open] > summary::after { content: "−" }
+.code { font: 500 13px var(--mono); color: var(--demand); background: var(--demand-soft); padding: 1px 6px; border-radius: 5px; flex: none }
+.sec-tr { display: block; font-size: 14px; color: var(--muted) }
+.sec-body { padding-bottom: 10px; max-width: 65ch }
+.sec-body p, .sec-body ul { margin: 6px 0 }
+.sec-body ul { padding-left: 20px }
+.sec-body li { margin: 4px 0 }
+.fm { font: 500 15px/1.5 var(--mono); background: var(--demand-soft); border-radius: 8px; padding: 8px 12px; overflow-x: auto }
+.tip { background: var(--supply-soft); border-radius: 8px; padding: 10px 12px; margin: 14px 0 6px; font-size: 15px }
+.tbl-wrap { overflow-x: auto; margin: 8px 0 }
+.tbl { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 300px }
+.tbl th, .tbl td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top }
+.tbl th { background: var(--bg); font-weight: 700 }
+.quiz-link { margin-top: 10px; display: inline-flex; gap: 6px; align-items: center; border: 1px solid var(--demand); color: var(--demand); background: none; border-radius: 8px; padding: 6px 12px; cursor: pointer; font-weight: 700; font-size: 14px }
+
+.fig { margin: 12px 0; max-width: 420px }
+.fig svg { width: 100%; height: auto; display: block; background: var(--bg); border-radius: 8px }
+.fig figcaption { font-size: 13px; color: var(--muted); margin-top: 6px }
+.ax { stroke: var(--ink); stroke-width: 1.5 }
+.c-d { stroke: var(--demand); stroke-width: 3; fill: none }
+.c-s { stroke: var(--supply); stroke-width: 3; fill: none }
+.c-k { stroke: var(--ink); stroke-width: 2.5; fill: none }
+.dash { stroke-dasharray: 6 5 }
+.guide { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3 }
+.guide2 { stroke: var(--muted); stroke-width: 1; opacity: .5 }
+.pt { fill: var(--ink) } .pt-o { fill: var(--surface); stroke: var(--ink); stroke-width: 2 }
+.lb { fill: var(--ink); font: 700 12px var(--body) } .lb.sm { font-size: 10.5px; font-weight: 400 } .lb.mute { fill: var(--muted) }
+.lb.d { fill: var(--demand) } .lb.s { fill: var(--supply) }
+.box { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5 } .box2 { fill: var(--demand-soft); stroke: var(--demand); stroke-width: 1.2 }
+.arr { stroke-width: 2; marker-end: url(#ah) }
+
+/* Konular */
+.topic { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 14px 16px; text-align: left; cursor: pointer; width: 100% }
+.topic:hover { border-color: var(--demand) }
+.topic .meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px }
+.bar { flex: 1; height: 6px; background: var(--grid); border-radius: 3px; overflow: hidden; display: flex }
+.bar i { display: block; height: 100% }
+.bar .g { background: var(--good) } .bar .b { background: var(--bad) }
+.frac { font: 500 13px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums }
+.chapter-label { font: 600 14px var(--display); color: var(--muted); margin: 14px 0 0 }
+.mix { padding: 16px; display: grid; gap: 10px; background: var(--demand-soft); border-color: transparent }
+.row { display: flex; flex-wrap: wrap; gap: 8px }
+.btn { border: 0; background: var(--demand); color: #fff; border-radius: 8px; padding: 10px 16px; font-weight: 700; cursor: pointer }
+.btn.ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line) }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-size: 14px; font-weight: 700 }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink) }
+
+/* Soru */
+.q { padding: 16px }
+.q-head { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap }
+.lvl { font: 500 12px var(--mono); padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .05em }
+.lvl.l1 { background: var(--good-soft); color: var(--good) }
+.lvl.l2 { background: var(--supply-soft); color: var(--supply) }
+.lvl.l3 { background: var(--bad-soft); color: var(--bad) }
+.qno { font: 500 12px var(--mono); color: var(--muted) }
+.q-text { font-size: 17px; font-weight: 700; margin: 0 0 12px }
+.opts { display: grid; gap: 8px }
+.opt { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; text-align: left; padding: 10px 12px;
+  border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); cursor: pointer; font-size: 15.5px }
+.opt:hover:not(:disabled) { border-color: var(--demand) }
+.opt .let { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); font: 500 13px var(--mono) }
+.opt:disabled { cursor: default }
+.opt.right { border-color: var(--good); background: var(--good-soft) } .opt.right .let { background: var(--good); color: var(--surface) }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft) } .opt.wrong .let { background: var(--bad); color: var(--surface) }
+.sol { margin-top: 12px; border-left: 4px solid var(--good); background: var(--bg); border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 15.5px }
+.sol.bad { border-left-color: var(--bad) }
+.sol-h { font-weight: 700; margin-bottom: 4px }
+.sol-h.ok { color: var(--good) } .sol-h.no { color: var(--bad) }
+.empty { padding: 20px; text-align: center; color: var(--muted) }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px }
+.stat { padding: 12px; text-align: center }
+.stat b { display: block; font: 800 26px/1.1 var(--display); font-variant-numeric: tabular-nums }
+.stat span { font-size: 13px; color: var(--muted) }
+.confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px; background: var(--bad-soft); border-radius: 8px }
+
+@media (prefers-reduced-motion: no-preference) { .sol { animation: in .25s ease-out } @keyframes in { from { opacity: .3; transform: translateY(-4px) } } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" style="fill: var(--muted)"/></marker>
+</defs></svg>
+
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <button class="back" id="back" hidden aria-label="Geri">←</button>
+  <div class="brand" id="brand">Ekonomi Sınav Kampı<small>Sloman, Economics · Bölüm 1–3</small></div>
+  <div class="score" id="score"></div>
+</div></header>
+
+<main id="app"></main>
+
+<nav class="tabs" aria-label="Bölümler"><div class="tabs-in">
+  <button class="tab" data-go="ozet"><svg viewBox="0 0 24 24"><path d="M4 5h11a4 4 0 0 1 4 4v10H8a4 4 0 0 1-4-4z"/><path d="M8 9h7M8 13h5"/></svg>Özet</button>
+  <button class="tab" data-go="sorular"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17.2v.1"/></svg>Sorular</button>
+  <button class="tab" data-go="ilerleme"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>İlerleme</button>
+</div></nav>
+
+<script>
+// Sınav özeti: Sloman, Economics 7th ed., Part A ve Part B (Bölüm 1-3).
+// Her konu: kısa açıklama, kavramlar (EN terim = TR anlam), grafik, sınav ipucu.
+
+const AX = `<line x1="40" y1="14" x2="40" y2="190" class="ax"/><line x1="40" y1="190" x2="290" y2="190" class="ax"/>`;
+function fig(body, cap, xl = "Q", yl = "P") {
+  return `<figure class="fig"><svg viewBox="0 0 300 215" role="img" aria-label="${cap}">${AX}
+  <text x="30" y="20" class="lb" text-anchor="end">${yl}</text><text x="288" y="207" class="lb" text-anchor="end">${xl}</text>${body}</svg><figcaption>${cap}</figcaption></figure>`;
+}
+
+const FIG = {
+  ppc: fig(`<path d="M40 40 Q 210 50 240 190" class="c-k"/>
+    <path d="M40 18 Q 240 26 272 190" class="c-k dash"/>
+    <circle cx="120" cy="53" r="4" class="pt"/><text x="124" y="46" class="lb">A</text>
+    <circle cx="190" cy="98" r="4" class="pt"/><text x="196" y="94" class="lb">B</text>
+    <circle cx="110" cy="130" r="4" class="pt-o"/><text x="116" y="134" class="lb">C (verimsiz)</text>
+    <circle cx="240" cy="60" r="4" class="pt-o"/><text x="200" y="50" class="lb">D (ulaşılamaz)</text>
+    <text x="246" y="178" class="lb">PPC</text><text x="262" y="160" class="lb mute">büyüme</text>`,
+    "Üretim olanakları eğrisi (PPC): eğri üstü A, B verimli; içi C verimsiz/işsizlik; dışı D ulaşılamaz. Kesikli eğri: ekonomik büyüme.", "Mal X", "Mal Y"),
+
+  flow: `<figure class="fig"><svg viewBox="0 0 300 200" role="img" aria-label="Döngüsel akım">
+    <rect x="10" y="80" width="80" height="40" rx="4" class="box"/><text x="50" y="104" class="lb" text-anchor="middle">Hanehalkı</text>
+    <rect x="210" y="80" width="80" height="40" rx="4" class="box"/><text x="250" y="104" class="lb" text-anchor="middle">Firmalar</text>
+    <rect x="100" y="10" width="100" height="30" rx="4" class="box2"/><text x="150" y="30" class="lb" text-anchor="middle">Mal piyasası</text>
+    <rect x="100" y="160" width="100" height="30" rx="4" class="box2"/><text x="150" y="180" class="lb" text-anchor="middle">Faktör piyasası</text>
+    <path d="M50 78 L50 25 L98 25" class="c-d arr"/><text x="54" y="60" class="lb sm">harcama (₺)</text>
+    <path d="M202 25 L250 25 L250 78" class="c-d arr"/>
+    <path d="M250 122 L250 175 L202 175" class="c-s arr"/><text x="190" y="150" class="lb sm">ücret, kira, kâr (₺)</text>
+    <path d="M98 175 L50 175 L50 122" class="c-s arr"/>
+    </svg><figcaption>Döngüsel akım: para (oklar) bir yönde, mal ve faktör hizmetleri ters yönde akar. Mal piyasasında firmalar arz eder, hanehalkı talep eder; faktör piyasasında tersi.</figcaption></figure>`,
+
+  dshift: fig(`<line x1="60" y1="40" x2="220" y2="175" class="c-d"/><text x="222" y="180" class="lb d">D₁</text>
+    <line x1="100" y1="40" x2="260" y2="175" class="c-d dash"/><text x="262" y="180" class="lb d">D₂</text>
+    <circle cx="110" cy="82" r="4" class="pt"/><circle cx="160" cy="124" r="4" class="pt"/>
+    <path d="M116 88 L152 118" class="c-k arr"/><text x="80" y="140" class="lb sm">eğri üzerinde hareket</text>
+    <path d="M150 80 L184 80" class="c-k arr"/><text x="150" y="70" class="lb sm">kayma</text>`,
+    "Fiyat değişirse eğri üzerinde hareket (quantity demanded değişir). Başka bir belirleyici değişirse eğrinin tamamı kayar (demand değişir)."),
+
+  eq: fig(`<line x1="60" y1="30" x2="260" y2="180" class="c-d"/><text x="262" y="182" class="lb d">D</text>
+    <line x1="60" y1="180" x2="260" y2="30" class="c-s"/><text x="262" y="32" class="lb s">S</text>
+    <circle cx="160" cy="105" r="4" class="pt"/><text x="168" y="110" class="lb">e</text>
+    <line x1="40" y1="105" x2="160" y2="105" class="guide"/><line x1="160" y1="105" x2="160" y2="190" class="guide"/>
+    <text x="34" y="109" class="lb" text-anchor="end">Pe</text><text x="160" y="203" class="lb" text-anchor="middle">Qe</text>
+    <line x1="40" y1="60" x2="250" y2="60" class="guide2"/><text x="120" y="54" class="lb sm">fazla arz (surplus)</text>
+    <line x1="40" y1="150" x2="250" y2="150" class="guide2"/><text x="120" y="166" class="lb sm">kıtlık (shortage)</text>`,
+    "Denge (e): Qd = Qs. Dengenin üstündeki fiyatta fazla arz → fiyat düşer. Altındaki fiyatta kıtlık → fiyat yükselir."),
+
+  ceil: fig(`<line x1="60" y1="30" x2="260" y2="180" class="c-d"/><text x="262" y="182" class="lb d">D</text>
+    <line x1="60" y1="180" x2="260" y2="30" class="c-s"/><text x="262" y="32" class="lb s">S</text>
+    <line x1="40" y1="145" x2="285" y2="145" class="c-k"/><text x="286" y="140" class="lb" text-anchor="end">Pmax</text>
+    <line x1="107" y1="145" x2="107" y2="190" class="guide"/><line x1="213" y1="145" x2="213" y2="190" class="guide"/>
+    <text x="107" y="203" class="lb" text-anchor="middle">Qs</text><text x="213" y="203" class="lb" text-anchor="middle">Qd</text>
+    <text x="160" y="162" class="lb sm" text-anchor="middle">kıtlık</text>
+    <line x1="40" y1="65" x2="285" y2="65" class="c-k dash"/><text x="286" y="60" class="lb" text-anchor="end">Pmin</text>
+    <text x="160" y="58" class="lb sm" text-anchor="middle">fazla arz</text>`,
+    "Tavan fiyat (maximum price) dengenin altında → kıtlık (Qd − Qs). Taban fiyat (minimum price) dengenin üstünde → fazla arz (Qs − Qd)."),
+
+  tr: fig(`<line x1="50" y1="25" x2="270" y2="185" class="c-d"/><text x="250" y="160" class="lb d">D</text>
+    <circle cx="160" cy="105" r="4" class="pt"/><text x="168" y="100" class="lb">|PED| = 1</text>
+    <text x="90" y="40" class="lb">esnek |PED| &gt; 1</text><text x="190" y="175" class="lb">esnek değil |PED| &lt; 1</text>`,
+    "Doğrusal talep eğrisinde esneklik sabit değildir: üst kısım esnek, orta nokta birim esnek, alt kısım esnek değil."),
+
+  tax: fig(`<line x1="60" y1="30" x2="260" y2="180" class="c-d"/><text x="262" y="182" class="lb d">D</text>
+    <line x1="60" y1="180" x2="260" y2="30" class="c-s"/><text x="262" y="32" class="lb s">S</text>
+    <line x1="60" y1="130" x2="210" y2="17" class="c-s dash"/><text x="212" y="17" class="lb s">S + t</text>
+    <line x1="40" y1="105" x2="160" y2="105" class="guide"/><text x="34" y="109" class="lb" text-anchor="end">P₀</text>
+    <line x1="40" y1="80" x2="127" y2="80" class="guide"/><text x="34" y="84" class="lb" text-anchor="end">Pc</text>
+    <line x1="40" y1="130" x2="127" y2="130" class="guide"/><text x="34" y="134" class="lb" text-anchor="end">Pp</text>
+    <line x1="127" y1="80" x2="127" y2="190" class="guide"/><text x="127" y="203" class="lb" text-anchor="middle">Q₁</text>
+    <text x="150" y="80" class="lb sm">tüketici payı</text><text x="150" y="140" class="lb sm">üretici payı</text>`,
+    "Birim başına vergi (specific tax) arz eğrisini vergi kadar yukarı kaydırır. Tüketici Pc öder, üretici Pp alır. Fark (Pc − Pp) = vergi."),
+
+  farm: fig(`<line x1="100" y1="20" x2="200" y2="185" class="c-d"/><text x="202" y="183" class="lb d">D (esnek değil)</text>
+    <line x1="70" y1="170" x2="190" y2="40" class="c-s"/><text x="192" y="38" class="lb s">S₁</text>
+    <line x1="120" y1="185" x2="250" y2="45" class="c-s dash"/><text x="216" y="46" class="lb s">S₂ (iyi hasat)</text>
+    <circle cx="143" cy="91" r="4" class="pt"/><circle cx="168" cy="132" r="4" class="pt"/>
+    <line x1="40" y1="91" x2="143" y2="91" class="guide"/><line x1="40" y1="132" x2="168" y2="132" class="guide"/>
+    <text x="34" y="95" class="lb" text-anchor="end">P₁</text><text x="34" y="136" class="lb" text-anchor="end">P₂</text>`,
+    "Talep fiyat esnekliği düşük olduğunda arzdaki küçük bir kayma (iyi hasat) fiyatı çok düşürür ve çiftçinin toplam gelirini azaltır."),
+};
+
+const SUMMARY = [
+{
+  ch: 1, title: "Introducing Economics", tr: "Ekonomiye Giriş", part: "Part A",
+  sections: [
+  { code: "1.1", title: "What do economists study?", tr: "Ekonomistler neyi inceler?", html: `
+<p><b>Kıtlık (scarcity)</b> ekonominin temel sorunudur: insanların istekleri sınırsız, kaynaklar sınırlıdır. Bu yüzden herkese istediği her şeyi sağlamak imkânsızdır. Kitabın tanımı: kıtlık, isteklerin (potansiyel talep) mevcut kaynakları (potansiyel arz) aşmasıdır.</p>
+<h4>Üretim faktörleri (factors of production)</h4>
+<ul><li><b>Labour</b> (emek): insanların çalışması.</li><li><b>Land</b> (toprak): toprak ve tüm doğal kaynaklar (ham madde).</li><li><b>Capital</b> (sermaye): üretimde kullanılan insan yapımı araçlar (makine, bina, yol).</li></ul>
+<p class="mute">Bazı kaynaklarda dördüncü faktör olarak <b>enterprise</b> (girişimcilik) de sayılır.</p>
+<h4>Makro ve mikro</h4>
+<ul><li><b>Macroeconomics</b>: ekonominin bütünü (toplamlar). Dört büyük konu: <b>economic growth</b> (büyüme), <b>unemployment</b> (işsizlik), <b>inflation</b> (enflasyon), <b>balance of payments</b> (dış ödemeler dengesi). Toplam talep (aggregate demand) ile toplam arz (aggregate supply) çerçevesinde incelenir.</li>
+<li><b>Microeconomics</b>: tek tek birimler (tüketici, firma, sektör, işçi). Toplumun cevaplaması gereken üç soru: <b>What</b> (ne üretilecek?), <b>How</b> (nasıl üretilecek?), <b>For whom</b> (kimin için üretilecek?).</li></ul>
+<h4>Fırsat maliyeti (opportunity cost)</h4>
+<p>Bir şeyi seçmenin maliyeti, <b>vazgeçilen en iyi alternatiftir</b> (the best alternative forgone). Üniversiteye gitmenin fırsat maliyeti, o süre içinde çalışsaydın kazanacağın gelirdir (harç ve kitaplar da eklenir).</p>
+<h4>Rasyonel seçim ve marjinal düşünce</h4>
+<p>Rasyonel (akılcı) karar, bir faaliyetin <b>marginal benefit</b> (ek fayda) ve <b>marginal cost</b> (ek maliyet) karşılaştırmasıyla verilir. <b>MB &gt; MC</b> ise o faaliyetten daha fazla yapmak rasyoneldir. MB = MC olduğu noktada durulur.</p>
+<h4>Üretim olanakları eğrisi (production possibility curve, PPC)</h4>
+${FIG.ppc}
+<ul><li>Eğri, bir ülkenin belli bir dönemde mevcut kaynaklarla üretebileceği iki malın tüm bileşimlerini gösterir.</li>
+<li>Eğri üzerindeyken bir maldan daha fazla üretmek için diğerinden vazgeçmek gerekir. Bu <b>fırsat maliyetidir</b> ve eğrinin <b>eğimiyle</b> gösterilir.</li>
+<li>Eğri dışbükeydir (dışarı doğru bükük), çünkü <b>artan fırsat maliyeti</b> (increasing opportunity cost) vardır: kaynaklar her iki mal için eşit derecede uygun değildir.</li>
+<li>İçerideki nokta: boş (işsiz) kaynak ya da verimsizlik. İki maldan da aynı anda daha fazla üretilebilir.</li>
+<li>Eğri dışarı kayar: yatırım, teknolojik ilerleme, işgücünün artması (ekonomik büyüme).</li></ul>
+<h4>Döngüsel akım (circular flow of goods and incomes)</h4>
+${FIG.flow}
+<div class="tip"><b>Sınavda dikkat:</b> Fırsat maliyeti sorularında "vazgeçilen <u>en iyi</u> tek alternatif" sayılır, tüm alternatiflerin toplamı değil. PPC sorularında eğimi okumayı unutma: Y'nin ekseni dikeyse, X'in fırsat maliyeti = vazgeçilen Y / kazanılan X.</div>` },
+
+  { code: "1.2", title: "Different economic systems", tr: "Farklı ekonomik sistemler", html: `
+<p>Ekonomik sistemler, kaynak dağılımında <b>piyasaya</b> mı yoksa <b>devlete</b> mi dayandıklarına göre sınıflanır. Bir uçta komuta ekonomisi, diğer uçta serbest piyasa vardır. Gerçekte tüm ekonomiler <b>karma</b>dır.</p>
+<h4>Komuta ekonomisi (command economy / planned economy)</h4>
+<ul><li>Tüm kararları devlet verir: ne kadar tüketim, ne kadar yatırım, her sektörün çıktısı, üretim yöntemleri, çıktının kime dağıtılacağı.</li>
+<li><b>Artıları:</b> büyüme, tam istihdam ve eşitlik gibi ulusal hedeflere doğrudan yönelebilir.</li>
+<li><b>Eksileri:</b> bilgi toplamak için büyük bürokrasi gerekir; fiyatlar ve üretim yöntemleri keyfi olabilir; teşvikler (incentives) zayıftır; kıtlıklar ve fazlalıklar oluşur; bireysel özgürlük kısıtlanır. Örnek: eski Sovyetler Birliği (Box 1.5).</li></ul>
+<h4>Serbest piyasa ekonomisi (free-market economy)</h4>
+<ul><li>Kararları arz ve talebin etkileşimi verir. <b>Fiyat mekanizması</b> (price mechanism) arz ile talebi dengeler.</li>
+<li>Kıtlık varsa fiyat yükselir, kıtlık ortadan kalkana kadar. Fazla arz varsa fiyat düşer.</li>
+<li>Fiyatlar <b>sinyal</b> ve <b>teşvik</b> görevi görür. Mal piyasaları ile faktör piyasaları birbirine bağlıdır (interdependence): bir malın talebi artınca fiyatı ve kârı artar, firmalar bu mala kayar, bu da o maldaki işçi ve faktörlerin talebini artırır.</li>
+<li>Adam Smith'in <b>"görünmez el"</b>i (invisible hand, Box 1.6): kişisel çıkarın peşindeki bireyler, farkında olmadan toplumun çıkarına hizmet eder.</li>
+<li><b>Artıları:</b> kendiliğinden işler, bürokrasi gerekmez; rekabet tüketiciyi korur.</li>
+<li><b>Eksileri:</b> rekabet sınırlı olabilir (tekeller), büyük gelir eşitsizliği, çevre ve toplum üzerinde olumsuz etkiler (dışsallıklar), makroekonomik istikrarsızlık (krizler, işsizlik).</li></ul>
+<h4>Karma ekonomi (mixed economy)</h4>
+<p>Piyasa ile devlet müdahalesinin karışımı. Ülkeleri ayıran şey, müdahalenin <b>derecesi ve biçimidir</b>. Devlet müdahale araçları: fiyat belirleme, vergi ve sübvansiyon, yasal düzenleme, kamu üretimi (sağlık, eğitim).</p>
+<div class="tip"><b>Sınavda dikkat:</b> "Hangi sistemde kıtlık fiyatı yükseltir?" → serbest piyasa. "Hangi sistemde kıtlık kuyruk ve karneyle çözülür?" → komuta ekonomisi. Uluslararası ilişkiler açısından: Soğuk Savaş, Sovyet planlamasının çöküşü ve Çin'in piyasaya geçişi bu konunun güncel örnekleridir.</div>` },
+
+  { code: "1.3", title: "The nature of economic reasoning", tr: "Ekonomik akıl yürütmenin doğası", html: `
+<h4>Ekonomi bir bilim mi?</h4>
+<p>Ekonomistler doğa bilimcilerine benzer yöntem kullanır: <b>model</b> (model) kurar, model <b>varsayımlara</b> (assumptions) dayanır, modelden <b>tahmin</b> (prediction) üretilir, tahminler <b>gerçek verilerle test edilir</b>. Başarısız modeller ya bırakılır ya da değiştirilir.</p>
+<h4>Ceteris paribus</h4>
+<p>"Diğer her şey sabitken" anlamına gelir (Box 1.7). Bir değişkenin etkisini yalnız başına incelemek için öteki etkenler sabit varsayılır. Örnek: "Ceteris paribus, fiyat artarsa talep edilen miktar düşer."</p>
+<h4>Sosyal bilim olarak ekonomi</h4>
+<p>Ekonomi insan davranışını inceler. İnsanlar değişir, çevre sürekli değişir, laboratuvar deneyi yapmak çoğu zaman mümkün değildir. Bu yüzden kesin tahmin yapmak zordur.</p>
+<h4>Pozitif ve normatif ifadeler</h4>
+<table class="tbl"><tr><th>Positive statement</th><th>Normative statement</th></tr>
+<tr><td>Değer yargısı içermez, <b>gerçeklere bakarak test edilebilir</b>. Doğru da yanlış da olabilir.</td><td><b>Değer yargısı</b> içerir ("olmalı", "iyi", "kötü", "adil"). Test edilemez.</td></tr>
+<tr><td>"Faizi artırmak enflasyonu düşürür."</td><td>"Hükümet işsizliği azaltmaya öncelik vermelidir."</td></tr></table>
+<p>Ekonomistler, bilim insanı olarak, bir politikanın <b>sonuçlarını</b> (pozitif) analiz eder. Politikanın <b>amacının iyi olup olmadığına</b> (normatif) karar vermek konusunda başka bir vatandaştan daha fazla hakları yoktur.</p>
+<div class="tip"><b>Sınavda dikkat:</b> Pozitif ifade yanlış olsa bile pozitiftir. "It is incorrect to state that higher interest rates reduce inflation" cümlesi de pozitiftir, çünkü verilerle test edilebilir. "should", "ought", "fair", "wrong" kelimeleri genelde normatiftir.</div>` },
+  ]
+},
+{
+  ch: 2, title: "Supply and Demand", tr: "Arz ve Talep", part: "Part B",
+  sections: [
+  { code: "2.1", title: "Demand", tr: "Talep", html: `
+<h4>Talep kanunu (law of demand)</h4>
+<p>Bir malın fiyatı artınca, belli bir dönemde talep edilen miktar düşer (ceteris paribus). Bu hem bireysel hem de piyasa talebi için geçerlidir. <b>Piyasa talebi</b> (market demand), tüm bireysel taleplerin her fiyatta yatay olarak toplanmasıdır.</p>
+<h4>Neden? İki etki</h4>
+<ul><li><b>Income effect</b> (gelir etkisi): fiyat artınca tüketicinin reel geliri düşer, aynı parayla daha az alabilir.</li>
+<li><b>Substitution effect</b> (ikame etkisi): fiyat artınca mal, alternatiflerine göre pahalılaşır; tüketici ikamelerine geçer.</li></ul>
+<h4>Talep tablosu ve eğrisi</h4>
+<p>Fiyat <b>dikey</b> eksende, belli bir dönemdeki talep edilen miktar <b>yatay</b> eksende gösterilir. Talep eğrisi negatif eğimlidir (aşağı iner).</p>
+<h4>Talebin diğer belirleyicileri (determinants of demand)</h4>
+<ul><li><b>Tastes</b> (zevkler, reklam, moda).</li>
+<li><b>Substitutes</b> (ikame mallar): çay ile kahve. Kahvenin fiyatı artarsa çayın talebi artar.</li>
+<li><b>Complements</b> (tamamlayıcı mallar): araba ile benzin. Benzin pahalanırsa araba talebi düşer.</li>
+<li><b>Income</b> (gelir): <b>normal good</b> için gelir artınca talep artar; <b>inferior good</b> (düşük mal) için gelir artınca talep düşer (ucuz margarin, otobüs yolculuğu gibi).</li>
+<li><b>Distribution of income</b> (gelir dağılımı).</li>
+<li><b>Expectations</b> (beklentiler): fiyatın artacağı beklentisi bugünkü talebi artırır.</li></ul>
+<h4>Hareket mi, kayma mı? (çok sık sorulur)</h4>
+${FIG.dshift}
+<table class="tbl"><tr><th>Neden</th><th>Grafikte</th><th>Adı</th></tr>
+<tr><td>Malın <b>kendi fiyatı</b> değişir</td><td>Eğri üzerinde hareket</td><td>change in <b>quantity demanded</b></td></tr>
+<tr><td>Fiyat dışında bir belirleyici değişir</td><td>Eğrinin tamamı kayar (sağa = artış, sola = azalış)</td><td>change in <b>demand</b></td></tr></table>
+<h4>Talep fonksiyonu</h4>
+<p class="fm">Qd = a − bP</p><p>Örnek: Qd = 100 − 5P. P = 10 ise Qd = 50.</p>
+<div class="tip"><b>Sınavda dikkat:</b> "Gelir arttı, otobüs yolculuğu talebi düştü" → otobüs düşük maldır (inferior). "Bir malın fiyatı düştü, talebi arttı" demek yanlıştır: doğrusu "talep edilen miktar arttı" olur.</div>` },
+
+  { code: "2.2", title: "Supply", tr: "Arz", html: `
+<h4>Arz ve fiyat</h4>
+<p>Fiyat artınca, belli bir dönemde arz edilen miktar genelde artar. Arz eğrisi pozitif eğimlidir (yukarı çıkar).</p>
+<h4>Neden fiyat artınca daha çok arz edilir?</h4>
+<ul><li><b>Kısa dönem</b> (1): üreticiler daha çok üretmenin getirdiği daha yüksek birim maliyetleri artık karşılayabilir (artan maliyetler).</li>
+<li><b>Kısa dönem</b> (2): üreticiler kârlılığı artık daha düşük olan başka mallardan bu mala geçer.</li>
+<li><b>Uzun dönem</b> (3): yüksek kâr <b>yeni firmaları</b> piyasaya çeker.</li></ul>
+<h4>Arzın diğer belirleyicileri (determinants of supply)</h4>
+<ul><li><b>Costs of production</b> (üretim maliyetleri): girdi fiyatları, teknoloji, vergiler. Maliyet düşerse arz artar (sağa kayar).</li>
+<li><b>Profitability of alternative products</b> (alternatif malların kârlılığı, goods in demand/supply substitutes): buğday pahalanırsa çiftçi arpadan buğdaya geçer, arpa arzı düşer.</li>
+<li><b>Profitability of goods in joint supply</b> (birlikte üretilen mallar): sığır eti üretimi artınca deri arzı da artar.</li>
+<li><b>Nature, random shocks</b> (doğa, rastgele şoklar): hava, salgın, grev, savaş.</li>
+<li><b>Aims of producers</b> (üreticinin amacı: kâr mı, satış mı).</li>
+<li><b>Expectations</b> (beklentiler): fiyatın artacağı beklenirse üretici bugün satmayıp stok yapabilir, bugünkü arz düşer.</li></ul>
+<h4>Hareket mi, kayma mı?</h4>
+<table class="tbl"><tr><th>Neden</th><th>Grafikte</th><th>Adı</th></tr>
+<tr><td>Kendi fiyatı değişir</td><td>Eğri üzerinde hareket</td><td>change in <b>quantity supplied</b></td></tr>
+<tr><td>Başka bir belirleyici değişir</td><td>Eğri kayar</td><td>change in <b>supply</b></td></tr></table>
+<p class="fm">Qs = c + dP</p><p>Örnek: Qs = −20 + 10P. P = 5 ise Qs = 30.</p>
+<div class="tip"><b>Sınavda dikkat:</b> Sınavlarda tuzak: "the price of the good rose, so supply increased" yanlış ifadedir. Doğrusu: quantity supplied increased (eğri üzerinde hareket).</div>` },
+
+  { code: "2.3", title: "Price and output determination", tr: "Fiyat ve miktarın belirlenmesi", html: `
+${FIG.eq}
+<ul><li><b>Shortage</b> (kıtlık / fazla talep): Qd &gt; Qs → fiyat yükselir.</li>
+<li><b>Surplus</b> (fazla arz): Qs &gt; Qd → fiyat düşer.</li>
+<li><b>Equilibrium price</b> (denge fiyatı) piyasayı temizleyen (market-clearing) fiyattır: Qd = Qs. Dengede kıtlık ya da fazla arz yoktur, değişme eğilimi yoktur.</li></ul>
+<h4>Eğriler kayınca ne olur?</h4>
+<table class="tbl"><tr><th>Değişim</th><th>Denge fiyatı</th><th>Denge miktarı</th></tr>
+<tr><td>Talep artar (D sağa)</td><td>↑</td><td>↑</td></tr>
+<tr><td>Talep azalır (D sola)</td><td>↓</td><td>↓</td></tr>
+<tr><td>Arz artar (S sağa)</td><td>↓</td><td>↑</td></tr>
+<tr><td>Arz azalır (S sola)</td><td>↑</td><td>↓</td></tr>
+<tr><td>D ve S birlikte artar</td><td><b>belirsiz</b></td><td>↑</td></tr>
+<tr><td>D artar, S azalır</td><td>↑</td><td><b>belirsiz</b></td></tr></table>
+<p>İki eğri birlikte kayınca, hangisinin daha çok kaydığı bilinmeden bir değişken belirsiz kalır.</p>
+<h4>Dengeyi hesaplamak</h4>
+<p class="fm">Qd = Qs → a − bP = c + dP → P* = (a − c) / (b + d)</p>
+<p>Örnek: Qd = 100 − 5P, Qs = −20 + 10P → 100 − 5P = −20 + 10P → 120 = 15P → <b>P* = 8</b>, Q* = 100 − 40 = <b>60</b>.</p>
+<h4>Tanımlama sorunu (identification problem)</h4>
+<p>Gerçek verilerde fiyat ve miktar noktalarını birleştirerek talep eğrisini bulamayız, çünkü aynı dönemde iki eğri de bilinmeyen miktarda kaymış olabilir.</p>
+<div class="tip"><b>Sınavda dikkat:</b> Önce hangi eğrinin kaydığını bul (talep mi arz mı, ikisi mi), sonra yönünü bul. Örnek: "Kötü hava kahve hasatlarını düşürdü" → arz sola kayar → fiyat ↑, miktar ↓. Ev fiyatları (Box 2.2) ve borsa fiyatları (Box 2.3) bu modelle açıklanır.</div>` },
+
+  { code: "2.4", title: "The control of prices", tr: "Fiyatların kontrolü", html: `
+<p>Devlet piyasaya şöyle müdahale edebilir: fiyat belirlemek, vergi ya da sübvansiyon, üretimi düzenlemek, malı doğrudan kendisi üretmek.</p>
+${FIG.ceil}
+<h4>Taban fiyat (minimum price / price floor)</h4>
+<ul><li>Dengenin <b>üstünde</b> konursa etkilidir → <b>fazla arz</b> (Qs − Qd).</li>
+<li>Amaç: üreticilerin gelirini korumak (tarım), ileride arz düşerse diye stok oluşturmak. Örnek: asgari ücret (işgücü fazlası = işsizlik riski).</li>
+<li>Devlet fazlayı ne yapacağına karar vermelidir: satın alıp depolamak, yok etmek, yurtdışına satmak, üretim kotası koymak.</li></ul>
+<h4>Tavan fiyat (maximum price / price ceiling)</h4>
+<ul><li>Dengenin <b>altında</b> konursa etkilidir → <b>kıtlık</b> (Qd − Qs).</li>
+<li>Amaç: fiyatı tüketici için düşük tutmak (kira kontrolü, savaş döneminde gıda, temel ihtiyaçlar).</li>
+<li>Sonuçlar: kuyruklar (queues), bekleme listeleri, firmanın sadece tanıdık müşterilere satması, devlet <b>karne</b> (rationing) sistemi.</li>
+<li><b>Underground (black) market</b> (karaborsa, Box 2.4): mal yasadışı olarak tavan fiyatın üstünde satılır.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Dengenin üstüne konan tavan fiyat ya da dengenin altına konan taban fiyat <b>etkisizdir</b> (hiçbir şey değiştirmez). Kıtlık/fazla hesaplarken fiyatı iki denkleme de koy ve farkı al.</div>` },
+  ]
+},
+{
+  ch: 3, title: "Markets in Action", tr: "İşleyen Piyasalar", part: "Part B",
+  sections: [
+  { code: "3.1", title: "Elasticity", tr: "Esneklik", html: `
+<p><b>Esneklik</b>, talebin (ya da arzın) belirleyicilerinden birindeki değişime ne kadar <b>duyarlı</b> olduğunu ölçer. Genel formül:</p>
+<p class="fm">Esneklik = miktardaki % değişim / belirleyicideki % değişim</p>
+<h4>Talebin fiyat esnekliği (price elasticity of demand, PED)</h4>
+<p class="fm">PED = %ΔQd / %ΔP</p>
+<p>Talep eğrisi aşağı indiği için PED negatiftir; yorumda <b>mutlak değere</b> bakılır.</p>
+<table class="tbl"><tr><th>|PED|</th><th>Ad</th><th>Anlamı</th></tr>
+<tr><td>&gt; 1</td><td>elastic (esnek)</td><td>Miktar fiyattan oransal olarak <b>daha çok</b> değişir</td></tr>
+<tr><td>= 1</td><td>unit elastic (birim esnek)</td><td>Aynı oranda değişir</td></tr>
+<tr><td>&lt; 1</td><td>inelastic (esnek değil)</td><td>Miktar <b>daha az</b> değişir</td></tr>
+<tr><td>0</td><td>perfectly inelastic</td><td>Dikey talep eğrisi</td></tr>
+<tr><td>∞</td><td>perfectly elastic</td><td>Yatay talep eğrisi</td></tr></table>
+<h4>PED'in belirleyicileri</h4>
+<ul><li><b>İkamelerin sayısı ve yakınlığı</b>: ne kadar çok ve yakın ikame varsa o kadar esnek. (Belli bir marka benzin esnek, genel olarak benzin esnek değil.)</li>
+<li><b>Gelir içindeki pay</b>: gelirin büyük kısmını alan mallar (araba, tatil) daha esnek; tuz, kibrit esnek değil.</li>
+<li><b>Zaman</b>: fiyat değişiminden sonra ne kadar zaman geçerse talep o kadar esnek olur (insanlar alternatif bulur).</li></ul>
+<h4>Esneklik ve toplam harcama / gelir (total revenue, TR = P × Q)</h4>
+<table class="tbl"><tr><th>Talep</th><th>Fiyat ↑</th><th>Fiyat ↓</th></tr>
+<tr><td>Esnek</td><td>TR ↓</td><td>TR ↑</td></tr>
+<tr><td>Esnek değil</td><td>TR ↑</td><td>TR ↓</td></tr>
+<tr><td>Birim esnek</td><td>TR değişmez</td><td>TR değişmez</td></tr></table>
+${FIG.tr}
+<h4>Ölçme: yay esnekliği (arc elasticity, orta nokta formülü)</h4>
+<p class="fm">PED = (ΔQ / ortalama Q) ÷ (ΔP / ortalama P)</p>
+<p>Örnek: P 4 → 6, Q 20 → 10. ΔQ/ort.Q = −10/15 = −0,667; ΔP/ort.P = 2/5 = 0,4 → PED = <b>−1,67</b> (esnek).</p>
+<p><b>Nokta esnekliği</b> (point elasticity, *): PED = (dQ/dP) × (P/Q). Örnek: Q = 100 − 5P, P = 8, Q = 60 → PED = −5 × 8/60 = −0,67.</p>
+<h4>Arzın fiyat esnekliği (price elasticity of supply, PES)</h4>
+<p class="fm">PES = %ΔQs / %ΔP</p>
+<p>Pozitiftir. Belirleyicileri: üretim arttıkça maliyetlerin ne kadar hızlı arttığı, ve <b>zaman</b>: anlık dönem (dikey'e yakın), kısa dönem, uzun dönem (en esnek).</p>
+<h4>Talebin gelir esnekliği (income elasticity of demand, YED)</h4>
+<p class="fm">YED = %ΔQd / %ΔY</p>
+<ul><li>YED &gt; 0: <b>normal good</b>. YED &gt; 1: income elastic (lüks, tatil). 0 &lt; YED &lt; 1: income inelastic (temel gıda).</li>
+<li>YED &lt; 0: <b>inferior good</b> (düşük mal).</li></ul>
+<h4>Çapraz fiyat esnekliği (cross-price elasticity, XED)</h4>
+<p class="fm">XED(A,B) = %ΔQd(A) / %ΔP(B)</p>
+<ul><li>XED &gt; 0: <b>substitutes</b> (ikame). XED &lt; 0: <b>complements</b> (tamamlayıcı). XED ≈ 0: ilişkisiz.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> Esneklik formüllerinde miktar hep <b>pay</b>da (üstte), fiyat ya da gelir hep <b>payda</b>da (altta). Gelir esnekliğinde ve çapraz esneklikte <b>işaret önemlidir</b>, fiyat esnekliğinde mutlak değere bakılır. Doğrusal talep eğrisinin eğimi sabittir ama esnekliği değişir.</div>` },
+
+  { code: "3.2", title: "The time dimension", tr: "Zaman boyutu", html: `
+<h4>Kısa dönem ve uzun dönem</h4>
+<p>Üreticiler ve tüketiciler fiyat değişimine tam uyum sağlamak için zaman ister. Genelde <b>kısa dönem arz ve talebi, uzun dönemdekinden daha az esnektir</b>.</p>
+<ul><li>Bu yüzden bir eğri kayınca, kısa dönemde etki daha çok <b>fiyata</b>, uzun dönemde daha çok <b>miktara</b> yansır.</li>
+<li>Örnek: petrol fiyatı yükselir. Kısa dönemde insanlar yine araba kullanır, fiyat çok artar. Uzun dönemde yakıt tasarruflu arabalar, yeni petrol sahaları gelir, miktar daha çok uyum sağlar.</li></ul>
+<h4>Spekülasyon (speculation)</h4>
+<p>İnsanlar fiyat değişimlerini <b>tahmin eder</b> ve buna göre bugün alır ya da satar.</p>
+<ul><li><b>Stabilising speculation</b> (istikrar sağlayan): insanlar fiyat değişiminin <b>geçici</b> olduğunu düşünür. Fiyat düşünce "nasılsa geri çıkar" deyip alırlar, fiyat düşüşü yavaşlar. Dalgalanmalar azalır.</li>
+<li><b>Destabilising speculation</b> (istikrarı bozan): insanlar fiyatın <b>aynı yönde devam edeceğini</b> düşünür. Fiyat yükselirken daha da yükselecek diye alırlar, arz edenler satmayı erteler. Dalgalanma büyür (konut balonları, borsa çöküşleri).</li>
+<li>Kendini gerçekleştiren kehanet (self-fulfilling): beklenti, fiyatı beklenen yöne iter.</li></ul>
+<h4>Risk ve belirsizlik</h4>
+<ul><li><b>Risk</b>: olası sonuçların <b>olasılıkları bilinir</b> (ör. geçmiş veriden).</li>
+<li><b>Uncertainty</b> (belirsizlik): olasılıklar <b>bilinmez</b>.</li>
+<li>Gelecek fiyat belirsizliğine karşı <b>stok tutma</b> (holding stocks): fiyat düşükken stok biriktir, fiyat yüksekken sat.</li>
+<li><b>Futures market</b> (vadeli işlem piyasası, Box 3.5): bugünden, gelecekteki bir tarihte belirlenmiş fiyattan alım/satım anlaşması. Riski azaltır.</li>
+<li><b>Short selling</b> (açığa satış, Box 3.4): sahip olmadığın hisseyi ödünç alıp satmak, fiyat düşünce ucuza geri alıp kâr etmek.</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> "Fiyatlar artarken insanlar daha fazla artacağını düşünüp alıyor" → talep sağa kayar, arz sola kayar (satıcılar bekler) → fiyat daha da artar → istikrarı bozan spekülasyon.</div>` },
+
+  { code: "3.3", title: "Indirect taxes", tr: "Dolaylı vergiler", html: `
+<p>Mal ve hizmetlerden alınan vergiler: KDV (VAT), sigara, alkol, akaryakıt üzerindeki özel tüketim vergileri (excise duties).</p>
+<ul><li><b>Specific tax</b> (birim başına sabit vergi): litre başına X ₺. Arz eğrisi vergi kadar <b>paralel</b> olarak yukarı kayar.</li>
+<li><b>Ad valorem tax</b> (değer üzerinden, yüzde vergi): KDV. Arz eğrisi oransal kayar, fiyat arttıkça aradaki fark büyür.</li></ul>
+${FIG.tax}
+<h4>Verginin yükü (incidence of tax)</h4>
+<p>Vergi tüketicinin ödediği fiyatı artırır, üreticinin vergiden sonra eline geçeni düşürür. Yükün kimde kaldığı esnekliklere bağlıdır:</p>
+<ul><li>Talep <b>ne kadar az esnek</b>, arz <b>ne kadar esnekse</b> → yük o kadar çok <b>tüketicide</b>.</li>
+<li>Talep esnek, arz esnek değilse → yük çoğunlukla <b>üreticide</b>.</li>
+<li>Kısa kural: <b>yükü daha az esnek olan taraf taşır</b>.</li>
+<li>Talep ve arz ne kadar az esnekse devletin <b>vergi geliri</b> o kadar yüksektir (miktar az düşer).</li></ul>
+<p class="fm">Vergi geliri = t × Q₁ &nbsp;&nbsp; Tüketici payı = Pc − P₀ &nbsp;&nbsp; Üretici payı = P₀ − Pp</p>
+<div class="tip"><b>Sınavda dikkat:</b> Hesaplamada vergiyi arz denklemine eklerken üreticinin aldığı fiyatın (P − t) olduğunu unutma: Qs = c + d(P − t). Box 3.6: sigara vergisi, talep esnek olmadığı için yüksek gelir getirir ama yoksul içicilere ağır gelir (ahlaki ikilem).</div>` },
+
+  { code: "3.4", title: "Government rejection of market allocation", tr: "Devletin piyasa dağılımını reddetmesi", html: `
+<p>Devlet bazı malların piyasa yoluyla dağıtılmasını istemeyebilir. İki uç örnek:</p>
+<h4>Kullanım noktasında ücretsiz hizmet (free at the point of delivery)</h4>
+<ul><li>Devlet hastanesinde tedavi, devlet okulunda eğitim. Gerekçe: insanların hakkı olduğu düşüncesi ve topluma faydası (eğitim herkese yarar).</li>
+<li>Analiz, sıfır fiyatlı bir <b>tavan fiyata</b> benzer: fiyat sıfırken talep edilen miktar arzı aşar → <b>kıtlık</b>.</li>
+<li>Sonuç: bekleme listeleri (waiting lists), ihtiyaca göre önceliklendirme. Sağlıkta talep hızla artmaktadır (yaşlanan nüfus, yeni tedaviler).</li></ul>
+<h4>Yasaklanan mallar (prohibition)</h4>
+<ul><li>Uyuşturucu, bazı silahlar. Yasak → <b>yasadışı piyasa</b> doğar.</li>
+<li>Hem talep hem arz serbest piyasaya göre <b>daha az</b> olur (ikisi de sola kayar), miktar düşer.</li>
+<li><b>Fiyat</b> daha yüksek de olabilir, daha düşük de: <b>kimin cezası daha ağır ve yakalanma olasılığı daha yüksekse</b> (satıcı mı kullanıcı mı) ona bağlıdır. Satıcıya ağır ceza → arz çok azalır → fiyat yükselir.</li></ul>
+<h4>Yasak yerine vergi?</h4>
+<p>Vergiyle de tüketim azaltılabilir. Ama etkiler farklıdır: vergide fiyat kesin yükselir, devlet gelir elde eder, suç (ilgili suçlar) ve ürünün toplumdaki kabul edilebilirliği farklı etkilenir.</p>
+<div class="tip"><b>Sınavda dikkat:</b> Ücretsiz sağlık = "maximum price of zero" (sıfır tavan fiyat). Kıtlık miktarı = fiyat sıfırken Qd − Qs.</div>` },
+
+  { code: "3.5", title: "Agriculture and agricultural policy", tr: "Tarım ve tarım politikası", html: `
+<p>Tarım piyasası neredeyse <b>tam rekabet</b>tir: binlerce küçük çiftçi var, hepsi <b>fiyat alıcıdır</b> (price takers). Buna rağmen dünyada en çok devlet müdahalesi tarımdadır (AB bütçesinin yaklaşık yarısı). Bu bir paradokstur.</p>
+<h4>Neden müdahale? (serbest tarım piyasasının sorunları)</h4>
+<ul><li><b>Fiyat dalgalanmaları</b>: arz hasata göre çok dalgalanır, talep fiyat esnek değildir → fiyat ve çiftçi gelirleri çok oynar. Tahmin zorlaşır, yatırım azalır.</li>
+<li><b>Düşük çiftçi gelirleri (uzun dönem)</b>: gıda talebi <b>gelir esnek değildir</b>, gelir artınca yavaş büyür. Arz ise teknoloji sayesinde hızla artar → fiyatlar uzun dönemde düşer. Talep fiyat esnek olmadığı için bu düşüş gelirleri daha da düşürür.</li>
+<li>Diğer amaçlar: <b>kendi kendine yeterlilik</b> (self-sufficiency, savaşta gıda güvenliği), çiftçi yatırımını teşvik, kırsal yaşamı ve çevreyi korumak.</li></ul>
+${FIG.farm}
+<h4>Bileşim hatası (fallacy of composition, Box 3.7)</h4>
+<p>Tek bir çiftçi için doğru olan, hepsi için doğru olmayabilir. Bir çiftçinin hasadı iyiyse geliri artar. Ama <b>tüm</b> çiftçilerin hasadı iyiyse fiyat çok düşer ve hepsinin geliri azalabilir.</p>
+<h4>Müdahale türleri</h4>
+<ul><li><b>Buffer stocks</b> (tampon stok): iyi yılda fiyatı korumak için alıp stoklamak, kötü yılda satmak. Fiyatı <b>istikrara kavuşturur</b> ama zamanla çiftçi gelirlerini <b>artıramaz</b>.</li>
+<li><b>Subsidies</b> (sübvansiyon): çiftçi gelirini artırır, tüketici fiyatını dünya fiyatına (ya da piyasanın temizlendiği yere) düşürür.</li>
+<li><b>High minimum prices</b> (yüksek taban fiyat): fazla arz yaratır. Devlet fazlayı satın alır (intervention buying).</li>
+<li><b>Reducing supply</b> (arzı azaltmak): kotalar (quotas), <b>set-aside</b> (çiftçiye toprağı boş bırakması için ödeme).</li>
+<li><b>Structural policies</b> (yapısal politikalar): çiftçileri başka işlere yönlendirmek, kırsal kalkınma, eğitim.</li></ul>
+<h4>AB Ortak Tarım Politikası (Common Agricultural Policy, CAP)</h4>
+<ul><li>Fiyatlar hem çiftçi hem tüketici için yüksek tutuldu. Kısmen ithal edilen ürünlerde <b>değişken ithalat vergileri</b> (variable import levies), AB'nin kendine yettiği ürünlerde fazlanın <b>müdahale fiyatından</b> (intervention price) satın alınması.</li>
+<li><b>Savunma:</b> güvenli gıda arzı, çiftçiye adil yaşam standardı, verimlilik teşviki, istikrarlı fiyatlar.</li>
+<li><b>Eleştiriler:</b> gıda fazlaları ("tereyağı dağları"), depolama ve imha maliyeti sübvansiyondan yüksek, tüketiciye yüksek fiyat, büyük çiftçilere daha çok fayda, yoğun tarımla çevre zararı, ihracat sübvansiyonlarıyla <b>gelişmekte olan ülkelere zarar</b>.</li>
+<li><b>Reformlar:</b> 1992 MacSharry (müdahale fiyatlarında kesinti, tahıllarda %29; yerine üretimden bağımsız <b>doğrudan yardım</b>, set-aside), Agenda 2000 (ek kesintiler, kırsal kalkınma), 2003 reformu (<b>single farm payment</b>: üretimden ayrılmış, <b>decoupled</b> ödeme, çevre şartına bağlı), 2008 (daha fazla decoupling, süt kotalarının kalkması, set-aside'ın sona ermesi).</li></ul>
+<div class="tip"><b>Sınavda dikkat:</b> IR öğrencisi için önemli: CAP'in ihracat sübvansiyonları dünya fiyatlarını düşürür ve gelişmekte olan ülkelerin çiftçilerine zarar verir; DTÖ (WTO) müzakerelerinde büyük tartışma konusudur. Kısa dönem sorunu = dalgalanma; uzun dönem sorunu = düşen gelirler.</div>` },
+  ]
+}
+];
+
+</script>
+<script>
+// Sorular: her konuda 9 soru (l: 1 kolay, 2 orta, 3 zor).
+// o[0] her zaman doğru cevaptır; uygulama şıkları karıştırarak gösterir.
+const TOPICS = [
+  { id: "t1", code: "1.1", ch: 1, title: "Scarcity, choice and opportunity cost", tr: "Kıtlık, seçim ve fırsat maliyeti" },
+  { id: "t2", code: "1.1", ch: 1, title: "Production possibility curve and circular flow", tr: "Üretim olanakları eğrisi ve döngüsel akım" },
+  { id: "t3", code: "1.2", ch: 1, title: "Different economic systems", tr: "Ekonomik sistemler" },
+  { id: "t4", code: "1.3", ch: 1, title: "The nature of economic reasoning", tr: "Ekonomik akıl yürütme" },
+  { id: "t5", code: "2.1", ch: 2, title: "Demand", tr: "Talep" },
+  { id: "t6", code: "2.2", ch: 2, title: "Supply", tr: "Arz" },
+  { id: "t7", code: "2.3", ch: 2, title: "Price and output determination", tr: "Denge fiyatı ve miktarı" },
+  { id: "t8", code: "2.4", ch: 2, title: "The control of prices", tr: "Fiyat kontrolleri" },
+  { id: "t9", code: "3.1", ch: 3, title: "Price elasticity of demand", tr: "Talebin fiyat esnekliği" },
+  { id: "t10", code: "3.1", ch: 3, title: "Income, cross-price and supply elasticity", tr: "Gelir, çapraz ve arz esnekliği" },
+  { id: "t11", code: "3.2", ch: 3, title: "The time dimension and speculation", tr: "Zaman boyutu ve spekülasyon" },
+  { id: "t12", code: "3.3", ch: 3, title: "Indirect taxes", tr: "Dolaylı vergiler" },
+  { id: "t13", code: "3.4", ch: 3, title: "Free provision and prohibition", tr: "Ücretsiz hizmet ve yasaklar" },
+  { id: "t14", code: "3.5", ch: 3, title: "Agriculture and agricultural policy", tr: "Tarım politikası" },
+];
+
+const Q = {};
+
+Q.t1 = [
+{ l: 1, q: "What is the central economic problem that all societies face?",
+  o: ["Scarcity: wants exceed the resources available to satisfy them", "Inflation: prices rise over time", "Unemployment: some people cannot find jobs", "Money: there is not enough money in the economy"],
+  s: "Ekonominin temel sorunu <b>kıtlıktır</b> (scarcity). İnsanların istekleri sınırsızdır ama emek, toprak ve sermaye gibi kaynaklar sınırlıdır. Bu yüzden toplum seçim yapmak zorundadır. Enflasyon ve işsizlik önemli makroekonomik sorunlardır ama temel sorun değildir. Para da bir kaynak değildir: daha çok para basmak üretilebilecek mal miktarını artırmaz." },
+{ l: 1, q: "The opportunity cost of an activity is best defined as:",
+  o: ["The best alternative forgone", "The total money paid for it", "The sum of all the alternatives given up", "The cost of the inputs used to produce it"],
+  s: "Kitabın tanımı: fırsat maliyeti, bir seçimi yaparken <b>vazgeçilen en iyi alternatiftir</b> (the best alternative forgone). Tüm alternatiflerin toplamı değildir, çünkü aynı anda hepsini yapamazdın; sadece bir sonraki en iyi seçeneği kaybedersin. Ödenen para fırsat maliyetinin sadece bir parçası olabilir (o parayla alabileceğin başka şeyler)." },
+{ l: 1, q: "Which of the following is a macroeconomic issue?",
+  o: ["The national rate of unemployment", "The price of coffee in a café", "A firm's decision to hire one more worker", "A consumer's choice between two brands of phone"],
+  s: "<b>Macroeconomics</b> ekonominin bütününü, yani toplamları (aggregates) inceler: büyüme, işsizlik, enflasyon, dış ödemeler dengesi. Ülkenin işsizlik oranı bir toplamdır, makrodur. Tek bir malın fiyatı, tek bir firmanın kararı ve tek bir tüketicinin seçimi bireysel birimlerle ilgilidir, bunlar <b>microeconomics</b> konusudur." },
+{ l: 2, q: "Ali goes to a 3-hour concert. The ticket costs £20. Instead he could have worked in a café for £10 per hour or babysat for £12 per hour. What is the opportunity cost of the concert?",
+  o: ["£56", "£20", "£86", "£50"],
+  s: "Fırsat maliyeti = harcanan para + vazgeçilen <b>en iyi</b> alternatif.<br>• Bilet: £20 (o parayla başka bir şey alabilirdi).<br>• Vazgeçilen en iyi iş: bebek bakıcılığı, 3 × £12 = £36. Kafe işi (£30) daha kötü bir alternatif olduğu için sayılmaz; iki işi aynı anda yapamazdı.<br>Toplam: £20 + £36 = <b>£56</b>. £86 cevabı iki işi birden toplar (yanlış), £50 ise en iyi değil daha kötü işi alır." },
+{ l: 2, q: "A student finds that a 4th hour of revision would give a marginal benefit worth 30 points of satisfaction and a marginal cost of 20 points. What is the rational decision?",
+  o: ["Do the 4th hour, because marginal benefit exceeds marginal cost", "Stop at 3 hours, because total cost is rising", "Do the 4th hour only if total benefit exceeds total cost", "Stop, because marginal cost is positive"],
+  s: "Rasyonel seçim kuralı: <b>MB &gt; MC</b> ise faaliyetten daha fazla yap. 4. saatin ek faydası (30) ek maliyetinden (20) büyük, net kazanç +10. Bu yüzden 4. saat yapılmalı. Toplam maliyetin artması tek başına bir şey söylemez; karar <b>marjinal</b> (ek) değerlerle verilir. MC pozitif olması da durmak için sebep değildir, MB daha büyük olduğu sürece devam edilir." },
+{ l: 2, q: "\"Should the government use taxes to transfer income from the rich to the poor?\" This relates mainly to which of the three basic economic questions?",
+  o: ["For whom to produce", "What to produce", "How to produce", "When to produce"],
+  s: "Mikroekonominin üç temel sorusu: <b>What</b> (ne üretilecek), <b>How</b> (hangi yöntemle, hangi kaynaklarla) ve <b>For whom</b> (üretilen kime gidecek). Gelirin zenginden yoksula aktarılması, malların <b>kimin eline geçeceğini</b> belirler, bu yüzden 'for whom' sorusudur. 'When' kitaptaki üç soru arasında yoktur." },
+{ l: 3, q: "Total benefit from hours of study is: 1h = 40, 2h = 70, 3h = 90, 4h = 100, 5h = 105. Each hour has a marginal cost of 15. How many hours should a rational student study?",
+  o: ["3 hours", "5 hours", "4 hours", "2 hours"],
+  s: "Önce her saatin <b>marjinal faydasını</b> (MB) bul: toplam faydadaki artış.<br>1. saat: 40, 2. saat: 70 − 40 = 30, 3. saat: 90 − 70 = 20, 4. saat: 100 − 90 = 10, 5. saat: 105 − 100 = 5.<br>MC her saat 15. Kural: MB ≥ MC olduğu sürece devam et.<br>1., 2., 3. saatlerde MB (40, 30, 20) &gt; 15 → çalış. 4. saatte MB = 10 &lt; 15 → durma noktası.<br>Cevap: <b>3 saat</b>. 5 saat toplam faydayı en büyük yapar ama toplam net faydayı değil: 3 saatte net = 90 − 45 = 45, 5 saatte net = 105 − 75 = 30." },
+{ l: 3, q: "A firm gives its staff a 'free' lunch. From the point of view of society, which statement is correct?",
+  o: ["The lunch still has an opportunity cost, because it uses scarce resources that could have been used to produce something else", "The lunch has no cost because nobody pays for it at the point of consumption", "The lunch has a cost only for the firm, not for society", "The lunch has an opportunity cost only if the workers would otherwise have bought lunch"],
+  s: "Kıtlık varsa hiçbir şey gerçekten bedava değildir ('there is no such thing as a free lunch'). Yemeği üretmek için gıda, emek, enerji gibi <b>kıt kaynaklar</b> kullanılır. Bu kaynaklar başka bir şey üretmek için kullanılabilirdi, işte bu toplumun fırsat maliyetidir. Kimin ödediği, maliyetin var olup olmadığını değiştirmez; sadece maliyeti kimin taşıdığını değiştirir." },
+{ l: 3, q: "You paid £50 for a non-refundable football ticket. On the match day you are offered a day's work paying £80, which you value more than watching the match. What should a rational person do?",
+  o: ["Take the work, because the £50 is already spent and cannot be recovered whatever you do", "Go to the match, otherwise the £50 is wasted", "Go to the match, because £50 + the match is worth more than £80", "Take the work only if it pays more than £130"],
+  s: "Rasyonel karar sadece <b>bundan sonraki</b> marjinal fayda ve maliyetlere bakar. £50 zaten harcanmıştır ve hangi seçeneği yaparsan yap geri gelmez (buna 'batık maliyet', sunk cost denir). Bu yüzden karara girmez. Bugünkü seçim: maçın faydası mı, işin £80'i mi? Soruda işi daha değerli bulduğun söyleniyor, o halde maçın fırsat maliyeti (£80'lik iş) faydasından büyüktür → işe git. '£130' cevabı £50'yi yanlışlıkla iki kez sayar." },
+];
+
+Q.t2 = [
+{ l: 1, q: "A point inside a country's production possibility curve shows that:",
+  o: ["Resources are idle or used inefficiently", "The country is producing at maximum efficiency", "The output combination cannot be reached", "The country has experienced economic growth"],
+  s: "PPC, mevcut kaynakların <b>tamamı verimli</b> kullanıldığında üretilebilecek bileşimleri gösterir. Eğrinin <b>içindeki</b> nokta, bazı kaynakların boşta (ör. işsizlik) ya da verimsiz kullanıldığını gösterir; buradan her iki maldan da daha fazla üretilebilir. Eğrinin üstü verimlidir, dışı ise mevcut kaynaklarla ulaşılamaz." },
+{ l: 1, q: "Which of the following would shift a country's production possibility curve outwards?",
+  o: ["Technological progress", "A fall in unemployment", "A rise in the price of one of the goods", "Producing more of one good and less of the other"],
+  s: "PPC'yi <b>dışarı kaydıran</b> şey üretim kapasitesinin artmasıdır: teknolojik ilerleme, yatırım (daha çok sermaye), işgücünün artması. İşsizliğin düşmesi, eğrinin <b>içinden eğriye doğru</b> bir hareket sağlar, eğriyi kaydırmaz. Bir maldan daha çok üretip diğerinden daha az üretmek, eğri <b>üzerinde</b> harekettir. Fiyatlar PPC'yi değiştirmez." },
+{ l: 1, q: "In the circular flow of goods and incomes, households receive wages, rent and profit from firms in return for:",
+  o: ["Supplying factors of production in factor markets", "Buying goods in goods markets", "Paying taxes to the government", "Saving money in banks"],
+  s: "Döngüsel akımda iki piyasa vardır. <b>Mal piyasasında</b> (goods market) firmalar mal arz eder, hanehalkı harcama yapar. <b>Faktör piyasasında</b> (factor market) hanehalkı emek, toprak ve sermaye arz eder, firmalar karşılığında ücret, kira, faiz ve kâr öder. Yani ücret ve kira, hanehalkının sattığı <b>üretim faktörlerinin</b> karşılığıdır." },
+{ l: 2, q: "A country's PPC: (food, clothing) = A (0, 100), B (10, 90), C (20, 75), D (30, 55), E (40, 30), F (50, 0). What is the opportunity cost of increasing food output from 20 to 30 units?",
+  o: ["20 units of clothing (2 units of clothing per unit of food)", "10 units of clothing", "55 units of clothing", "25 units of clothing"],
+  s: "C noktasından D noktasına geçiyoruz. Gıda 20 → 30 (+10 birim). Giyim 75 → 55 (−20 birim).<br>Vazgeçilen giyim = 75 − 55 = <b>20 birim</b>. Birim başına: 20 / 10 = <b>2 birim giyim</b>.<br>55, D'deki toplam giyimdir, fırsat maliyeti değildir. 25, D'den E'ye geçişin maliyetidir (55 − 30). Dikkat: fırsat maliyeti hep <b>vazgeçilen</b> malın miktarıdır." },
+{ l: 2, q: "Why is a production possibility curve usually bowed outwards (concave to the origin)?",
+  o: ["Because of increasing opportunity costs: resources are not equally suited to producing both goods", "Because of constant opportunity costs", "Because prices rise as more is produced", "Because the economy has unemployed resources"],
+  s: "Bir maldan daha çok ürettikçe, o mal için <b>giderek daha az uygun</b> kaynakları kullanmak zorunda kalırız (ör. verimli vadi toprağını kullandıktan sonra dağ yamacını). Bu yüzden her ek birim için diğer maldan <b>giderek daha fazla</b> vazgeçeriz: artan fırsat maliyeti. Eğim giderek dikleşir ve eğri dışbükey olur. Sabit fırsat maliyeti düz bir PPC verir." },
+{ l: 2, q: "If a country's production possibility curve is a straight line, this means that:",
+  o: ["The opportunity cost of each good is constant", "The opportunity cost of each good rises as more is produced", "There is no opportunity cost", "The country is producing inefficiently"],
+  s: "PPC'nin <b>eğimi fırsat maliyetini</b> gösterir. Düz çizginin eğimi her yerde aynıdır, demek ki bir maldan bir birim daha üretmek için diğerinden her zaman <b>aynı miktarda</b> vazgeçilir: sabit fırsat maliyeti. Bu, kaynakların iki malın üretimine eşit derecede uygun olduğu durumdur. Eğri üzerinde olduğu sürece fırsat maliyeti sıfır değildir." },
+{ l: 3, q: "Using the PPC A (0, 100), B (10, 90), C (20, 75), D (30, 55), E (40, 30), F (50, 0) for (food, clothing): the country is currently producing 20 units of food and 60 units of clothing. Which statement is correct?",
+  o: ["It can produce 15 more units of clothing without giving up any food", "It is producing efficiently on its PPC", "It must give up 15 units of food to produce more clothing", "The combination is outside the PPC and unattainable"],
+  s: "20 birim gıdada eğri üzerindeki nokta C'dir: (20, 75). Ülke ise (20, 60) üretiyor, yani <b>eğrinin içinde</b>: verimsiz ya da işsiz kaynak var. Boşta kalan kaynakları kullanarak gıdadan vazgeçmeden giyimi 75'e çıkarabilir: <b>75 − 60 = 15 birim</b> ek giyim. Eğrinin içinde olduğu için bu ek üretimin <b>fırsat maliyeti yoktur</b>. Bu yüzden 'verimli' ve 'ulaşılamaz' seçenekleri yanlıştır." },
+{ l: 3, q: "Countries X and Y have identical PPCs between capital goods and consumer goods. X chooses to produce more capital goods than Y. What is the most likely result?",
+  o: ["X consumes less now, but its PPC shifts outwards faster in the future", "X consumes more now and grows faster", "Both countries grow at the same rate because their PPCs are identical", "X's PPC shifts inwards because it produces fewer consumer goods"],
+  s: "Sermaye malları (makine, fabrika) bugün tüketilmez ama <b>gelecekteki üretim kapasitesini</b> artırır. X sermaye malına ağırlık verdiği için bugün daha az tüketim malı üretir (bugünkü tüketimin fırsat maliyeti). Karşılığında yatırım daha fazla olduğu için PPC'si ileride <b>daha hızlı dışarı kayar</b>. Bu, bugünkü tüketim ile gelecekteki büyüme arasındaki seçimdir. PPC'nin bugün aynı olması gelecekteki büyümenin aynı olacağı anlamına gelmez." },
+{ l: 3, q: "In a simple circular flow model, households decide to spend more on goods. Which chain of events is most likely?",
+  o: ["Firms' sales revenue rises, they demand more factors of production, and factor incomes paid to households rise", "Firms' revenue rises but factor incomes fall because firms keep the extra profit", "Only goods markets are affected; factor markets do not change", "Household incomes fall because they are spending more"],
+  s: "Döngüsel akım, mal ve faktör piyasalarının <b>birbirine bağlı</b> olduğunu gösterir. Hanehalkı daha çok harcarsa firmaların satış geliri artar. Firmalar daha çok üretmek için daha çok emek ve diğer faktörleri talep eder. Faktör piyasasında bu, hanehalkına ödenen ücret, kira ve kârın artması demektir. Yani harcama artışı akım boyunca gelirleri de artırır. Kâr da hanehalkına (firma sahiplerine) giden bir faktör gelirdir." },
+];
+
+Q.t3 = [
+{ l: 1, q: "In a command economy, decisions about what, how and for whom to produce are made mainly by:",
+  o: ["The state (central planners)", "Consumers and firms through the price mechanism", "Trade unions", "Foreign governments"],
+  s: "<b>Command economy</b> (komuta / planlı ekonomi) uçta yer alan sistemdir: tüm ekonomik kararları devlet verir. Ne kadar tüketim, ne kadar yatırım yapılacağını, her sektörün ne üreteceğini, hangi yöntemle üreteceğini ve çıktının kime gideceğini planlamacılar belirler. Fiyat mekanizmasıyla karar verilen sistem serbest piyasa ekonomisidir." },
+{ l: 1, q: "In a free-market economy, if there is a shortage of a good, what normally happens?",
+  o: ["The price rises until the shortage is eliminated", "The government introduces rationing", "The price falls", "Firms produce less of the good"],
+  s: "Serbest piyasada <b>fiyat mekanizması</b> arz ile talebi dengeler. Kıtlık (talep &gt; arz) varsa alıcılar malı almak için rekabet eder, fiyat yükselir. Yüksek fiyat talep edilen miktarı düşürür ve arz edilen miktarı artırır, kıtlık kapanana kadar. Karne (rationing) bir devlet müdahalesidir, komuta ekonomisi ya da tavan fiyatlarla ilgilidir." },
+{ l: 1, q: "Which description best fits a mixed economy?",
+  o: ["Resources are allocated partly by the market and partly by the government", "All resources are owned and allocated by the state", "There is no government involvement at all", "Only foreign firms are allowed to operate"],
+  s: "<b>Mixed economy</b> (karma ekonomi), piyasa ile devlet müdahalesinin karışımıdır. Kitabın vurgusu: gerçekte <b>tüm ekonomiler karmadır</b>; ülkeleri birbirinden ayıran şey devlet müdahalesinin derecesi ve biçimidir. Tamamen devlet kontrolü komuta ekonomisi, hiç müdahale olmaması saf serbest piyasadır." },
+{ l: 2, q: "Which is a major problem of a command economy?",
+  o: ["Planners need huge amounts of information, and incentives for workers and managers may be weak", "Prices change too quickly", "There is too much competition between firms", "Income is always very unequally distributed"],
+  s: "Kitap komuta ekonomisinin sorunlarını şöyle sıralar: bilgiyi toplamak ve işlemek için <b>büyük bürokrasi</b> gerekir; fiyatlar ve üretim yöntemleri <b>keyfi</b> olabilir; <b>teşvikler</b> uygunsuz olabilir; <b>kıtlıklar ve fazlalar</b> ortaya çıkar. Hızlı fiyat değişimi ve aşırı rekabet piyasa ekonomisinin özellikleridir. Komuta ekonomisi tersine eşitliği hedefleyebilir." },
+{ l: 2, q: "Adam Smith's idea of the 'invisible hand' suggests that:",
+  o: ["Individuals pursuing their own self-interest in free markets are led to promote the interests of society", "Governments should secretly control markets", "Markets always lead to an equal distribution of income", "Firms should act out of kindness rather than profit"],
+  s: "Adam Smith (Box 1.6), <i>The Wealth of Nations</i> (1776): kasap, fırıncı ya da biracı bize iyilik olsun diye değil, <b>kendi çıkarları</b> için mal satar. Ama rekabetçi piyasada, kendi çıkarının peşindeki bireyler bir 'görünmez el' tarafından yönlendirilmiş gibi toplumun çıkarına hizmet eder: insanların istediği mallar üretilir. Bu fikir eşit gelir dağılımını garanti etmez." },
+{ l: 2, q: "Consumer demand for electric cars rises sharply. In a free-market economy, which sequence is most likely?",
+  o: ["The price and profitability of electric cars rise, firms produce more, and the demand for (and wages of) workers making them rise", "The price of electric cars falls, so firms produce fewer", "The government orders factories to produce more electric cars", "The price stays the same but queues form"],
+  s: "Piyasada mal ve faktör piyasaları <b>birbirine bağlıdır</b> (interdependence). Talep artışı → mal piyasasında kıtlık → fiyat ve kâr artar → firmalar bu mala yönelir, üretimi artırır → faktör piyasasında bu malı üretecek işçilere ve diğer faktörlere talep artar → ücretleri artar. Fiyat burada bir <b>sinyal</b> (ne üretilmeli) ve <b>teşvik</b> (üretmek kârlı) işlevi görür. Devlet emri komuta ekonomisidir; sabit fiyatla kuyruk ise fiyat kontrolü olduğunda olur." },
+{ l: 3, q: "Which of the following is a weakness of a FREE-MARKET economy rather than of a command economy?",
+  o: ["Firms may pollute the environment without paying for the damage", "Shortages persist because prices are fixed by the state", "A huge bureaucracy is needed to plan output", "Managers meet output targets by producing low-quality goods"],
+  s: "Kitap serbest piyasanın sorunlarını sıralar: rekabet sınırlı olabilir (tekel gücü), büyük <b>eşitsizlik</b>, olumsuz <b>sosyal ve çevresel sonuçlar</b> (kirlilik gibi, firmalar bu maliyeti ödemez) ve <b>makroekonomik istikrarsızlık</b>. Diğer üç seçenek komuta ekonomisinin sorunlarıdır: devlet fiyatı sabitlediği için süren kıtlıklar, büyük planlama bürokrasisi ve kota tutturmak için düşük kalite." },
+{ l: 3, q: "Soviet planners set a nail factory's target in tonnes of nails. The factory produced a small number of huge, heavy nails that nobody wanted. This mainly illustrates which problem of central planning?",
+  o: ["Inappropriate incentives: managers meet the target rather than produce what users need", "The problem of too much competition", "The invisible hand working efficiently", "Excess demand caused by low prices"],
+  s: "Bu klasik örnek komuta ekonomisinde <b>teşvik sorununu</b> (inappropriate incentives) gösterir. Yönetici ödülü kullanıcıların ihtiyacına değil, plandaki hedefe (ton) göre aldığı için hedefi en kolay tutturan şeyi yapar: az sayıda, çok ağır çivi. Hedef 'adet' olsaydı minik, işe yaramaz çiviler üretilirdi. Piyasada ise kimsenin almadığı çivi zarar ettirir, bu yüzden fiyat ve kâr doğru teşviki verir." },
+{ l: 3, q: "In a free market, demand for coal falls permanently. What is the likely effect in the FACTOR market?",
+  o: ["Demand for coal miners falls, so mining wages fall and/or jobs are lost, and labour moves to other industries", "Coal miners' wages rise because the price of coal falls", "Nothing happens in the factor market; only the coal price changes", "Demand for coal miners rises because firms must work harder"],
+  s: "Mal piyasası ile faktör piyasası bağlıdır. Kömür talebi düşer → kömür fiyatı ve kârı düşer → firmalar üretimi azaltır → <b>kömür madencilerine talep</b> düşer → ücretler düşer ve/veya işler kaybedilir. Bu durum, işgücünün talebi artan başka sektörlere geçmesi için bir sinyaldir. Kısa vadede bu geçiş acılı olabilir (bölgesel işsizlik): bu da serbest piyasanın sosyal maliyetlerinden biridir." },
+];
+
+Q.t4 = [
+{ l: 1, q: "The term 'ceteris paribus' means:",
+  o: ["Other things being equal", "In the long run", "At the margin", "Prices are fixed"],
+  s: "<b>Ceteris paribus</b> Latince 'diğer şeyler sabitken' demektir (Box 1.7). Ekonomistler bir değişkenin etkisini yalnız başına görmek için diğer belirleyicileri sabit varsayar. Örneğin talep kanunu 'ceteris paribus, fiyat artarsa talep edilen miktar düşer' der; gelir, zevkler, diğer malların fiyatları değişmiyor kabul edilir." },
+{ l: 1, q: "Which of the following is a normative statement?",
+  o: ["The government should reduce the level of unemployment", "Unemployment rose by 2 per cent last year", "Higher interest rates reduce consumer spending", "If the minimum wage is raised, some firms will employ fewer workers"],
+  s: "<b>Normative statement</b> bir değer yargısıdır: ne olması gerektiğini söyler ('should', 'ought', 'fair', 'better'). 'Hükümet işsizliği azaltmalı' cümlesi bir görüştür, verilerle test edilemez. Diğer üç ifade <b>pozitiftir</b>: geçen yılın verisi, faiz ile harcama ilişkisi ve asgari ücretin istihdam etkisi gerçeklere bakarak test edilebilir." },
+{ l: 1, q: "A positive statement is one that:",
+  o: ["Can be tested by appeal to the facts", "Is always true", "Expresses an opinion about what ought to happen", "Is approved by most economists"],
+  s: "Kitabın tanımı: <b>positive statement</b> değer yargısı içermeyen ve <b>gerçeklere başvurarak test edilebilen</b> bir ifadedir. Önemli: pozitif bir ifade <b>yanlış</b> da olabilir, test edilince yanlış çıkabilir; yine de pozitiftir. Ne olması gerektiğini söylemek normatiftir. Ekonomistlerin çoğunun onaylaması bir ifadeyi pozitif yapmaz." },
+{ l: 2, q: "Classify: \"It is incorrect to state that putting up interest rates will reduce inflation.\"",
+  o: ["Positive, because it is a claim about cause and effect that can be tested", "Normative, because it uses the word 'incorrect'", "Normative, because it is about government policy", "Neither positive nor normative"],
+  s: "Bu cümle kitaptaki alıştırmalardan biridir. 'Incorrect' kelimesi değer yargısı değildir; cümle aslında 'faiz artışı enflasyonu düşürmez' diyor. Bu bir <b>neden-sonuç iddiasıdır</b> ve verilerle test edilebilir, yani <b>pozitiftir</b>. Politika hakkında olması da onu normatif yapmaz; normatif olması için 'yapılmalı/yapılmamalı' gibi bir değer yargısı gerekirdi." },
+{ l: 2, q: "Why is it harder for economists than for natural scientists to make accurate predictions?",
+  o: ["Economics studies human behaviour in a constantly changing environment, and controlled experiments are rarely possible", "Economists do not use models", "Economic theories cannot be tested at all", "Economists are less intelligent than physicists"],
+  s: "Ekonomi bir <b>sosyal bilimdir</b>: insan davranışını inceler. İnsanların tercihleri, beklentileri değişir; ekonomik çevre sürekli değişir. Laboratuvarda 'diğer her şeyi sabit tutarak' deney yapmak çoğu zaman mümkün değildir. Yine de ekonomistler model kurar ve teorileri verilerle test eder; sadece tahmin daha zordur." },
+{ l: 2, q: "An economic model consistently fails to predict what actually happens. According to scientific method, what should economists do?",
+  o: ["Amend the model or abandon it", "Keep the model, because models do not need to match the facts", "Change the facts to fit the model", "Replace it with a normative statement"],
+  s: "Kitaba göre ekonomistlerin yöntemi doğa bilimine benzer: model kurulur, model <b>tahmin</b> üretir, tahminler gerçeklerle <b>test edilir</b>. Model başarısızsa ya <b>değiştirilir</b> (amended: varsayımlar düzeltilir) ya da <b>bırakılır</b> (abandoned) ve yerine daha iyisi kurulur. Bilimsel bir model gerçeklere uymak zorundadır." },
+{ l: 3, q: "\"Cutting the higher rates of income tax will redistribute incomes from the poor to the rich.\" This statement is:",
+  o: ["Positive, because its effect on the distribution of income can be tested", "Normative, because it is about rich and poor people", "Normative, because it criticises the government", "Positive only if it is true"],
+  s: "Kitaptaki alıştırma (a). Konusu gelir dağılımı (adalet) olsa da cümle bir <b>değer yargısı içermiyor</b>: bir politikanın <b>sonucunu</b> iddia ediyor. Vergi indiriminden sonra gelir dağılımına bakarak test edilebilir, bu yüzden pozitiftir. 'Sadece doğruysa pozitif' yanlıştır: yanlış çıksa da pozitif kalır. Normatif olsaydı şöyle olurdu: 'Zengine vergi indirimi yapmak adaletsizdir.'" },
+{ l: 3, q: "What role should economists, as economists, play in government policy?",
+  o: ["They can analyse which policy is more likely to achieve a given aim, but they have no special right to decide whether the aim is desirable", "They should decide what the government's goals ought to be", "They should only make normative statements", "They should avoid policy questions entirely"],
+  s: "Kitap şunu vurgular: ekonomistler, bilim insanı olarak, politikaların <b>sonuçlarını</b> inceleyebilir (pozitif): 'kamu harcamasını artırmak işsizliği düşürür ama enflasyonu artırır'. Ama bu sonucun <b>istenir olup olmadığına</b> (normatif) karar vermekte başka vatandaşlardan daha fazla hakları yoktur. Değer yargısını birey olarak yapabilirler. Bu yüzden politika sorularından kaçmaları da gerekmez; hükümetin hedeflerine ulaşıp ulaşmadığını değerlendirmede büyük rol oynarlar." },
+{ l: 3, q: "A model assumes that all firms aim to maximise profit, although some real firms have other aims. How should the model be judged?",
+  o: ["By how well it explains and predicts real-world behaviour", "It should be rejected because its assumptions are not perfectly realistic", "It should be accepted because economists built it", "By whether its assumptions are normative"],
+  s: "Modeller gerçeğin <b>sadeleştirilmiş</b> hâlidir; tüm ayrıntıyı içerseydi kullanışsız olurdu. Bu yüzden varsayımların tam gerçekçi olmaması modeli tek başına geçersiz kılmaz. Kitaba göre model, gerçek dünyadaki olayları ne kadar iyi <b>açıklayıp tahmin ettiğine</b> göre (gerçeklerle test edilerek) değerlendirilir. Tahminleri sürekli tutmazsa değiştirilir ya da bırakılır." },
+];
+
+Q.t5 = [
+{ l: 1, q: "According to the law of demand, when the price of a good rises (ceteris paribus):",
+  o: ["The quantity demanded falls", "The quantity demanded rises", "The demand curve shifts to the left", "Supply falls"],
+  s: "<b>Law of demand</b>: diğer şeyler sabitken bir malın fiyatı artarsa, belli bir dönemde <b>talep edilen miktar</b> düşer. Bu, talep eğrisi <b>üzerinde</b> yukarı doğru bir harekettir; eğrinin kendisi kaymaz. Eğri sadece fiyat dışındaki belirleyiciler değişince kayar." },
+{ l: 1, q: "On a demand curve diagram, what is shown on the vertical axis?",
+  o: ["Price", "Quantity demanded per period of time", "Income", "Total revenue"],
+  s: "Ekonomide gelenek: <b>fiyat dikey eksende</b> (y), <b>belli bir dönemdeki miktar yatay eksende</b> (x) gösterilir. Matematikte bağımsız değişken genelde yatay eksendedir; ekonomide ise fiyat dikeyde olduğu halde talebi belirleyen değişkendir. Bu farkı bilmek grafik okumada önemlidir." },
+{ l: 1, q: "The price of petrol rises sharply. What is likely to happen to the demand for large cars?",
+  o: ["It falls, because petrol and cars are complements", "It rises, because petrol and cars are substitutes", "It does not change, because only the price of cars affects car demand", "The quantity of cars demanded rises along the curve"],
+  s: "Benzin ve araba <b>tamamlayıcı mallardır</b> (complements): birlikte kullanılırlar. Benzin pahalanınca araba kullanmanın toplam maliyeti artar, özellikle çok yakan büyük arabalar için. Bu yüzden büyük araba <b>talebi</b> düşer: talep eğrisi sola kayar. Arabanın kendi fiyatı değişmediği için bu bir eğri üzerinde hareket değil, kaymadır." },
+{ l: 2, q: "When people's incomes rise, they buy fewer bus journeys. Bus travel is therefore:",
+  o: ["An inferior good", "A normal good", "A complement to income", "A good with perfectly inelastic demand"],
+  s: "Gelir artınca talebi <b>düşen</b> mallara <b>inferior good</b> (düşük mal) denir. İnsanlar zenginleşince otobüs yerine kendi arabalarını ya da taksiyi tercih eder. Gelir artınca talebi artan mallar <b>normal good</b>'dur. Düşük mal 'kalitesiz mal' demek değildir; sadece gelirle talep arasındaki ters ilişkiyi anlatır." },
+{ l: 2, q: "Which of the following causes a MOVEMENT ALONG the demand curve for tea (not a shift)?",
+  o: ["A fall in the price of tea", "A fall in the price of coffee", "An advertising campaign for tea", "A rise in consumers' incomes"],
+  s: "Kural: malın <b>kendi fiyatı</b> değişirse eğri üzerinde hareket olur (change in quantity demanded). Başka herhangi bir belirleyici değişirse eğri kayar (change in demand). Kahvenin fiyatı (ikame), reklam (zevkler) ve gelir fiyat dışı belirleyicilerdir, bunlar çayın talep eğrisini kaydırır. Sadece çayın kendi fiyatındaki düşüş eğri üzerinde aşağı doğru harekettir." },
+{ l: 2, q: "The substitution effect of a price rise means that:",
+  o: ["Consumers switch to alternative goods that are now relatively cheaper", "Consumers' real income falls so they can afford less", "Producers switch to making other goods", "The demand curve shifts to the right"],
+  s: "Talep kanununun iki açıklaması vardır:<br>• <b>Substitution effect</b> (ikame etkisi): fiyatı artan mal, alternatiflerine göre <b>görece pahalı</b> olur; tüketici ikamelere geçer.<br>• <b>Income effect</b> (gelir etkisi): fiyat artınca tüketicinin <b>reel geliri</b> düşer, aynı parayla daha az alabilir.<br>Gerçek gelirin düşmesi gelir etkisidir, ikame etkisi değildir. Üreticilerin geçişi arz tarafıdır." },
+{ l: 3, q: "A market has three consumers. At £2 they buy A = 4, B = 6, C = 0 units. At £1 they buy A = 6, B = 9, C = 3 units. By how much does market quantity demanded increase when the price falls from £2 to £1?",
+  o: ["8 units", "18 units", "10 units", "3 units"],
+  s: "<b>Piyasa talebi</b>, her fiyatta bireysel taleplerin <b>toplamıdır</b> (yatay toplama).<br>£2'de: 4 + 6 + 0 = <b>10</b> birim.<br>£1'de: 6 + 9 + 3 = <b>18</b> birim.<br>Artış: 18 − 10 = <b>8 birim</b>. 18 ve 10 sadece tek bir fiyattaki toplamlardır. C'nin £2'de hiç almayıp £1'de 3 alması, fiyat düşünce piyasaya <b>yeni alıcıların</b> girdiğini de gösterir." },
+{ l: 3, q: "The demand function for a good is Qd = 200 − 10P. Incomes then rise and the demand function becomes Qd = 260 − 10P. At the same time the price rises from £8 to £12. What is the overall change in quantity demanded?",
+  o: ["It rises by 20 units", "It falls by 40 units", "It rises by 60 units", "It falls by 20 units"],
+  s: "Başlangıç: eski fonksiyon, P = 8 → Qd = 200 − 80 = <b>120</b>.<br>Son durum: yeni fonksiyon, P = 12 → Qd = 260 − 120 = <b>140</b>.<br>Net değişim: 140 − 120 = <b>+20</b>.<br>Ayrıştırırsak: fiyat artışı tek başına (eğri üzerinde hareket) miktarı 40 düşürür (120 → 80, eski eğride); gelir artışı (eğrinin kayması) her fiyatta 60 artırır. Toplam: −40 + 60 = +20. '−40' sadece hareketi, '+60' sadece kaymayı görür." },
+{ l: 3, q: "Which of the following would shift the demand curve for coffee to the LEFT?",
+  o: ["A fall in the price of tea", "A rise in the price of coffee", "A rise in the price of tea", "A rise in incomes, if coffee is a normal good"],
+  s: "Çay ve kahve <b>ikamedir</b>. Çay ucuzlarsa bazı insanlar kahveden çaya geçer, her fiyatta daha az kahve talep edilir: kahve talep eğrisi <b>sola</b> kayar. Çay pahalanırsa tersi olur (sağa kayma). Normal malda gelir artışı talebi sağa kaydırır. Kahvenin kendi fiyatının artması ise eğriyi kaydırmaz, eğri <b>üzerinde</b> harekettir: sınavda en sık düşülen tuzak budur." },
+];
+
+</script>
+<script>
+Q.t6 = [
+{ l: 1, q: "When the price of a good rises, the quantity supplied usually:",
+  o: ["Rises", "Falls", "Stays the same", "Falls to zero"],
+  s: "Fiyat artınca üretmek daha kârlı hale gelir, bu yüzden <b>arz edilen miktar</b> genelde artar. Arz eğrisi <b>pozitif eğimlidir</b> (yukarı çıkar). Bu hem tek bir üretici hem de piyasanın toplam arzı için geçerlidir. Bu, arz eğrisi üzerinde bir harekettir." },
+{ l: 1, q: "A fall in the cost of raw materials used to make a good will:",
+  o: ["Shift the supply curve to the right", "Shift the supply curve to the left", "Cause a movement up along the supply curve", "Shift the demand curve to the right"],
+  s: "Üretim maliyeti (costs of production) arzın fiyat dışı belirleyicilerinden biridir. Ham madde ucuzlarsa her fiyatta üretmek daha kârlı olur, firmalar daha çok arz eder: arz eğrisi <b>sağa</b> (aşağı) kayar = <b>arz artışı</b> (increase in supply). Maliyet talebi doğrudan etkilemez. Eğri üzerinde hareket sadece malın kendi fiyatı değişince olur." },
+{ l: 1, q: "What causes a movement along a supply curve?",
+  o: ["A change in the price of the good itself", "A change in the cost of production", "A change in technology", "A change in the weather"],
+  s: "Kural talepteki ile aynıdır: malın <b>kendi fiyatı</b> değişirse eğri üzerinde hareket olur (change in <b>quantity supplied</b>). Maliyet, teknoloji, hava (rastgele şoklar) gibi diğer belirleyiciler değişirse <b>eğrinin tamamı kayar</b> (change in <b>supply</b>)." },
+{ l: 2, q: "Farmers can grow either wheat or barley on their land. The price of wheat rises. What happens to the supply of barley?",
+  o: ["It falls: the barley supply curve shifts left as farmers switch to wheat", "It rises, because farming is now more profitable", "It does not change, because the price of barley has not changed", "There is a movement along the barley supply curve"],
+  s: "Buğday ve arpa üretimde <b>ikamedir</b> (alternatif ürünler, goods in demand substitutes). Buğday fiyatı artınca buğday daha kârlı olur ve çiftçiler toprağı arpadan buğdaya kaydırır. Arpanın kendi fiyatı değişmediği halde her fiyatta daha az arpa arz edilir: arpa arz eğrisi <b>sola kayar</b>. Belirleyici: 'profitability of alternative products'." },
+{ l: 2, q: "Beef and leather are in joint supply. If more beef is produced because beef prices rise, what happens to the supply of leather?",
+  o: ["It increases: the leather supply curve shifts right", "It decreases", "It does not change", "There is a movement down the leather supply curve"],
+  s: "<b>Joint supply</b> (birlikte arz): bir malı üretmek diğerini de otomatik olarak üretir. Sığır eti için daha çok hayvan kesilince daha çok deri de çıkar. Derinin fiyatı değişmeden her fiyatta daha çok deri arz edilir: deri arz eğrisi <b>sağa kayar</b>. Bu, alternatif ürünler durumunun (buğday-arpa) tam tersidir." },
+{ l: 2, q: "In the LONG RUN, which additional reason explains why a higher price leads to more being supplied?",
+  o: ["New producers are attracted into the market", "Existing firms are willing to accept higher costs per unit", "Firms switch from producing less profitable goods", "Consumers buy more of the good"],
+  s: "Kitap üç neden sayar. <b>Kısa dönemde</b>: (a) yüksek fiyat, daha çok üretmenin getirdiği yüksek birim maliyetleri karşılar; (b) firmalar daha az kârlı mallardan bu mala geçer. <b>Uzun dönemde</b> üçüncü bir neden eklenir: (c) yüksek kâr <b>yeni firmaları piyasaya çeker</b>. Tüketicinin daha çok alması talep tarafıdır." },
+{ l: 3, q: "A market's supply function is Qs = −20 + 10P. Production costs rise and it becomes Qs = −40 + 10P. Before the change, 30 units were supplied at a price of £5. What price is now needed to get 30 units supplied?",
+  o: ["£7", "£5", "£3", "£9"],
+  s: "Eski fonksiyon: P = 5 → Qs = −20 + 50 = 30 (kontrol).<br>Yeni fonksiyon: 30 = −40 + 10P → 10P = 70 → <b>P = £7</b>.<br>Yani aynı miktarı arz ettirmek için fiyatın £2 daha yüksek olması gerekir: arz eğrisi her miktarda <b>£2 yukarı</b> (yani sola) kaymıştır. Bu, maliyet artışının arzı azaltması demektir. £5'te artık sadece −40 + 50 = 10 birim arz edilir." },
+{ l: 3, q: "Producers expect the price of their good to rise sharply next month. What is the likely effect on supply THIS month?",
+  o: ["Supply falls (shifts left), as producers hold back stocks to sell later at the higher price", "Supply rises, because producers want to sell before prices change", "Nothing, because only the current price affects supply", "Quantity supplied rises along the curve"],
+  s: "Beklentiler (expectations of future price changes) arzın belirleyicilerindendir. Fiyat gelecek ay yükselecekse, üreticiler bugün satmak yerine mallarını <b>stoklayıp sonra satmayı</b> tercih eder. Bugünkü fiyat değişmediği halde bugün daha az arz edilir: bu ayın arz eğrisi <b>sola kayar</b>. Bu durum bugünkü fiyatı da yükseltir (beklentinin kendini gerçekleştirmesi, Bölüm 3.2)." },
+{ l: 3, q: "A firm can produce either good X or good Y with the same machines. Which of the following would shift the supply curve of good X to the RIGHT?",
+  o: ["A fall in the price of good Y", "A rise in the price of good X", "A rise in wages paid to the firm's workers", "A rise in the price of good Y"],
+  s: "X ve Y üretimde <b>alternatif</b> ürünlerdir. Y ucuzlarsa Y üretmek daha az kârlı olur, firma makineleri <b>X'e kaydırır</b> → her fiyatta daha çok X arz edilir → X arz eğrisi <b>sağa</b> kayar. Y'nin fiyatı artarsa tam tersi (sola kayma). Ücret artışı maliyeti artırır (sola kayma). X'in kendi fiyatının artması eğri üzerinde harekettir, kayma değil." },
+];
+
+Q.t7 = [
+{ l: 1, q: "The equilibrium price is the price at which:",
+  o: ["Quantity demanded equals quantity supplied", "Firms make the most profit", "The government wants the price to be", "Quantity demanded is greater than quantity supplied"],
+  s: "<b>Equilibrium price</b> piyasayı temizleyen (market-clearing) fiyattır: talep edilen miktar = arz edilen miktar (Qd = Qs). Bu fiyatta ne kıtlık ne fazla arz vardır, bu yüzden fiyatın değişme eğilimi yoktur. Grafikte talep ve arz eğrilerinin <b>kesiştiği</b> noktadır." },
+{ l: 1, q: "If the market price is above the equilibrium price, there will be:",
+  o: ["A surplus, so the price will tend to fall", "A shortage, so the price will tend to rise", "A shortage, so the price will tend to fall", "Equilibrium, so nothing changes"],
+  s: "Dengenin üstündeki fiyatta üreticiler çok arz etmek ister, tüketiciler az almak ister: <b>Qs &gt; Qd</b>, yani fazla arz (surplus). Satıcılar mallarını satabilmek için fiyatı düşürür. Fiyat düştükçe Qd artar, Qs azalır, ta ki dengeye gelinene kadar. Dengenin altındaki fiyatta ise kıtlık olur ve fiyat yükselir." },
+{ l: 1, q: "If demand for a good increases (and supply does not change), what happens to the equilibrium price and quantity?",
+  o: ["Both rise", "Price rises, quantity falls", "Price falls, quantity rises", "Both fall"],
+  s: "Talep eğrisi sağa kayar. Eski fiyatta artık Qd &gt; Qs (kıtlık) → fiyat yükselir. Yükselen fiyat arz eğrisi <b>üzerinde</b> yukarı doğru hareketle arz edilen miktarı artırır. Yeni denge: <b>fiyat ↑, miktar ↑</b>. Tablo: D↑ → P↑ Q↑; D↓ → P↓ Q↓; S↑ → P↓ Q↑; S↓ → P↑ Q↓." },
+{ l: 2, q: "There is an exceptionally good harvest of potatoes. What happens in the potato market?",
+  o: ["Supply increases: price falls and quantity rises", "Demand increases: price and quantity rise", "Supply decreases: price rises and quantity falls", "Demand decreases: price and quantity fall"],
+  s: "İyi hasat, rastgele bir şoktur (nature, random shocks) ve <b>arzı</b> etkiler: her fiyatta daha çok patates vardır, arz eğrisi sağa kayar. Eski fiyatta fazla arz oluşur → fiyat düşer → düşen fiyatla talep eğrisi boyunca daha çok alınır. Sonuç: <b>P ↓, Q ↑</b>. Talep değişmemiştir; tüketicilerin daha çok alması eğri üzerinde harekettir." },
+{ l: 2, q: "Demand: Qd = 100 − 5P. Supply: Qs = −20 + 10P. What are the equilibrium price and quantity?",
+  o: ["P = 8, Q = 60", "P = 6, Q = 70", "P = 10, Q = 50", "P = 12, Q = 40"],
+  s: "Dengede Qd = Qs:<br>100 − 5P = −20 + 10P<br>100 + 20 = 10P + 5P → 120 = 15P → <b>P = 8</b><br>Miktar: Qd = 100 − 5(8) = 60. Kontrol: Qs = −20 + 80 = 60 ✓<br>Diğer seçenekler denklemlerden sadece birini sağlıyor (ör. P = 10'da Qd = 50 ama Qs = 80)." },
+{ l: 2, q: "In the market Qd = 100 − 5P, Qs = −20 + 10P, suppose the price is £6. What is the situation?",
+  o: ["A shortage of 30 units", "A surplus of 30 units", "A shortage of 70 units", "Equilibrium"],
+  s: "P = 6'yı iki denkleme de koy:<br>Qd = 100 − 30 = <b>70</b><br>Qs = −20 + 60 = <b>40</b><br>Qd &gt; Qs → <b>kıtlık</b> (shortage) = 70 − 40 = <b>30 birim</b>.<br>Fiyat dengenin (£8) altında olduğu için kıtlık beklenir; bu kıtlık fiyatı £8'e doğru yükseltir. 70, sadece talep edilen miktardır, kıtlık değil." },
+{ l: 3, q: "New technology increases supply of a good, and at the same time rising incomes increase demand for it (it is a normal good). What can we say for certain?",
+  o: ["Equilibrium quantity rises, but the effect on price is uncertain", "Equilibrium price rises, but the effect on quantity is uncertain", "Both price and quantity rise", "Price falls and quantity rises"],
+  s: "Etkileri ayrı ayrı düşün:<br>• Arz artışı: P ↓, Q ↑<br>• Talep artışı: P ↑, Q ↑<br>Miktar iki durumda da artıyor → <b>Q kesin ↑</b>. Fiyatta iki etki ters yönde → hangisinin <b>daha çok kaydığına</b> bağlı → <b>belirsiz</b>. Bilinmeyen kayma büyüklükleriyle sınavda 'kesin' olanı seç. D↑ ve S↓ birlikte olsaydı fiyat kesin artar, miktar belirsiz olurdu." },
+{ l: 3, q: "Demand: Qd = 120 − 3P. Supply: Qs = 4P − 20. Demand then increases by 14 units at every price. What are the new equilibrium price and quantity?",
+  o: ["P = 22, Q = 68", "P = 20, Q = 60", "P = 22, Q = 74", "P = 24, Q = 62"],
+  s: "Başlangıç dengesi: 120 − 3P = 4P − 20 → 140 = 7P → P = 20, Q = 60.<br>Yeni talep: Qd = 134 − 3P (her fiyatta +14).<br>134 − 3P = 4P − 20 → 154 = 7P → <b>P = 22</b>.<br>Q = 134 − 66 = <b>68</b>. Kontrol: Qs = 88 − 20 = 68 ✓<br>Dikkat: miktar 14 değil sadece 8 arttı, çünkü artan fiyat (+2) talep artışının bir kısmını geri aldı. 74, eski eğrinin değil yeni eğrinin yanlış kullanılmasıdır (134 − 3×20)." },
+{ l: 3, q: "Over ten years, the price of a good and the quantity sold both rose. A student concludes that the demand curve for the good slopes upwards. What is wrong with this conclusion?",
+  o: ["The demand curve has probably shifted over time; the data points lie on different demand curves (the identification problem)", "Nothing; higher prices always cause higher demand", "The student should have used total revenue instead", "Supply curves always slope downwards"],
+  s: "Bu, kitabın <b>identification problem</b> (tanımlama sorunu) dediği şeydir. Farklı yıllardaki fiyat-miktar noktaları <b>aynı talep eğrisi üzerinde değildir</b>: on yılda gelir ve zevkler değişmiş, talep eğrisi sağa kaymış olabilir. Talep sağa kayınca fiyat da miktar da artar ve noktaları birleştirmek yanıltıcı biçimde yukarı eğimli bir çizgi verir. Gerçek eğriyi bulmak için diğer belirleyicilerin etkisini ayırmak gerekir." },
+];
+
+Q.t8 = [
+{ l: 1, q: "If the government sets a maximum price below the equilibrium price, the result is:",
+  o: ["A shortage", "A surplus", "No effect", "A rise in the market price"],
+  s: "<b>Maximum price</b> (tavan fiyat), fiyatın belli bir seviyeyi geçmesini yasaklar. Dengenin <b>altına</b> konursa, o düşük fiyatta tüketiciler çok almak ister, üreticiler az arz eder: <b>Qd &gt; Qs → kıtlık</b>. Fiyat yükselemediği için kıtlık kapanmaz. Sonuçları: kuyruklar, bekleme listeleri, karne, karaborsa." },
+{ l: 1, q: "A minimum price (price floor) set above the equilibrium price will cause:",
+  o: ["A surplus", "A shortage", "Rationing", "An underground market selling above the minimum price"],
+  s: "<b>Minimum price</b> (taban fiyat) fiyatın belli bir seviyenin altına düşmesini yasaklar. Dengenin <b>üstüne</b> konursa, o yüksek fiyatta üreticiler çok arz eder, tüketiciler az alır: <b>Qs &gt; Qd → fazla arz</b> (surplus). Fiyat düşemediği için fazla kalır. Kıtlık, karne ve karaborsa ise tavan fiyatın sonuçlarıdır." },
+{ l: 1, q: "With a maximum price below equilibrium, underground (black) markets are likely to appear. In these markets goods are:",
+  o: ["Sold illegally at prices above the maximum price", "Sold legally at the maximum price", "Given away free by the government", "Sold at a price below the maximum price"],
+  s: "Tavan fiyat kıtlık yaratır: malı almak isteyip bulamayan insanlar <b>daha fazla ödemeye</b> razıdır. Bu yüzden mal yasadışı olarak <b>tavan fiyatın üstünde</b> satılır: <b>underground market</b> (karaborsa, Box 2.4). Satıcılar kanunu çiğneme riskini bu yüksek fiyat için alır. Örnekler: savaş dönemi gıda karaborsası, bilet karaborsası." },
+{ l: 2, q: "Demand: Qd = 200 − 4P. Supply: Qs = 50 + 2P. The government sets a maximum price of £20. What is the shortage?",
+  o: ["30 units", "20 units", "120 units", "No shortage, because £20 is above the equilibrium"],
+  s: "Önce dengeyi bul: 200 − 4P = 50 + 2P → 150 = 6P → P* = £25, Q* = 100.<br>£20 dengenin <b>altında</b>, yani tavan etkili.<br>P = 20'de: Qd = 200 − 80 = <b>120</b>, Qs = 50 + 40 = <b>90</b>.<br>Kıtlık = 120 − 90 = <b>30 birim</b>.<br>120 sadece talep edilen miktardır. Dikkat: tavan fiyatta satılan miktar <b>arz edilen miktar</b> kadardır (90), çünkü üreticiler fazlasını üretmez." },
+{ l: 2, q: "The government sets a maximum price ABOVE the equilibrium price. What is the effect?",
+  o: ["No effect: the market stays at its equilibrium", "A shortage", "A surplus", "The price rises to the maximum price"],
+  s: "Tavan fiyat sadece fiyatın <b>yükselmesini</b> engeller. Denge fiyatı zaten tavanın altındaysa piyasa dengede kalır ve tavan hiçbir şeyi değiştirmez: <b>etkisizdir</b> (non-binding). Fiyatın tavana kadar çıkması için bir neden yoktur; çıksaydı fazla arz olur ve fiyat geri düşerdi. Aynı mantık: dengenin altına konan taban fiyat da etkisizdir." },
+{ l: 2, q: "Which is a main reason why governments set minimum prices for agricultural products?",
+  o: ["To protect the incomes of farmers", "To make food cheaper for consumers", "To eliminate food surpluses", "To create shortages"],
+  s: "Kitaba göre taban fiyatın amaçları: <b>üreticilerin gelirini korumak</b> ve ileride arz düşerse kullanılmak üzere <b>stok oluşturmak</b>. Taban fiyat fiyatı yükseltir (tüketiciye pahalı), fazla arz yaratır (fazlayı yok etmez, oluşturur). Kıtlık yaratan tavan fiyattır. Gerçek örnek: AB'nin Ortak Tarım Politikası (Bölüm 3.5)." },
+{ l: 3, q: "Demand: Qd = 200 − 4P. Supply: Qs = 50 + 2P. The government sets a minimum price of £30 and buys up any surplus. How much does it spend?",
+  o: ["£900", "£3,300", "£750", "£2,400"],
+  s: "Denge P* = £25 olduğu için £30 tabanı etkilidir.<br>P = 30'da: Qd = 200 − 120 = <b>80</b>, Qs = 50 + 60 = <b>110</b>.<br>Fazla arz = 110 − 80 = <b>30 birim</b>.<br>Devlet fazlayı £30'dan alıyor: 30 × £30 = <b>£900</b>.<br>£3,300 tüm üretimin (110 × 30) değeridir; £2,400 tüketicilerin ödediğidir (80 × 30). Devletin bu fazlayla ne yapacağı (depolama, imha, ihracat) ayrı bir sorundur." },
+{ l: 3, q: "In the market Qd = 200 − 4P, Qs = 50 + 2P, a maximum price of £20 is set. If all the units supplied are resold on an underground market, what is the highest price they could fetch?",
+  o: ["£27.50", "£20", "£25", "£30"],
+  s: "Tavan fiyatta üreticiler sadece Qs = 50 + 2(20) = <b>90 birim</b> arz eder.<br>Karaborsada bu 90 birimin alıcı bulabileceği en yüksek fiyat, talep eğrisinde Qd = 90 olan fiyattır:<br>200 − 4P = 90 → 4P = 110 → <b>P = £27.50</b>.<br>İlginç sonuç: karaborsa fiyatı, serbest piyasa denge fiyatından (£25) bile <b>yüksektir</b>, çünkü tavan fiyat arzı 100'den 90'a düşürmüştür. Tavan fiyat bazı tüketicilerin daha fazla ödemesine yol açabilir." },
+{ l: 3, q: "A minimum wage is set above the equilibrium wage in a competitive labour market. What does simple supply and demand analysis predict?",
+  o: ["The quantity of labour supplied exceeds the quantity demanded, causing unemployment", "Firms demand more workers because they must pay more", "A shortage of workers", "No change in employment"],
+  s: "Asgari ücret, emek piyasasında bir <b>taban fiyattır</b>. İşgücü piyasasında arz eden hanehalkı, talep eden firmalardır. Dengenin üstündeki ücrette daha çok insan çalışmak ister (Qs ↑), firmalar ise daha az işçi almak ister (Qd ↓): <b>emek fazlası</b> = <b>işsizlik</b>. Basit model bunu öngörür; gerçekte etkisi tartışmalıdır (Bölüm 9'da işlenir). Kıtlık, dengenin altındaki ücretle olurdu." },
+];
+
+Q.t9 = [
+{ l: 1, q: "Price elasticity of demand is measured as:",
+  o: ["Percentage change in quantity demanded ÷ percentage change in price", "Percentage change in price ÷ percentage change in quantity demanded", "Change in quantity demanded ÷ change in price", "Price × quantity"],
+  s: "<b>PED = %ΔQd / %ΔP</b>. Miktar her zaman <b>payda değil pay</b>dadır (üstte). Yüzde değişim kullanılır, mutlak değişim değil, çünkü böylece ölçü birimlerinden (kg, litre, ₺) bağımsız olur. P × Q toplam gelirdir (total revenue)." },
+{ l: 1, q: "Demand is price elastic when:",
+  o: ["Quantity demanded changes by a larger percentage than price", "Quantity demanded changes by a smaller percentage than price", "Quantity demanded does not change when price changes", "Price and quantity change by the same percentage"],
+  s: "İşareti göz ardı ederek:<br>• <b>|PED| &gt; 1 → elastic</b> (esnek): miktar fiyattan oransal olarak <b>daha çok</b> değişir.<br>• |PED| &lt; 1 → inelastic: miktar daha az değişir.<br>• |PED| = 1 → unit elastic: aynı oranda.<br>• Miktar hiç değişmezse (PED = 0) perfectly inelastic." },
+{ l: 1, q: "The price of a good falls by 10% and the quantity demanded rises by 20%. The price elasticity of demand is:",
+  o: ["−2 (elastic)", "−0.5 (inelastic)", "+2 (elastic)", "−1 (unit elastic)"],
+  s: "PED = %ΔQd / %ΔP = +20% / −10% = <b>−2</b>.<br>Talep eğrisi aşağı indiği için fiyat ve miktar ters yönde hareket eder, PED <b>negatiftir</b>. Mutlak değer 2 &gt; 1 olduğu için talep <b>esnektir</b>. −0.5, formülü ters kurarak (fiyat/miktar) bulunur." },
+{ l: 2, q: "Demand for a product is price elastic. If the firm raises its price, its total revenue will:",
+  o: ["Fall", "Rise", "Stay the same", "Rise only if costs fall"],
+  s: "Toplam gelir TR = P × Q. Esnek talepte fiyat artışı, miktarda <b>oransal olarak daha büyük</b> bir düşüşe yol açar. Fiyattaki kazanç, kaybedilen satışlardan küçük kalır → <b>TR düşer</b>.<br>Kural: <b>esnek</b> → fiyat ve TR <b>ters</b> yönde; <b>esnek değil</b> → fiyat ve TR <b>aynı</b> yönde; birim esnek → TR değişmez. Maliyetler TR'yi etkilemez (kârı etkiler)." },
+{ l: 2, q: "Which of the following is likely to have the MOST price-elastic demand?",
+  o: ["One particular brand of petrol", "Petrol in general", "Salt", "Insulin for diabetics"],
+  s: "Talep esnekliğinin en önemli belirleyicisi <b>ikamelerin sayısı ve yakınlığıdır</b>. Belli bir marka benzinin çok yakın ikameleri var: diğer markalar. Fiyatı biraz artarsa müşteriler hemen başka istasyona gider. Genel olarak benzinin ise yakın ikamesi yoktur (esnek değil). Tuz gelir içinde çok küçük pay tutar, insülin hayati bir ihtiyaçtır: ikisi de çok esnek değildir." },
+{ l: 2, q: "The price of a good rises from £4 to £6 and quantity demanded falls from 20 to 10 units. Using the arc (mid-point) formula, what is the price elasticity of demand?",
+  o: ["−1.67", "−1", "−2", "−0.6"],
+  s: "Orta nokta formülü: PED = (ΔQ / ortalama Q) ÷ (ΔP / ortalama P)<br>ΔQ = 10 − 20 = −10; ortalama Q = (20 + 10)/2 = 15 → −10/15 = −0.667<br>ΔP = 6 − 4 = 2; ortalama P = (4 + 6)/2 = 5 → 2/5 = 0.4<br>PED = −0.667 / 0.4 = <b>−1.67</b> (esnek).<br>Başlangıç değerlerini kullansaydın (−50% / +50%) −1 bulurdun; bu yüzden kitap orta noktayı kullanır: yön fark etmeksizin aynı sonucu verir. −0.6 ters kurulmuş formüldür." },
+{ l: 3, q: "A bus company faces a price elasticity of demand of −0.4. It raises fares by 10%. By approximately what percentage does its total revenue change?",
+  o: ["Rises by about 5.6%", "Falls by about 4%", "Rises by 10%", "Falls by about 5.6%"],
+  s: "PED = −0.4 → fiyat %10 artınca yolcu sayısı %0.4 × 10 = <b>%4 düşer</b>.<br>Yeni TR / eski TR = 1.10 × 0.96 = 1.056 → TR yaklaşık <b>%5.6 artar</b>.<br>(Kısa yol: yaklaşık %10 − %4 = %6.)<br>Talep esnek olmadığı (|−0.4| &lt; 1) için fiyat artışı geliri artırır. Kitaptaki Box 3.2 (otobüs fiyatlaması) bu mantığı tartışır. '%4 düşer' sadece yolcu sayısındaki değişimdir." },
+{ l: 3, q: "The demand curve is Qd = 100 − 5P. At what price is total revenue maximised, and what is the price elasticity of demand there?",
+  o: ["P = £10, PED = −1", "P = £20, PED = 0", "P = £5, PED = −0.33", "P = £10, PED = −2"],
+  s: "Doğrusal talep eğrisinde TR, <b>birim esnek</b> noktada (|PED| = 1) en büyüktür; bu nokta eğrinin ortasıdır.<br>Eğri P = 0'da Q = 100'e, Q = 0'da P = 20'ye ulaşır → orta nokta P = <b>£10</b>, Q = 50.<br>Nokta esnekliği: PED = (dQ/dP) × (P/Q) = −5 × (10/50) = <b>−1</b> ✓<br>TR = 10 × 50 = 500. Kontrol: P = 9 → 9 × 55 = 495; P = 11 → 11 × 45 = 495, ikisi de daha az.<br>Orta noktanın üstünde esnek (fiyatı düşürmek TR'yi artırır), altında esnek değil." },
+{ l: 3, q: "Which statement about a straight-line (linear) downward-sloping demand curve is correct?",
+  o: ["Its slope is constant, but its price elasticity falls (in absolute value) as price falls", "Its elasticity is the same at every point because its slope is constant", "It is elastic at low prices and inelastic at high prices", "It is unit elastic everywhere"],
+  s: "Eğim (ΔP/ΔQ) sabittir ama esneklik <b>yüzde</b> değişimlere bakar: PED = (ΔQ/ΔP) × (P/Q). Eğri boyunca aşağı indikçe P küçülür, Q büyür, P/Q oranı düşer → |PED| düşer.<br>• Üst kısım (yüksek P, düşük Q): <b>esnek</b><br>• Orta nokta: birim esnek<br>• Alt kısım: <b>esnek değil</b><br>Bu yüzden 'eğim = esneklik' yanlış bir eşitliktir. Her yerde birim esnek olan eğri doğru değil, eğri (dikdörtgen hiperbol) olurdu." },
+];
+
+Q.t10 = [
+{ l: 1, q: "If the income elasticity of demand for a good is negative, the good is:",
+  o: ["An inferior good", "A normal good", "A luxury good", "A complement"],
+  s: "<b>YED = %ΔQd / %ΔY</b>. Gelir artınca talep düşüyorsa YED <b>negatiftir</b> → <b>inferior good</b> (düşük mal). YED pozitifse normal mal; YED &gt; 1 ise gelir esnek (lüks) mal. Tamamlayıcılık çapraz esneklikle ölçülür, gelir esnekliğiyle değil." },
+{ l: 1, q: "A positive cross-price elasticity of demand between two goods shows that they are:",
+  o: ["Substitutes", "Complements", "Inferior goods", "Unrelated"],
+  s: "<b>XED = %ΔQd(A) / %ΔP(B)</b>. Pozitif: B'nin fiyatı artınca A'nın talebi de <b>artıyor</b> → insanlar B'den A'ya geçiyor → <b>ikame</b> (Coca-Cola ve Pepsi). Negatif: B pahalanınca A'nın talebi düşüyor → <b>tamamlayıcı</b> (araba ve benzin). Sıfıra yakın: ilişkisiz mallar." },
+{ l: 1, q: "A perfectly inelastic supply curve is:",
+  o: ["Vertical", "Horizontal", "Upward sloping through the origin", "Downward sloping"],
+  s: "Perfectly inelastic (PES = 0): fiyat ne olursa olsun arz edilen miktar değişmez → eğri <b>dikeydir</b>. Örnek: bir konser salonundaki koltuk sayısı ya da balıkçının o gün tuttuğu balık (anlık dönem). Yatay arz eğrisi perfectly elastic arz demektir (PES = ∞)." },
+{ l: 2, q: "Consumers' incomes rise by 5% and the demand for foreign holidays rises by 10%. Foreign holidays are:",
+  o: ["A normal good with income-elastic demand (YED = 2)", "A normal good with income-inelastic demand (YED = 0.5)", "An inferior good (YED = −2)", "A good with unit income elasticity"],
+  s: "YED = %ΔQd / %ΔY = 10% / 5% = <b>+2</b>.<br>Pozitif → <b>normal mal</b>. 1'den büyük → <b>gelir esnek</b> (income elastic): talep gelirden oransal olarak daha hızlı artıyor. Bu tür mallara genelde 'lüks' denir. 0.5, formülü ters kurmaktır (gelir/miktar). Sınavda işarete dikkat: gelir esnekliğinde işaret önemlidir." },
+{ l: 2, q: "The price of good B rises by 10% and, as a result, the quantity demanded of good A falls by 5%. The cross-price elasticity of demand for A with respect to B is:",
+  o: ["−0.5, so A and B are complements", "+0.5, so A and B are substitutes", "−2, so A and B are complements", "−0.5, so A and B are substitutes"],
+  s: "XED = %ΔQd(A) / %ΔP(B) = −5% / +10% = <b>−0.5</b>.<br>Negatif: B pahalanınca A da az alınıyor → birlikte tüketiliyorlar → <b>tamamlayıcı</b> (ör. yazıcı ve kartuş). −2, payı ve paydayı ters koymaktır. 'Negatif ama ikame' seçeneği işaret kuralını karıştırıyor." },
+{ l: 2, q: "Why is the price elasticity of supply usually greater in the long run than in the short run?",
+  o: ["Firms have more time to adjust production, build capacity, and new firms can enter", "Consumers have more time to find substitutes", "Costs always fall over time", "Governments reduce taxes in the long run"],
+  s: "Arz esnekliğinin ana belirleyicisi <b>zamandır</b>.<br>• <b>Anlık dönem</b> (immediate): üretim değiştirilemez, arz dikeye yakın.<br>• <b>Kısa dönem</b>: mevcut fabrika daha yoğun çalıştırılır (fazla mesai), arz biraz esner.<br>• <b>Uzun dönem</b>: yeni fabrikalar kurulur, <b>yeni firmalar girer</b>, arz en esnek hâlini alır.<br>Tüketicilerin ikame bulması talep esnekliğiyle ilgilidir, arzla değil." },
+{ l: 3, q: "The income elasticity of demand for food is 0.4. If national income grows by 3% a year, by how much will demand for food grow each year (ceteris paribus)?",
+  o: ["1.2%", "7.5%", "3.4%", "0.13%"],
+  s: "YED = %ΔQd / %ΔY → %ΔQd = YED × %ΔY = 0.4 × 3% = <b>1.2%</b>.<br>Gıda <b>normal ama gelir esnek olmayan</b> bir maldır (0 &lt; YED &lt; 1): gelir artınca gıda talebi artar ama daha yavaş. Bu, Bölüm 3.5'teki tarım sorununun temelidir: gıda talebi yavaş büyür, arz ise teknolojiyle hızla büyür, bu yüzden tarım fiyatları ve çiftçi gelirleri uzun dönemde düşme eğilimindedir. 7.5 = 3/0.4 (ters işlem)." },
+{ l: 3, q: "When the price of a good rises from £10 to £12, the quantity supplied rises from 100 to 110 units. Using the arc (mid-point) formula, the price elasticity of supply is approximately:",
+  o: ["0.52 (inelastic)", "1.91 (elastic)", "0.5 (inelastic)", "2 (elastic)"],
+  s: "PES = (ΔQ / ortalama Q) ÷ (ΔP / ortalama P)<br>ΔQ = 10; ortalama Q = (100 + 110)/2 = 105 → 10/105 = 0.0952<br>ΔP = 2; ortalama P = (10 + 12)/2 = 11 → 2/11 = 0.1818<br>PES = 0.0952 / 0.1818 = <b>0.52</b><br>1'den küçük → arz <b>esnek değil</b>: miktar fiyattan oransal olarak daha az arttı. 0.5, başlangıç değerleriyle bulunan (%10 / %20) cevaptır. 1.91 ters kurulmuş formüldür. Arz esnekliği pozitiftir çünkü fiyat ve miktar aynı yönde hareket eder." },
+{ l: 3, q: "The cross-price elasticity of demand for good X with respect to the price of good Y is +1.5. If the price of Y falls by 4%, what happens to the demand for X?",
+  o: ["It falls by 6%", "It rises by 6%", "It falls by 2.7%", "It rises by 1.5%"],
+  s: "%ΔQd(X) = XED × %ΔP(Y) = +1.5 × (−4%) = <b>−6%</b>.<br>XED pozitif → X ve Y <b>ikamedir</b>. Y ucuzlayınca insanlar X'ten Y'ye geçer, X'in talebi düşer. Mantık kontrolü: ikame ucuzlarsa senin malın daha az satılır ✓. 2.7 = 4/1.5 (ters işlem). İşaret kuralını kullanarak her zaman sonucun yönünü kontrol et." },
+];
+
+</script>
+<script>
+Q.t11 = [
+{ l: 1, q: "Compared with the long run, short-run demand and supply are generally:",
+  o: ["Less price elastic", "More price elastic", "Equally price elastic", "Perfectly elastic"],
+  s: "Üreticiler ve tüketiciler fiyat değişimine tam uyum sağlamak için <b>zaman</b> ister. Kısa dönemde alışkanlıklar ve mevcut üretim kapasitesi sabittir, bu yüzden talep ve arz <b>daha az esnektir</b>. Zaman geçtikçe tüketiciler ikame bulur, üreticiler kapasite kurar ve yeni firmalar girer: esneklik artar." },
+{ l: 1, q: "Speculation tends to STABILISE prices when people believe that:",
+  o: ["Current price changes are only temporary", "Prices will keep moving in the same direction", "Prices will never change", "The government will fix prices"],
+  s: "Fiyat düşüşünün <b>geçici</b> olduğuna inanan insanlar 'nasılsa geri yükselecek' diye <b>şimdi alır</b> ve fiyat düşüşü yavaşlar. Fiyat geçici olarak yükselirse 'nasılsa düşecek' diye satarlar, yükseliş frenlenir. Sonuç: dalgalanmalar azalır, buna <b>stabilising speculation</b> denir. Fiyatın aynı yönde devam edeceği beklentisi ise istikrarı bozar." },
+{ l: 1, q: "In economics, the difference between risk and uncertainty is that with risk:",
+  o: ["The probabilities of the possible outcomes are known", "The outcome is known for certain", "The probabilities are unknown", "There is no chance of a loss"],
+  s: "<b>Risk</b>: olası sonuçların <b>olasılıkları bilinir</b> (ör. geçmiş verilerden, bir çiftçi her 10 yılda bir kuraklık olduğunu bilir). <b>Uncertainty</b> (belirsizlik): olasılıklar <b>bilinmez</b> (ör. yeni bir teknolojinin başarısı). Her iki durumda da sonuç kesin değildir ve kayıp mümkündür." },
+{ l: 2, q: "Demand for a good increases. Compared with the long run, the short-run effect is likely to be:",
+  o: ["A bigger rise in price and a smaller rise in quantity", "A smaller rise in price and a bigger rise in quantity", "No change in price", "A fall in price"],
+  s: "Kısa dönemde arz <b>daha az esnektir</b> (dik). Talep sağa kayınca üreticiler hızla daha çok üretemez, bu yüzden etki çoğunlukla <b>fiyata</b> yansır. Uzun dönemde arz esnekleşir (yeni kapasite, yeni firmalar), bu yüzden etki daha çok <b>miktara</b> yansır ve fiyat kısmen geri düşer. Kitabın kuralı: kaymaların kısa dönemde fiyata, uzun dönemde miktara görece daha büyük etkisi vardır." },
+{ l: 2, q: "House prices have been rising. Buyers rush to buy before prices rise further, and sellers delay selling hoping for higher prices. This is an example of:",
+  o: ["Destabilising speculation", "Stabilising speculation", "The identification problem", "A buffer stock policy"],
+  s: "İnsanlar fiyatın <b>aynı yönde devam edeceğini</b> bekliyor. Alıcılar şimdi alıyor → talep sağa kayar. Satıcılar bekliyor → arz sola kayar. İkisi birlikte fiyatı <b>daha da</b> yükseltir: beklenti kendi kendini gerçekleştirir ve dalgalanma büyür. Buna <b>destabilising speculation</b> denir (konut balonları, borsa balonları ve sonrasındaki çöküşler)." },
+{ l: 2, q: "How can holding stocks help to reduce the problems of uncertain future prices?",
+  o: ["Stocks are built up when prices are low and sold when prices are high, reducing price fluctuations", "Stocks are sold when prices are low to push them lower", "Holding stocks always increases price fluctuations", "Stocks are only used to raise prices permanently"],
+  s: "Kitaba göre gelecek fiyat belirsizliğine karşı bir yol <b>stok tutmaktır</b>: fiyatlar düşükken (bol arz) stok biriktirilir, bu da talebi artırıp fiyat düşüşünü sınırlar; fiyatlar yüksekken stok satılır, bu da arzı artırıp fiyat artışını sınırlar. Sonuç: <b>daha az dalgalanma</b>. Bu fikir tarımda devletin <b>tampon stok</b> (buffer stock) politikasına temel oluşturur (Bölüm 3.5)." },
+{ l: 3, q: "Oil supplies are suddenly cut. Taking account of the time dimension, which pattern of oil prices is most likely?",
+  o: ["Prices rise sharply at first, then fall back partly as demand and supply become more elastic over time", "Prices rise slowly at first and then much faster in the long run", "Prices fall in the short run and rise in the long run", "Prices rise by the same amount in the short and long run"],
+  s: "Kısa dönemde petrol talebi ve arzı <b>çok az esnektir</b>: insanlar yine işe arabayla gider, yeni petrol sahası hemen açılamaz. Arz düşünce fiyat <b>çok sert</b> yükselir. Zamanla tüketiciler yakıt tasarruflu araba alır, toplu taşımaya geçer (talep esnekleşir); yeni sahalar ve alternatif enerji devreye girer (arz esnekleşir). Bu yüzden fiyat ilk zirvesinden <b>kısmen geri düşer</b>. 1973 ve 1979 petrol krizlerinde bu görüldü; IR açısından da önemli bir örnek." },
+{ l: 3, q: "What is the main purpose of a futures contract for a wheat farmer who agrees today to sell her harvest in six months' time at a fixed price?",
+  o: ["To reduce the risk caused by uncertainty about future prices", "To make sure she gets the highest possible price", "To avoid paying taxes", "To increase the price of wheat"],
+  s: "<b>Futures market</b> (vadeli işlem piyasası, Box 3.5): bugünden, gelecekteki bir tarihte <b>sabit bir fiyattan</b> alım ya da satım anlaşması yapılır. Çiftçi altı ay sonraki fiyatı bugünden bildiği için plan ve yatırım yapabilir: <b>fiyat belirsizliğinin riski</b> azalır. Karşılığında, fiyat yükselirse o kazancı kaçırır, yani en yüksek fiyatı garantilemez. Riski üstlenen taraf genelde bir spekülatördür." },
+{ l: 3, q: "A speculator borrows 1,000 shares and sells them at £10 each. The share price then falls to £7, and she buys 1,000 shares back to return them. Ignoring fees, what is her profit, and what is this called?",
+  o: ["£3,000, short selling", "£7,000, short selling", "£3,000, a futures contract", "A loss of £3,000, short selling"],
+  s: "<b>Short selling</b> (açığa satış, Box 3.4): sahip olmadığın hisseleri <b>ödünç alıp</b> satarsın, fiyat düşünce ucuza geri alıp iade edersin.<br>Satış geliri: 1,000 × £10 = £10,000<br>Geri alım maliyeti: 1,000 × £7 = £7,000<br>Kâr: £10,000 − £7,000 = <b>£3,000</b> (hisse başına £3).<br>Fiyat yükselseydi zarar ederdi. Çok sayıda açığa satış fiyatı daha da aşağı itebilir: bu, istikrarı bozan spekülasyonun bir biçimidir (2008 krizinde bazı ülkeler geçici olarak yasakladı)." },
+];
+
+Q.t12 = [
+{ l: 1, q: "A specific tax is:",
+  o: ["A fixed amount of tax per unit sold", "A percentage of the price of the good", "A tax on income", "A tax paid only by consumers"],
+  s: "<b>Specific tax</b>: satılan her birim için <b>sabit bir miktar</b> (ör. litre benzin başına X ₺, bir paket sigara başına Y ₺). <b>Ad valorem tax</b> ise fiyatın ya da katma değerin <b>yüzdesidir</b> (KDV gibi). Gelir vergisi dolaylı değil doğrudan bir vergidir. Vergiyi kimin 'ödediği' (yük, incidence) esnekliklere bağlıdır." },
+{ l: 1, q: "Value added tax (VAT) is an example of:",
+  o: ["An ad valorem tax", "A specific tax", "A direct tax on income", "A subsidy"],
+  s: "KDV (VAT), fiyatın ya da üretimin her aşamasındaki katma değerin <b>yüzdesi</b> olarak alınır, bu yüzden <b>ad valorem</b> (değer üzerinden) bir vergidir. Mal ne kadar pahalıysa vergi tutarı o kadar büyüktür. Sigara ve alkol üzerindeki özel tüketim vergilerinin (excise duties) bir kısmı ise birim başınadır (specific)." },
+{ l: 1, q: "When a specific tax of £2 per unit is imposed on producers of a good, the supply curve:",
+  o: ["Shifts upwards (left) by £2 at every quantity", "Shifts downwards by £2", "Does not move; the demand curve shifts", "Becomes vertical"],
+  s: "Üreticiler her birim için devlete £2 ödemek zorundadır. Aynı miktarı arz etmeye razı olmaları için fiyatın her miktarda <b>£2 daha yüksek</b> olması gerekir. Bu yüzden arz eğrisi vergi kadar <b>paralel olarak yukarı</b> kayar (aynı şey: sola kayar). Talep eğrisi değişmez; tüketicilerin isteği aynıdır." },
+{ l: 2, q: "A tax is imposed on a good with very price-INELASTIC demand. Who bears most of the tax?",
+  o: ["Consumers", "Producers", "The government", "It is always shared equally"],
+  s: "Talep esnek değilse tüketiciler fiyat artınca da almaya devam eder (ikame yok). Üreticiler vergiyi fiyata yansıtabilir, satışlar fazla düşmez. Bu yüzden yükün çoğu <b>tüketicilerde</b> kalır. Kitabın kuralı: talep <b>ne kadar az esnek</b> ve arz <b>ne kadar esnekse</b>, tüketici yükü o kadar büyüktür. Kısaca: <b>daha az esnek olan taraf yükü taşır</b>." },
+{ l: 2, q: "Government tax revenue from an indirect tax will be highest (for a given tax rate) when:",
+  o: ["Both demand and supply are price inelastic", "Both demand and supply are price elastic", "Demand is elastic and supply is inelastic", "Demand is perfectly elastic"],
+  s: "Vergi geliri = vergi × satılan miktar. Vergi fiyatı yükseltir ve miktarı düşürür. Talep ve arz <b>esnek değilse</b> miktar <b>çok az düşer</b>, vergi geniş bir miktar tabanından alınır → gelir yüksek. Esnek olduklarında miktar çok düşer ve vergi tabanı erir. Bu yüzden devletler sigara, alkol, akaryakıt gibi esnek olmayan talepli malları yüksek vergilendirir." },
+{ l: 2, q: "If demand for a good is perfectly inelastic, a specific tax of £1 per unit will cause the price paid by consumers to rise by:",
+  o: ["£1, the full amount of the tax", "Nothing", "50p", "More than £1"],
+  s: "Talep tamamen esnek değil (dikey talep eğrisi): fiyat ne olursa olsun tüketiciler aynı miktarı alır. Arz eğrisi £1 yukarı kayınca, yeni denge aynı miktarda ama <b>tam £1 yüksek</b> fiyattadır. Tüketiciler verginin <b>tamamını</b> öder, üreticinin eline geçen fiyat değişmez. Tersine, talep tamamen esnek (yatay) olsaydı tüm yük üreticide kalırdı." },
+{ l: 3, q: "Demand: Qd = 100 − 5P. Supply: Qs = −20 + 10P. A specific tax of £3 per unit is imposed on producers. What price do consumers now pay, and what price do producers receive after tax?",
+  o: ["Consumers pay £10; producers receive £7", "Consumers pay £11; producers receive £8", "Consumers pay £9; producers receive £6", "Consumers pay £8; producers receive £5"],
+  s: "Vergiden önce denge: P = 8, Q = 60 (bkz. konu 2.3).<br>Vergiden sonra üretici, tüketicinin ödediği P'den eline P − 3 alır:<br>Qs = −20 + 10(P − 3) = −50 + 10P<br>Denge: 100 − 5P = −50 + 10P → 150 = 15P → <b>Pc = £10</b><br>Üretici fiyatı: Pp = 10 − 3 = <b>£7</b>. Yeni miktar Q = 100 − 50 = 50.<br>Tüketici £2 daha fazla öder (8 → 10), üretici £1 daha az alır (8 → 7). £3'lük verginin 2/3'ü tüketicide, çünkü bu piyasada talep arzdan daha az esnek. £11/£8 seçeneği, vergi tamamen tüketiciye yansımış gibi düşünür." },
+{ l: 3, q: "In the same market (Qd = 100 − 5P, Qs = −20 + 10P, tax £3 per unit), how much tax revenue does the government collect, and how much of it is effectively paid by consumers?",
+  o: ["Revenue £150, of which consumers pay £100", "Revenue £180, of which consumers pay £120", "Revenue £150, of which consumers pay £50", "Revenue £180, of which consumers pay £60"],
+  s: "Vergiden sonra miktar Q = 50 (önceki soru).<br>Vergi geliri = t × Q = £3 × 50 = <b>£150</b>.<br>Tüketicinin payı: birim başına (Pc − P₀) = 10 − 8 = £2 → 2 × 50 = <b>£100</b>.<br>Üreticinin payı: birim başına (P₀ − Pp) = 8 − 7 = £1 → 1 × 50 = £50.<br>£180, vergiden önceki miktarı (60) kullanmaktır: vergi miktarı düşürdüğü için yanlıştır." },
+{ l: 3, q: "A government wants to use a tax on cigarettes both to raise a lot of revenue AND to cut smoking substantially. Given that demand for cigarettes is price inelastic, what problem does it face?",
+  o: ["The goals conflict: inelastic demand means high revenue but only a small fall in smoking", "There is no problem: inelastic demand means smoking falls sharply and revenue rises", "Inelastic demand means the tax raises very little revenue", "The tax will be borne entirely by producers"],
+  s: "Talep esnek değil → vergi fiyatı yükseltse de içiciler büyük ölçüde içmeye devam eder. Sonuç: <b>yüksek vergi geliri</b> ama tüketimde <b>küçük düşüş</b>. Tüketim çok düşseydi gelir de düşerdi; yani iki hedef birbirine <b>terstir</b>. Box 3.6 bir de ahlaki ikilemi tartışır: sigara vergisi yoksulları daha çok etkiler (gelirlerinin daha büyük kısmı), yani <b>regresif</b> olabilir. Esnek olmayan talep yükü üreticiye değil tüketiciye bindirir." },
+];
+
+Q.t13 = [
+{ l: 1, q: "Providing a service such as hospital treatment free at the point of delivery is similar in its effects to:",
+  o: ["A maximum price of zero", "A minimum price above equilibrium", "A tax on the service", "A rise in supply"],
+  s: "Kitaba göre analiz bir <b>tavan fiyata</b> benzer, ama tavan fiyat <b>sıfırdır</b>. Fiyat sıfırken talep edilen miktar çok yüksektir ve genellikle sunulabilecek miktarı aşar. Bu yüzden tavan fiyattaki gibi bir <b>kıtlık</b> oluşur." },
+{ l: 1, q: "What is the likely result of providing health care free to patients?",
+  o: ["Demand exceeds supply, leading to waiting lists", "Supply exceeds demand, leading to empty hospitals", "Prices rise to clear the market", "Demand falls because the service is free"],
+  s: "Fiyat sıfırsa insanlar daha fazla tedavi talep eder. Arz (doktor, yatak) sınırlıdır. Fiyat yükselip piyasayı temizleyemediği için <b>Qd &gt; Qs</b> → kıtlık, <b>bekleme listeleri</b> (waiting lists) ve ihtiyaca göre öncelik. Kitap sağlıkta talebin hızla büyüdüğünü (yaşlanan nüfus, yeni ve pahalı tedaviler) ve sorunun giderek büyüdüğünü belirtir." },
+{ l: 1, q: "If the government prohibits a product such as certain drugs, what is likely to happen?",
+  o: ["An illegal market will develop", "Consumption will fall to zero", "The price will fall to zero", "Supply will increase"],
+  s: "Yasak, malın arzını ve talebini ortadan kaldırmaz; sadece yasadışı hâle getirir. Hâlâ almak isteyenler ve yüksek kâr için risk alan satıcılar olduğu için <b>yasadışı bir piyasa</b> (illegal market) gelişir. Tüketim genelde serbest piyasaya göre düşer ama sıfıra inmez." },
+{ l: 2, q: "For a type of hospital treatment, demand is Qd = 600 − 20P and the hospital can supply a fixed 400 treatments. If treatment is free, what is the shortage?",
+  o: ["200 treatments", "400 treatments", "600 treatments", "No shortage"],
+  s: "Ücretsiz → P = 0.<br>Qd = 600 − 20(0) = <b>600</b> tedavi talep edilir.<br>Qs = <b>400</b> (sabit).<br>Kıtlık = 600 − 400 = <b>200 tedavi</b>. Bu 200 kişi bekleme listesine girer ya da başka yollarla (ihtiyaç önceliği, özel hastane) karşılanır. 600 talep, 400 arzdır; ikisi de kıtlık değildir." },
+{ l: 2, q: "Compared with a free market, how are demand and supply affected when a drug is made illegal?",
+  o: ["Both demand and supply are lower", "Both demand and supply are higher", "Demand is higher, supply is lower", "Neither changes"],
+  s: "Yasak hem alıcıları hem satıcıları cezalandırır. Bazı kullanıcılar ceza riski ve ahlaki/sosyal baskı yüzünden almaktan vazgeçer → <b>talep sola</b> kayar. Bazı satıcılar hapis riski yüzünden piyasadan çıkar ve satışın maliyeti artar → <b>arz sola</b> kayar. Kitaba göre sonuçta hem talep hem arz serbest piyasadakinden <b>düşüktür</b>, bu yüzden satılan miktar azalır." },
+{ l: 2, q: "Under prohibition, penalties on SUPPLIERS are very harsh and they are likely to be caught, while users face small penalties. Compared with a free market, the price is likely to be:",
+  o: ["Higher, because supply falls much more than demand", "Lower, because demand falls much more than supply", "The same, because both curves shift equally", "Zero, because the product is illegal"],
+  s: "Kitabın kuralı: fiyatın daha yüksek mi düşük mü olacağı, <b>kimin daha ağır cezayla ve daha yüksek yakalanma olasılığıyla</b> karşılaştığına bağlıdır. Burada risk satıcılarda → <b>arz çok sola</b> kayar, talep az kayar → fiyat serbest piyasadakinden <b>daha yüksek</b> olur. Ceza ağırlıkla kullanıcılara uygulansaydı talep daha çok düşer ve fiyat daha düşük olabilirdi." },
+{ l: 3, q: "For the treatment with demand Qd = 600 − 20P and fixed supply of 400, what price would eliminate the waiting list, and why might the government still not charge it?",
+  o: ["£10; many people believe access to health care should depend on need, not ability to pay", "£20; because the hospital would make a loss", "£30; because demand would fall to zero", "£10; because charging would increase the waiting list"],
+  s: "Bekleme listesini kaldıran fiyat, piyasayı temizleyen fiyattır: Qd = Qs<br>600 − 20P = 400 → 20P = 200 → <b>P = £10</b>.<br>Bu fiyatta 400 kişi tedavi olur, liste kalmaz. Peki neden alınmaz? Kitaba göre çoğu insan sağlık ve eğitimin bir <b>hak</b> olduğunu, erişimin <b>ödeme gücüne değil ihtiyaca</b> bağlı olması gerektiğini düşünür (yoksullar tedaviden mahrum kalmamalı). Ayrıca sağlık ve eğitim herkese fayda sağlar. Bu bir <b>normatif</b> tercihtir." },
+{ l: 3, q: "Which statement correctly compares using a tax with using a ban (prohibition) to reduce consumption of a harmful product?",
+  o: ["Both can reduce consumption, but a tax raises revenue and keeps the market legal, whereas a ban raises no revenue and may encourage related crime", "A ban always raises the price, whereas a tax always lowers it", "A tax creates an illegal market, whereas a ban does not", "They have exactly the same effects on price, crime and government revenue"],
+  s: "Kitaba göre vergiyle de yasakla benzer bir tüketim düşüşü sağlanabilir, ama <b>diğer etkiler farklıdır</b>:<br>• <b>Fiyat</b>: vergide fiyat kesin yükselir; yasakta daha yüksek ya da düşük olabilir.<br>• <b>Gelir</b>: vergi devlete gelir sağlar; yasak sağlamaz (üstelik denetim maliyeti vardır).<br>• <b>Suç</b>: yasak, yasadışı piyasa ve ona bağlı suçları besleyebilir.<br>• <b>Algı</b>: yasal ve vergili ürün toplumda daha 'kabul edilebilir' görülebilir.<br>Çok yüksek vergi de kaçakçılığa yol açabilir ama vergi kendi başına yasadışı piyasa yaratmaz." },
+{ l: 3, q: "A government bans a drug and decides to punish USERS very heavily, while dealers face only light penalties and are rarely caught. Compared with a free market, what is the likely outcome?",
+  o: ["Quantity falls, and the price may be lower than in a free market, because demand falls much more than supply", "Quantity rises and the price rises", "Quantity falls and the price must be higher than in a free market", "Neither price nor quantity changes, because dealers are not affected"],
+  s: "Ceza ve yakalanma riski ağırlıkla <b>kullanıcılarda</b> → birçok kişi almaktan vazgeçer → <b>talep çok sola</b> kayar. Satıcıların riski düşük → <b>arz az sola</b> kayar.<br>• Miktar: iki eğri de sola kaydığı için <b>kesin düşer</b>.<br>• Fiyat: talep, arzdan çok daha fazla düştüğü için fiyat serbest piyasadakinden <b>düşük</b> bile olabilir.<br>Önceki sorunun tersi: orada ceza satıcılardaydı ve fiyat yükseliyordu. Kitabın kuralı: fiyat, <b>kimin daha ağır cezayla ve yakalanma olasılığıyla</b> karşılaştığına bağlıdır. 'Fiyat mutlaka yükselir' yanlıştır." },
+];
+
+Q.t14 = [
+{ l: 1, q: "Why are individual farmers described as price takers?",
+  o: ["Each farmer is tiny relative to the whole market, so cannot influence the price", "The government sets all agricultural prices", "Farmers always accept low prices voluntarily", "Demand for food is perfectly elastic for the whole market"],
+  s: "Tarım piyasasında <b>binlerce küçük çiftçi</b> vardır ve her biri piyasanın toplamına göre önemsizdir. Bir çiftçi üretimini iki katına çıkarsa bile piyasa fiyatı değişmez, bu yüzden fiyatı olduğu gibi <b>kabul eder</b>: price taker. Kitap bu yüzden serbest tarım piyasasının <b>tam rekabete</b> en yakın gerçek piyasa olduğunu söyler." },
+{ l: 1, q: "Agricultural prices fluctuate a lot mainly because:",
+  o: ["Supply fluctuates with harvests, and demand is price inelastic", "Demand fluctuates a lot, and supply is perfectly elastic", "Farmers change their prices every day", "Governments change taxes every year"],
+  s: "Kitabın özeti: fiyat dalgalanmaları, <b>dalgalanan arzın</b> (hava ve hasada bağlı) <b>fiyat esnek olmayan talep</b> ile birleşmesinin sonucudur. Talep eğrisi dik olduğu için arzdaki küçük kaymalar fiyatta <b>büyük</b> değişimlere yol açar. Bu da çiftçi gelirlerini oynak yapar, tahmin ve yatırımı zorlaştırır." },
+{ l: 1, q: "In the EU, 'set-aside' refers to:",
+  o: ["Paying farmers to leave some of their land uncultivated", "Storing surplus food in warehouses", "Taxing imported food", "Setting a minimum price for crops"],
+  s: "<b>Set-aside</b>, AB'de 1988'de başlayan bir <b>arzı azaltma</b> yöntemidir: çiftçilere topraklarının bir kısmını (ör. %10) <b>boş bırakmaları</b> karşılığında ödeme yapılır. Amaç, yüksek destek fiyatlarının yarattığı fazlaları azaltmaktır. Sorun: çiftçiler en verimsiz topraklarını boş bıraktı, bu yüzden üretim beklenenden az düştü. 2008 reformlarıyla sona erdirildi." },
+{ l: 2, q: "One farmer having a bumper harvest becomes richer. But if ALL farmers have a bumper harvest, their total income may fall. This is an example of:",
+  o: ["The fallacy of composition", "The identification problem", "Destabilising speculation", "The law of supply"],
+  s: "<b>Fallacy of composition</b> (bileşim hatası, Box 3.7): bir birey için doğru olanın herkes için de doğru olduğunu varsaymak. Tek çiftçinin iyi hasadı piyasa fiyatını değiştirmez, daha çok satar ve kazanır. Ama <b>tüm</b> çiftçiler iyi hasat yaparsa piyasa arzı büyük ölçüde artar; talep fiyat esnek olmadığı için fiyat <b>oransal olarak daha çok</b> düşer ve toplam gelir azalır." },
+{ l: 2, q: "Which statement about a buffer stock scheme is correct?",
+  o: ["It can stabilise prices, but it cannot raise farm incomes over time", "It permanently raises farm prices and incomes", "It increases price fluctuations", "It works by paying farmers not to produce"],
+  s: "<b>Buffer stock</b> (tampon stok): bol hasat yıllarında devlet (ya da kurum) ürün satın alıp stoklar, fiyatın çok düşmesini engeller; kıt yıllarda stoktan satar, fiyatın çok yükselmesini engeller. Böylece fiyat ortalama civarında <b>istikrarlı</b> kalır. Ama ortalama fiyatı yükseltmediği için çiftçilerin uzun dönemdeki gelirini <b>artıramaz</b> (fiyat ortalamanın üstünde tutulursa stoklar sürekli büyür). Çiftçiye üretmemesi için ödeme set-aside'dır." },
+{ l: 2, q: "Why do farm incomes tend to fall in the long run in a free market?",
+  o: ["Demand for food grows slowly (income inelastic), while supply grows rapidly with new technology, and demand is price inelastic", "Demand for food is income elastic and grows faster than supply", "Supply of food is falling over time", "Food is an inferior good"],
+  s: "Uzun dönem sorunu iki yönlüdür:<br>• <b>Talep</b>: gıdanın gelir esnekliği düşüktür (0 &lt; YED &lt; 1), gelir artınca talep <b>yavaş</b> büyür.<br>• <b>Arz</b>: yeni teknoloji ve tarım yöntemleri sayesinde <b>hızla</b> büyür.<br>Arz talepten hızlı arttığı için fiyatlar <b>aşağı</b> baskı altındadır. Talep fiyat esnek olmadığı için fiyat düşüşü gelirleri daha da azaltır. Gıda düşük mal değildir: gelir artınca talebi biraz artar." },
+{ l: 3, q: "A bumper harvest increases the supply of wheat by 20%. If the price elasticity of demand for wheat is −0.25, by approximately how much must the price fall for the extra wheat to be sold?",
+  o: ["80%", "5%", "20%", "25%"],
+  s: "Ek 20% buğdayın satılması için talep edilen miktarın %20 artması gerekir.<br>PED = %ΔQ / %ΔP → %ΔP = %ΔQ / PED = 20% / (−0.25) = <b>−80%</b>.<br>Fiyat yaklaşık %80 düşmelidir (yaklaşık bir hesap; bu kadar büyük değişimlerde kesin değer farklı olabilir). Bu, esnek olmayan talebin ne kadar sert fiyat düşüşlerine yol açtığını gösterir. Toplam gelir: yaklaşık 1.2 × 0.2 = 0.24 → eski gelirin dörtte biri! 5% = 20 × 0.25 (yanlış işlem)." },
+{ l: 3, q: "Why do critics argue that the traditional CAP system harmed many developing countries?",
+  o: ["Surpluses were sold abroad with export subsidies, lowering world prices, while import levies kept developing countries' produce out of the EU", "The CAP gave developing countries too much aid", "The CAP raised world food prices, helping poor farmers", "The CAP banned all food exports"],
+  s: "Eski CAP fiyatları dünya fiyatının üstünde tuttu. Bu iki yoldan gelişmekte olan ülkelere zarar verdi:<br>• <b>Değişken ithalat vergileri</b> (variable import levies): ithal ürünleri AB fiyatına kadar pahalılaştırdı, yoksul ülkelerin ihracatını dışarıda tuttu.<br>• <b>İhracat sübvansiyonları</b>: AB fazlası dünya piyasasında ucuza satıldı (dumping), <b>dünya fiyatlarını düşürdü</b> ve oradaki çiftçilerin gelirlerini azalttı.<br>DTÖ müzakerelerinde de büyük konu oldu. Not: kitaba göre reformlarla fiyatlar düşünce AB'ye ayrıcalıklı satış yapan bazı Afrika/Karayip şeker üreticileri ise kaybetti." },
+{ l: 3, q: "The 2003 CAP reforms moved towards a 'single farm payment' decoupled from production. What was the main economic purpose?",
+  o: ["To support farm incomes without giving farmers an incentive to overproduce, so reducing surpluses", "To raise intervention prices and increase output", "To end all financial support for farmers", "To increase export subsidies"],
+  s: "Eski sistemde destek <b>üretime bağlıydı</b>: ne kadar çok üretirsen o kadar çok destek alırdın → fazla üretim, tereyağı dağları, şarap gölleri. <b>Decoupling</b> (üretimden ayırma): ödeme, çiftliğin geçmişte (2000-2002) aldığı desteğe göre ve <b>çevre şartlarına</b> bağlı yapılır, üretilen miktara bağlı değildir. Böylece çiftçi geliri desteklenir ama <b>üretimi artırma teşviki</b> ortadan kalkar → fazlalar azalır, tüketiciye fiyatlar düşer. Destek sona ermedi, vergi mükellefleri finanse etmeye devam etti." },
+];
+
+</script>
+<script>
+const LV = { 1: "Kolay", 2: "Orta", 3: "Zor" };
+const KEY = "econ-quiz-v1";
+let answers = {};
+try { answers = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { answers = {}; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(answers)); } catch (e) {} }
+
+// Soru kimlikleri: t1-0 ... t14-8. Şıklar kimliğe göre sabit sırayla karıştırılır.
+const ALL = [];
+TOPICS.forEach(t => Q[t.id].forEach((q, i) => { q.id = t.id + "-" + i; q.topic = t.id; ALL.push(q); }));
+function seeded(str) { let h = 2166136261; for (const c of str) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; }; }
+function order(q) { const r = seeded(q.id), a = q.o.map((_, i) => i); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+const app = document.getElementById("app");
+let view = { name: "ozet" }, filter = 0, mixSet = null, mixChapters = [1, 2, 3], resetAsk = false;
+
+function topicStats(id) { const qs = Q[id]; let g = 0, b = 0; qs.forEach(q => { if (q.id in answers) answers[q.id] === 0 ? g++ : b++; }); return { g, b, n: qs.length }; }
+function totals() { let g = 0, b = 0; ALL.forEach(q => { if (q.id in answers) answers[q.id] === 0 ? g++ : b++; }); return { g, b, n: ALL.length }; }
+function bar(s) { return `<span class="bar"><i class="g" style="width:${s.g / s.n * 100}%"></i><i class="b" style="width:${s.b / s.n * 100}%"></i></span>`; }
+
+function go(name, extra) { view = Object.assign({ name }, extra || {}); filter = 0; resetAsk = false;
+  const hash = name === "topic" ? view.id : name === "mix" ? "karisik" : name;
+  if (location.hash.slice(1) !== hash) history.replaceState(null, "", "#" + hash);
+  render(); window.scrollTo(0, 0); }
+
+function render() {
+  const t = totals();
+  document.getElementById("score").textContent = `${t.g}/${t.n} doğru`;
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-current",
+    (b.dataset.go === view.name || (b.dataset.go === "sorular" && (view.name === "topic" || view.name === "mix"))) ? "page" : "false"));
+  document.getElementById("back").hidden = !(view.name === "topic" || view.name === "mix");
+  ({ ozet: renderSummary, sorular: renderTopics, ilerleme: renderProgress, topic: renderTopic, mix: renderMix })[view.name]();
+}
+
+function renderSummary() {
+  const tbl = h => h.replace(/<table class="tbl">/g, '<div class="tbl-wrap"><table class="tbl">').replace(/<\/table>/g, "</table></div>");
+  app.innerHTML = `<div class="eyebrow">Part A + Part B</div><h1>Sınav özeti</h1>
+  <p class="lead">Kitabın Part C'den önceki üç bölümü. Her başlığa dokunup aç. İngilizce terimler sınavda çıkacak hâliyle kalın yazıldı.</p>
+  <div class="stack">${SUMMARY.map(c => `<section class="card chap">
+    <div class="chap-head"><span class="chap-no">${c.ch}</span><div><h2>${c.title}</h2><div class="mute">${c.tr} · ${c.part}</div></div></div>
+    ${c.sections.map(s => `<details class="sec" id="sec-${s.code}"><summary><span class="code">${s.code}</span><span><h3>${s.title}</h3><span class="sec-tr">${s.tr}</span></span></summary>
+      <div class="sec-body">${tbl(s.html)}<button class="quiz-link" data-quiz="${s.code}">Bu konunun sorularını çöz →</button></div></details>`).join("")}
+  </section>`).join("")}</div>`;
+}
+
+function renderTopics() {
+  let html = `<div class="eyebrow">${ALL.length} soru · 14 konu</div><h1>Sorular</h1>
+  <p class="lead">Her konuda 9 soru: 3 kolay, 3 orta, 3 zor. Bir şıkka dokununca hemen cevabı ve ayrıntılı çözümü görürsün. Sorular sınavdaki gibi İngilizce, çözümler Türkçe.</p>
+  <div class="card mix"><h3>Karışık deneme sınavı</h3><div class="mute">Seçtiğin bölümlerden rastgele 15 soru.</div>
+  <div class="row">${[1, 2, 3].map(c => `<button class="chip" data-mixch="${c}" aria-pressed="${mixChapters.includes(c)}">Bölüm ${c}</button>`).join("")}</div>
+  <div class="row"><button class="btn" data-startmix>Denemeyi başlat</button></div></div>`;
+  [1, 2, 3].forEach(ch => {
+    const c = SUMMARY[ch - 1];
+    html += `<div class="chapter-label">Bölüm ${ch} · ${c.title}</div><div class="stack" style="margin-top:8px">`;
+    TOPICS.filter(t => t.ch === ch).forEach(t => { const s = topicStats(t.id);
+      html += `<button class="card topic" data-topic="${t.id}"><span><span class="code">${t.code}</span> <h3 style="display:inline">${t.title}</h3><span class="sec-tr">${t.tr}</span></span>
+      <span class="frac">${s.g}/${s.n}</span><span class="meta">${bar(s)}<span class="frac">${s.g + s.b === s.n ? "bitti" : (s.n - s.g - s.b) + " kaldı"}</span></span></button>`; });
+    html += `</div>`;
+  });
+  app.innerHTML = html;
+}
+
+function qCard(q, no) {
+  const done = q.id in answers, pick = answers[q.id], ord = order(q);
+  const opts = ord.map((oi, k) => { let cls = "";
+    if (done) { if (oi === 0) cls = "right"; else if (oi === pick) cls = "wrong"; }
+    return `<button class="opt ${cls}" data-q="${q.id}" data-o="${oi}" ${done ? "disabled" : ""}><span class="let">${"ABCD"[k]}</span><span>${q.o[oi]}</span></button>`; }).join("");
+  let sol = "";
+  if (done) { const ok = pick === 0, letter = "ABCD"[ord.indexOf(0)];
+    sol = `<div class="sol ${ok ? "" : "bad"}"><div class="sol-h ${ok ? "ok" : "no"}">${ok ? "Doğru!" : "Yanlış. Doğru cevap: " + letter}</div>${q.s}</div>`; }
+  const t = TOPICS.find(x => x.id === q.topic);
+  return `<article class="card q" id="q-${q.id}"><div class="q-head"><span class="lvl l${q.l}">${LV[q.l]}</span><span class="qno">Soru ${no}${view.name === "mix" ? " · " + t.code + " " + t.tr : ""}</span></div>
+    <p class="q-text">${q.q}</p><div class="opts">${opts}</div>${sol}</article>`;
+}
+
+function renderTopic() {
+  const t = TOPICS.find(x => x.id === view.id), s = topicStats(t.id);
+  const qs = Q[t.id].filter(q => !filter || q.l === filter);
+  app.innerHTML = `<div class="eyebrow">${t.code} · Bölüm ${t.ch}</div><h1>${t.title}</h1><p class="lead">${t.tr} · ${s.g} doğru, ${s.b} yanlış, ${s.n - s.g - s.b} cevapsız</p>
+  <div class="row" style="margin-bottom:14px">${[0, 1, 2, 3].map(l => `<button class="chip" data-filter="${l}" aria-pressed="${filter === l}">${l ? LV[l] : "Hepsi"}</button>`).join("")}
+  <button class="chip" data-summary="${t.code}">Özeti oku</button></div>
+  <div class="stack">${qs.map(q => qCard(q, Q[t.id].indexOf(q) + 1)).join("")}</div>
+  <div class="row" style="margin-top:16px">${s.g + s.b ? `<button class="btn ghost" data-resettopic="${t.id}">Bu konuyu sıfırla</button>` : ""}${nextTopicBtn(t.id)}</div>`;
+}
+function nextTopicBtn(id) { const i = TOPICS.findIndex(x => x.id === id); return i < TOPICS.length - 1 ? `<button class="btn" data-topic="${TOPICS[i + 1].id}">Sonraki konu →</button>` : ""; }
+
+function renderMix() {
+  const qs = mixSet.map(id => ALL.find(q => q.id === id));
+  const got = qs.filter(q => q.id in view.local), right = qs.filter(q => view.local[q.id] === 0).length;
+  app.innerHTML = `<div class="eyebrow">Deneme · ${qs.length} soru</div><h1>Karışık deneme</h1>
+  <p class="lead">${got.length === qs.length ? `Bitti: <b>${right}/${qs.length}</b> doğru (%${Math.round(right / qs.length * 100)}).` : `${got.length}/${qs.length} cevaplandı · ${right} doğru`}</p>
+  <div class="stack">${qs.map((q, i) => qCardMix(q, i + 1)).join("")}</div>
+  <div class="row" style="margin-top:16px"><button class="btn" data-startmix>Yeni deneme</button></div>`;
+}
+// Denemede cevaplar ayrı tutulur ki aynı soru tekrar çözülebilsin; yine de genel ilerlemeye işlenir.
+function qCardMix(q, no) { const keep = answers[q.id], has = q.id in answers; if (q.id in view.local) answers[q.id] = view.local[q.id]; else delete answers[q.id];
+  const html = qCard(q, no); if (has) answers[q.id] = keep; else delete answers[q.id]; return html; }
+
+function renderProgress() {
+  const t = totals(), wrong = ALL.filter(q => q.id in answers && answers[q.id] !== 0);
+  const byLv = [1, 2, 3].map(l => { const qs = ALL.filter(q => q.l === l), g = qs.filter(q => answers[q.id] === 0).length; return `<div class="card stat"><b>${g}/${qs.length}</b><span>${LV[l]}</span></div>`; }).join("");
+  app.innerHTML = `<div class="eyebrow">Sadece bu telefonda saklanır</div><h1>İlerleme</h1>
+  <div class="stats" style="margin-bottom:12px"><div class="card stat"><b>${t.g}</b><span>doğru</span></div><div class="card stat"><b>${t.b}</b><span>yanlış</span></div><div class="card stat"><b>${t.n - t.g - t.b}</b><span>cevapsız</span></div></div>
+  <div class="stats">${byLv}</div>
+  <h2 style="margin:24px 0 10px">Konulara göre</h2><div class="stack">${TOPICS.map(x => { const s = topicStats(x.id);
+    return `<button class="card topic" data-topic="${x.id}"><span><span class="code">${x.code}</span> ${x.tr}</span><span class="frac">${s.g}/${s.n}</span><span class="meta">${bar(s)}</span></button>`; }).join("")}</div>
+  <h2 style="margin:24px 0 4px">Yanlışlarım</h2><p class="lead">Yanlış cevapladığın sorular. Çözümü tekrar okumak için konuya git ve sıfırlayıp yeniden dene.</p>
+  ${wrong.length ? `<div class="stack">${wrong.map(q => { const x = TOPICS.find(k => k.id === q.topic); return `<button class="card topic" data-jump="${q.id}"><span><span class="lvl l${q.l}">${LV[q.l]}</span> <span class="mute">${x.code} ${x.tr}</span><span class="sec-tr" style="color:var(--ink)">${q.q}</span></span></button>`; }).join("")}</div>` : `<div class="card empty">Henüz yanlış yok.</div>`}
+  <div style="margin-top:24px">${resetAsk ? `<div class="confirm"><span>Tüm cevaplar silinsin mi?</span><button class="btn" style="background:var(--bad)" data-resetall="yes">Evet, sil</button><button class="btn ghost" data-resetall="no">Vazgeç</button></div>` : (t.g + t.b ? `<button class="btn ghost" data-resetall="ask">Tüm ilerlemeyi sıfırla</button>` : "")}</div>`;
+}
+
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+app.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return; const d = b.dataset;
+  if (d.q) { const q = ALL.find(x => x.id === d.q), o = +d.o;
+    if (view.name === "mix") { view.local[q.id] = o; }
+    answers[q.id] = o; save();
+    const y = document.getElementById("q-" + q.id).getBoundingClientRect().top;
+    render(); const el = document.getElementById("q-" + q.id); if (el) window.scrollBy(0, el.getBoundingClientRect().top - y); return; }
+  if (d.topic) return go("topic", { id: d.topic });
+  if (d.filter !== undefined) { filter = +d.filter; return render(); }
+  if (d.quiz) { const t = TOPICS.find(x => x.code === d.quiz); return go("topic", { id: t.id }); }
+  if (d.summary) { go("ozet"); const el = document.getElementById("sec-" + d.summary); if (el) { el.open = true; el.scrollIntoView(); } return; }
+  if (d.mixch) { const c = +d.mixch; mixChapters = mixChapters.includes(c) ? mixChapters.filter(x => x !== c) : mixChapters.concat(c); if (!mixChapters.length) mixChapters = [c]; return render(); }
+  if (d.startmix !== undefined) { const pool = ALL.filter(q => mixChapters.includes(TOPICS.find(t => t.id === q.topic).ch)); mixSet = shuffle(pool.slice()).slice(0, 15).map(q => q.id); return go("mix", { local: {} }); }
+  if (d.resettopic) { Q[d.resettopic].forEach(q => delete answers[q.id]); save(); return render(); }
+  if (d.resetall) { if (d.resetall === "ask") resetAsk = true; else { if (d.resetall === "yes") { answers = {}; save(); } resetAsk = false; } return render(); }
+  if (d.jump) { const q = ALL.find(x => x.id === d.jump); go("topic", { id: q.topic }); const el = document.getElementById("q-" + q.id); if (el) el.scrollIntoView(); return; }
+});
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => go(b.dataset.go)));
+document.getElementById("back").addEventListener("click", () => go("sorular"));
+
+const h = location.hash.slice(1);
+if (/^t\d+$/.test(h) && Q[h]) go("topic", { id: h });
+else if (["ozet", "sorular", "ilerleme"].includes(h)) go(h);
+else render();
+</script>
+
+<script>
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>
