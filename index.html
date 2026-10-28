@@ -312,7 +312,7 @@ h4 { font: 700 16px/1.3 var(--body); margin: 18px 0 6px; color: var(--demand) }
       <path class="ln s" d="M20 140 L140 20" pathLength="200"/>
       <circle class="dot" cx="80" cy="80" r="11"/>
     </svg>
-    <h1 id="splash-text">Sen aklına koyduğun her şeyi başarırsın migo</h1>
+    <h1 id="splash-text">Sen aklına koyduğun her şeyi başarırsın</h1>
     <div class="sub">Ekonomi Sınav Kampı</div>
     <div class="tap">Başlamak için dokun</div>
   </div>
@@ -2218,7 +2218,7 @@ document.getElementById("back").addEventListener("click", () => go("sorular"));
 (function splash() {
   const s = document.getElementById("splash"), t = document.getElementById("splash-text");
   const words = t.textContent.trim().split(/\s+/);
-  t.innerHTML = words.map((w, i) => `<span class="w${w === "migo" ? " hi" : ""}" style="--i:${i}">${w}</span>`).join(" ");
+  t.innerHTML = words.map((w, i) => `<span class="w${i === words.length - 1 ? " hi" : ""}" style="--i:${i}">${w}</span>`).join(" ");
   let done = false;
   const close = () => { if (done) return; done = true; s.classList.add("out"); setTimeout(() => s.remove(), 520); };
   s.addEventListener("click", close);
